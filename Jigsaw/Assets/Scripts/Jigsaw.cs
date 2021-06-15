@@ -24,8 +24,14 @@ public class Jigsaw : SplitImage
     void Start()
     {
         base.CreateJigsawTiles();
-        mRegions.Add(new Rect(mTilesX * 100 + 50.0f, 0.0f, 0, (mTilesY - 1)* 100));
-        mRegions.Add(new Rect(-200.0f, 0.0f, 0, (mTilesY -1) * 100));
+
+        float width = (mTilesX + 2) * 100;
+        float height = (mTilesY + 2) * 100;
+        float startX = -100;
+        float startY = -100;
+        mRegions.Add(new Rect(startX, startY, width, height));
+        //mRegions.Add(new Rect(-100, -50.0f, (mTilesX + 1) * 100, (mTilesY + 1)* 100));
+        //mRegions.Add(new Rect(-500.0f, 0.0f, 300, (mTilesY -1) * 100));
 
         mFsm.Add(new State((int)GameStates.WAITING, OnEnterWaiting));
         mFsm.Add(new State((int)GameStates.SHUFFLING, OnEnterShuffling));

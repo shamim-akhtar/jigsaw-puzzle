@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 1069051347}
   - component: {fileID: 1069051348}
   m_Layer: 0
-  m_Name: SplitImage_Viz
+  m_Name: Jigsaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -316,9 +316,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6529914fbc0c997489cb730b9e5d4f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mImageFilename: pgge_3_3
+  mImageFilename: amira_10_7
   mSpriteRenderer: {fileID: 1817238526}
   TilesParent: {fileID: 1173988403}
+  mPlayButton: {fileID: 2106106166}
 --- !u!1 &1173988402
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,8 +763,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 7.6913}
-  m_SizeDelta: {x: 0, y: -15.3825}
+  m_AnchoredPosition: {x: 0, y: 3.384201}
+  m_SizeDelta: {x: 0, y: -23.9967}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1949596007
 MonoBehaviour:
@@ -789,7 +790,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 89be68c33f8faac4aaa73028880a4362, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 50
     m_Alignment: 4
@@ -889,7 +890,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2106106167}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1069051348}
+        m_TargetAssemblyTypeName: Jigsaw, Assembly-CSharp
+        m_MethodName: OnClicplPlayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2106106167
 MonoBehaviour:
   m_ObjectHideFlags: 0

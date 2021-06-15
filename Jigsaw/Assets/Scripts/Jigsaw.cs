@@ -1,11 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Patterns;
 
 public class Jigsaw : SplitImage
 {
+    public Button mPlayButton;
     // regions to place all the tiles.
     List<Rect> mRegions = new List<Rect>();
+
+    private FiniteStateMachine mFsm = new FiniteStateMachine();
+    enum GameStates
+    {
+        WAITING,
+        SHUFFLING,
+        PLAYING,
+        WIN,
+        SHOW_SOLUTION,
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -13,6 +26,53 @@ public class Jigsaw : SplitImage
         base.CreateJigsawTiles();
         mRegions.Add(new Rect(mTilesX * 100 + 50.0f, 0.0f, 0, (mTilesY - 1)* 100));
         mRegions.Add(new Rect(-200.0f, 0.0f, 0, (mTilesY -1) * 100));
+
+        mFsm.Add(new State((int)GameStates.WAITING, OnEnterWaiting));
+        mFsm.Add(new State((int)GameStates.SHUFFLING, OnEnterShuffling));
+        mFsm.Add(new State((int)GameStates.PLAYING, OnEnterPlaying, null, OnUpdatePlaying));
+        mFsm.Add(new State((int)GameStates.WIN, OnEnterWin));
+        mFsm.Add(new State((int)GameStates.SHOW_SOLUTION, OnEnterShowSolution));
+
+        mFsm.SetCurrentState((int)GameStates.WAITING);
+    }
+
+    void OnEnterWaiting()
+    {
+        mPlayButton.gameObject.SetActive(true);
+    }
+
+    void OnEnterShuffling()
+    {
+        Shuffle();
+    }
+
+    void OnEnterPlaying()
+    {
+
+    }
+
+    void OnUpdatePlaying()
+    {
+        if (HasCompleted())
+        {
+            mFsm.SetCurrentState((int)GameStates.WIN);
+        }
+    }
+
+    void OnEnterWin()
+    {
+        mPlayButton.gameObject.SetActive(true);
+        Debug.Log("Congratulations! Puzzle splved.");
+    }
+
+    void OnEnterShowSolution()
+    {
+
+    }
+
+    public void OnClicplPlayButton()
+    {
+        mFsm.SetCurrentState((int)GameStates.SHUFFLING);
     }
 
     IEnumerator Coroutine_Shuffle()
@@ -57,23 +117,23 @@ public class Jigsaw : SplitImage
         objectToMove.transform.position = end;
     }
 
+    IEnumerator Coroutine_Delay(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        mPlayButton.gameObject.SetActive(false);
+        mFsm.SetCurrentState((int)GameStates.PLAYING);
+    }
+
     void Shuffle()
     {
         StartCoroutine(Coroutine_Shuffle());
+        StartCoroutine(Coroutine_Delay(1.0f));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Shuffle();
-        }
-
-        if(HasCompleted())
-        {
-            Debug.Log("Congratulations! Puzzle splved.");
-        }
+        mFsm.Update();
     }
 
     bool HasCompleted()

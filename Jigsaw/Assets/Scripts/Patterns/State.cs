@@ -27,28 +27,49 @@ namespace Patterns
     {
         public State()
         {
-
         }
+        public State(int id,
+            DelegateOnEnter onEnter,
+            DelegateOnEnter onExit = null,
+            DelegateOnEnter onUpdate = null,
+            DelegateOnEnter onFixedUpdate = null) : base()
+        {
+            ID = id;
+            OnEnter = onEnter;
+            OnExit = onExit;
+            OnUpdate = onUpdate;
+            OnFixedUpdate = onFixedUpdate;
+        }
+
+        public delegate void DelegateOnEnter();
+        public DelegateOnEnter OnEnter;
+        public delegate void DelegateOnExit();
+        public DelegateOnEnter OnExit;
+        public delegate void DelegateOnUpdate();
+        public DelegateOnEnter OnUpdate;
+        public delegate void DelegateOnFixedUpdate();
+        public DelegateOnEnter OnFixedUpdate;
 
         public string Name { get; set; }
         public int ID { get; set; }
 
         virtual public void Enter()
         {
-            //Debug.Log("State: " + Name);
+            OnEnter?.Invoke();
         }
+
         virtual public void Exit()
         {
-            //Debug.Log(Name + " - State exiting.");
+            OnExit?.Invoke();
         }
         virtual public void Update()
         {
-
+            OnUpdate?.Invoke();
         }
 
         virtual public void FixedUpdate()
         {
-
+            OnFixedUpdate?.Invoke();
         }
     }
 

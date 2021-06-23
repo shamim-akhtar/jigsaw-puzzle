@@ -114,15 +114,11 @@ namespace Puzzle
             FinalCut = new Texture2D(tileSizeWithPadding, tileSizeWithPadding, TextureFormat.ARGB32, false);
 
             // Initialize the newly create texture with transparent colour.
-            // At the same time we also initialize the mVisited 2d array 
-            // with false. That means by default no pixel is visited yet.
-            //mVisited = new bool[tileSizeWithPadding, tileSizeWithPadding];
             for (int i = 0; i < tileSizeWithPadding; ++i)
             {
                 for (int j = 0; j < tileSizeWithPadding; ++j)
                 {
                     FinalCut.SetPixel(i, j, TransparentColor);
-                    //mVisited[i, j] = false;
                 }
             }
         }
@@ -190,6 +186,7 @@ namespace Puzzle
 
         public void FloodFill()
         {
+            int width_height = Padding * 2 + TileSize;
             while (mStack.Count > 0)
             {
                 //FloodFillStep();
@@ -202,7 +199,7 @@ namespace Puzzle
                 // check right.
                 int x = xx + 1;
                 int y = yy;
-                if (x < 140)
+                if (x < width_height)
                 {
                     Color c = FinalCut.GetPixel(x, y);
                     if (!mVisited[x, y])
@@ -228,7 +225,7 @@ namespace Puzzle
                 // check up.
                 x = xx;
                 y = yy + 1;
-                if (y < 140)
+                if (y < width_height)
                 {
                     Color c = FinalCut.GetPixel(x, y);
                     if (!mVisited[x, y])

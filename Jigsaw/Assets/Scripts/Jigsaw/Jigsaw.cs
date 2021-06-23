@@ -4,47 +4,77 @@ using UnityEngine;
 using UnityEngine.UI;
 using Patterns;
 
-public class Jigsaw : SplitImage
+public class Jigsaw : MonoBehaviour
 {
+    SplitImage mSplitImage = new SplitImage();
+
+    public string mImageFilename;
+    public SpriteRenderer mSpriteRenderer;
+    public Transform TilesParent;
     public Button mPlayButton;
-    // regions to place all the tiles.
-    List<Rect> mRegions = new List<Rect>();
+    public List<Rect> mRegions = new List<Rect>();
+    public Material mShadowMaterial;
 
     private FiniteStateMachine mFsm = new FiniteStateMachine();
     enum GameStates
     {
-        WAITING,
+        LOADING,
         SHUFFLING,
         PLAYING,
         WIN,
         SHOW_SOLUTION,
     }
 
+    #region Jigsaw Game Data
+    #endregion
+
+    void Awake()
+    {
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        base.CreateJigsawTiles();
+        mSplitImage.mImageFilename = mImageFilename;
+        mSplitImage.mSpriteRenderer = mSpriteRenderer;
+        mSplitImage.TilesParent = TilesParent;
+        mSplitImage.mShadowMaterial = mShadowMaterial;
 
-        float width = (mTilesX + 2) * 100;
-        float height = (mTilesY + 2) * 100;
-        float startX = -100;
-        float startY = -100;
-        mRegions.Add(new Rect(startX, startY, width, height));
-        //mRegions.Add(new Rect(-100, -50.0f, (mTilesX + 1) * 100, (mTilesY + 1)* 100));
-        //mRegions.Add(new Rect(-500.0f, 0.0f, 300, (mTilesY -1) * 100));
+        mFsm.Add(new State((int)GameStates.LOADING, OnEnterLoading, null, null, null));
+        mFsm.Add(new State((int)GameStates.SHUFFLING, OnEnterShuffling, null, null, null));
+        mFsm.Add(new State((int)GameStates.PLAYING, OnEnterPlaying, null, OnUpdatePlaying, null));
+        mFsm.Add(new State((int)GameStates.WIN, OnEnterWin, null, null, null));
+        mFsm.Add(new State((int)GameStates.SHOW_SOLUTION, OnEnterShowSolution, null, null, null));
 
-        mFsm.Add(new State((int)GameStates.WAITING, OnEnterWaiting));
-        mFsm.Add(new State((int)GameStates.SHUFFLING, OnEnterShuffling));
-        mFsm.Add(new State((int)GameStates.PLAYING, OnEnterPlaying, null, OnUpdatePlaying));
-        mFsm.Add(new State((int)GameStates.WIN, OnEnterWin));
-        mFsm.Add(new State((int)GameStates.SHOW_SOLUTION, OnEnterShowSolution));
-
-        mFsm.SetCurrentState((int)GameStates.WAITING);
+        mFsm.SetCurrentState((int)GameStates.LOADING);
     }
 
-    void OnEnterWaiting()
+    void OnDestroy()
+    {
+        if(mFsm.GetCurrentState().ID == (int)GameStates.PLAYING)
+            mSplitImage.SaveGame();
+    }
+
+    bool LoadLevel()
+    {
+        // Load data asscociated with the game.
+        if (!mSplitImage.LoadGame())
+        {
+            mSplitImage.CreateJigsawTiles();
+        }
+        else
+        {
+            // directly go to PLAY mode.
+            mPlayButton.gameObject.SetActive(false);
+            mFsm.SetCurrentState((int)GameStates.PLAYING);
+        }
+        return false;
+    }
+
+    void OnEnterLoading()
     {
         mPlayButton.gameObject.SetActive(true);
+        LoadLevel();
     }
 
     void OnEnterShuffling()
@@ -68,7 +98,6 @@ public class Jigsaw : SplitImage
     void OnEnterWin()
     {
         mPlayButton.gameObject.SetActive(true);
-        Debug.Log("Congratulations! Puzzle splved.");
     }
 
     void OnEnterShowSolution()
@@ -83,11 +112,11 @@ public class Jigsaw : SplitImage
 
     IEnumerator Coroutine_Shuffle()
     {
-        for(int i = 0; i < mTilesX; ++i)
+        for(int i = 0; i < mSplitImage.mTilesX; ++i)
         {
-            for(int j = 0; j < mTilesY; ++j)
+            for(int j = 0; j < mSplitImage.mTilesY; ++j)
             {
-                Shuffle(mGameObjects[i, j]);
+                Shuffle(mSplitImage.mGameObjects[i, j]);
                 yield return null;
             }
         }
@@ -144,12 +173,12 @@ public class Jigsaw : SplitImage
 
     bool HasCompleted()
     {
-        for(int i = 0; i < mTilesX; ++i)
+        for(int i = 0; i < mSplitImage.mTilesX; ++i)
         {
-            for(int j = 0; j < mTilesY; ++j)
+            for(int j = 0; j < mSplitImage.mTilesY; ++j)
             {
-                if (mGameObjects[i, j].transform.position.x != i * 100.0f ||
-                    mGameObjects[i, j].transform.position.y != j * 100.0f)
+                if (mSplitImage.mGameObjects[i, j].transform.position.x != i * 100.0f ||
+                    mSplitImage.mGameObjects[i, j].transform.position.y != j * 100.0f)
                     return false;
             }
         }

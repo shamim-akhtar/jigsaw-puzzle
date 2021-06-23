@@ -29,19 +29,4 @@ public class SpriteUtils
         Texture2D tex = Resources.Load<Texture2D>(resourcePath);
         return tex;
     }
-
-    public static Texture2D LoadTextureFromFile(string FilePath)
-    {
-        Texture2D Tex2D;
-        byte[] FileData;
-
-        if (File.Exists(FilePath))
-        {
-            FileData = File.ReadAllBytes(FilePath);
-            Tex2D = new Texture2D(16, 16);
-            if (Tex2D.LoadImage(FileData))
-                return Tex2D;
-        }
-        return null;
-    }
 }

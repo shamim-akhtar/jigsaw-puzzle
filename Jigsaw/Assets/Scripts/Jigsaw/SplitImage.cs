@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Curves;
 using System.Linq;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.IO.Compression;
 
-public class SplitImage : MonoBehaviour
+public class SplitImage
 {
-    public string mImageFilename;
-    public SpriteRenderer mSpriteRenderer;
-    //public LineRenderer mBezierCurve;
-    public Transform TilesParent;
+    public string mImageFilename { get; set; }
+    public SpriteRenderer mSpriteRenderer { get; set; }
+    public Transform TilesParent { get; set; }
+    public Material mShadowMaterial { get; set; }
 
     Vec2[] mCurvyCoords = new Vec2[]
     {
@@ -111,10 +115,10 @@ public class SplitImage : MonoBehaviour
 
     Color trans = new Color(0.0f, 0.0f, 0.0f, 0.0f);
 
-    protected GameObject[,] mGameObjects;
+    public GameObject[,] mGameObjects;
 
-    protected int mTilesX;
-    protected int mTilesY;
+    public int mTilesX { get; private set; }
+    public int mTilesY { get; private set; }
 
     void SetupLineRenderer()
     {
@@ -184,6 +188,9 @@ public class SplitImage : MonoBehaviour
         GameObject obj = new GameObject();
         obj.name = "Tile_" + i.ToString() + "_" + j.ToString();
         SplitTile tile = obj.AddComponent<SplitTile>();
+
+        tile.ShadowMaterial = mShadowMaterial;
+
         tile.mIndex = new Vector2Int(i, j);
         mGameObjects[i, j] = obj;
 
@@ -268,7 +275,7 @@ public class SplitImage : MonoBehaviour
     public void CreateJigsawTiles()
     {
         // Load the main image.
-        Texture2D tex = SpriteUtils.LoadTexture("Images/" + mImageFilename);
+        Texture2D tex = SpriteUtils.LoadTexture("Images/Jigsaw/" + mImageFilename);
         if (!tex.isReadable)
         {
             Debug.Log("Texture is not readable");
@@ -310,7 +317,7 @@ public class SplitImage : MonoBehaviour
             for (int j = 20; j < tex.height + 20; ++j)
             {
                 Color col = tex.GetPixel(i - 20, j - 20);
-                col.a = 0.2f;
+                col.a = 0.4f;
                 new_tex.SetPixel(i, j, col);
             }
         }
@@ -320,12 +327,13 @@ public class SplitImage : MonoBehaviour
         Sprite sprite = SpriteUtils.CreateSpriteFromTexture2D(mBaseTexture, 0, 0, mBaseTexture.width, mBaseTexture.height);
         mSpriteRenderer.sprite = sprite;
 
-        RelocateCamera();
+        //RelocateCamera();
     }
 
     void RelocateCamera()
     {
-        Camera.main.orthographicSize = 1.5f * mBaseTexture.height / 2.0f;
+        int size = mBaseTexture.height > mBaseTexture.width ? mBaseTexture.height : mBaseTexture.width;
+        Camera.main.orthographicSize = 1.2f * size;// 1.2f * mBaseTexture.width;
         Camera.main.transform.position = new Vector3(mBaseTexture.width / 2.0f, mBaseTexture.height / 2.0f, -10.0f);
     }
 
@@ -447,4 +455,150 @@ public class SplitImage : MonoBehaviour
                 }
         }
     }
+
+    #region SAVE/LOAD Game
+    public void SaveGame()
+    {
+        BinaryWriter Writer = null;
+        string filename = Application.persistentDataPath + "/jigsaw";
+
+        try
+        {
+            // Create a new stream to write to the file
+            Writer = new BinaryWriter(File.OpenWrite(filename));
+
+            // Writer raw data   
+            Writer.Write(mImageFilename);
+            Writer.Write(mTilesX);
+            Writer.Write(mTilesY);
+
+            for (int i = 0; i < mTilesX; ++i)
+            {
+                for (int j = 0; j < mTilesY; ++j)
+                {
+                    GameObject obj = mGameObjects[i, j];
+
+                    Writer.Write(mGameObjects[i, j].name);
+                    SplitTile tile = obj.GetComponent<SplitTile>();
+                    Writer.Write(tile.mIndex.x);
+                    Writer.Write(tile.mIndex.y);
+
+                    Writer.Write(obj.transform.position.x);
+                    Writer.Write(obj.transform.position.y);
+                    Writer.Write(obj.transform.position.z);
+
+                    SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+                    Writer.Write(spriteRenderer.sprite.rect.x);
+                    Writer.Write(spriteRenderer.sprite.rect.y);
+                    Writer.Write(spriteRenderer.sprite.rect.width);
+                    Writer.Write(spriteRenderer.sprite.rect.height);
+
+                    Texture2D tex = spriteRenderer.sprite.texture;
+
+                    byte[] bytes = tex.EncodeToPNG();
+
+                    Writer.Write(bytes.Length);
+                    Writer.Write(bytes, 0, bytes.Length);
+                }
+            }
+            Texture2D base_tex = mSpriteRenderer.sprite.texture;
+
+            byte[] base_bytes = base_tex.EncodeToPNG();
+
+            Writer.Write(base_tex.width);
+            Writer.Write(base_tex.height);
+            Writer.Write(base_bytes.Length);
+            Writer.Write(base_bytes, 0, base_bytes.Length);
+
+            Writer.Close();
+        }
+        catch (SerializationException e)
+        {
+            Debug.Log("Failed to save jigsaw game. Reason: " + e.Message);
+            throw;
+        }
+    }
+
+    public bool LoadGame()
+    {
+        string filename = Application.persistentDataPath + "/jigsaw";
+        if (File.Exists(filename))
+        {
+            using (BinaryReader Reader = new BinaryReader(File.Open(filename, FileMode.Open)))
+            {
+                mImageFilename = Reader.ReadString();
+                mTilesX = Reader.ReadInt32();
+                mTilesY = Reader.ReadInt32();
+
+                mGameObjects = new GameObject[mTilesX, mTilesY];
+                for (int i = 0; i < mTilesX; ++i)
+                {
+                    for (int j = 0; j < mTilesY; ++j)
+                    {
+                        GameObject obj = new GameObject();
+                        mGameObjects[i, j] = obj;
+                        if(TilesParent)
+                        {
+                            obj.transform.SetParent(TilesParent);
+                        }
+
+                        mGameObjects[i, j].name = Reader.ReadString();
+                        SplitTile tile = obj.AddComponent<SplitTile>();
+                        tile.ShadowMaterial = mShadowMaterial;
+                        int tx = Reader.ReadInt32();
+                        int ty = Reader.ReadInt32();
+
+                        tile.mIndex = new Vector2Int(tx, ty);
+
+                        float x = Reader.ReadSingle();
+                        float y = Reader.ReadSingle();
+                        float z = Reader.ReadSingle();
+                        obj.transform.position = new Vector3(x, y, z);
+
+                        float rx = Reader.ReadSingle();
+                        float ry = Reader.ReadSingle();
+                        float rw = Reader.ReadSingle();
+                        float rh = Reader.ReadSingle();
+
+                        int length = Reader.ReadInt32();
+
+                        byte[] bytes = new byte[length];
+                        Reader.Read(bytes, 0, bytes.Length);
+
+                        SpriteRenderer spriteRenderer = obj.AddComponent<SpriteRenderer>();
+
+                        int w = 140;
+                        int h = 140;
+
+                        Texture2D tex = new Texture2D(w, h, TextureFormat.ARGB32, 1, true);
+                        tex.LoadImage(bytes);
+                        tex.Apply();
+
+                        tile.mSpriteRenderer = spriteRenderer;
+
+                        spriteRenderer.sprite = SpriteUtils.CreateSpriteFromTexture2D(tex, (int)rx, (int)ry, (int)rw, (int)rh);
+                        obj.AddComponent<BoxCollider2D>();
+                    }
+                }
+
+                int base_w = Reader.ReadInt32();
+                int base_h = Reader.ReadInt32();
+
+                int base_length = Reader.ReadInt32();
+
+                byte[] base_bytes = new byte[base_length];
+                Reader.Read(base_bytes, 0, base_bytes.Length);
+
+                mBaseTexture = new Texture2D(base_w, base_h, TextureFormat.ARGB32, 1, true);
+                mBaseTexture.LoadImage(base_bytes);
+                mBaseTexture.Apply();
+
+                Sprite sprite = SpriteUtils.CreateSpriteFromTexture2D(mBaseTexture, 0, 0, mBaseTexture.width, mBaseTexture.height);
+                mSpriteRenderer.sprite = sprite;
+            }
+            return true;
+        }
+        return false;
+    }
+    #endregion
 }

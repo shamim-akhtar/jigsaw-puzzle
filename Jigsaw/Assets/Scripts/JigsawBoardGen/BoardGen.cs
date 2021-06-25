@@ -9,7 +9,10 @@ public class BoardGen : MonoBehaviour
     [Tooltip("The image for the Jigsaw puzzle")]
     string ImageFilename;
 
+    // The opaque sprite. 
     Sprite mBaseSpriteOpaque;
+
+    // The transparent (or Ghost sprite)
     Sprite mBaseSpriteTransparent;
 
     GameObject mGameObjectOpaque;
@@ -128,7 +131,6 @@ public class BoardGen : MonoBehaviour
 
         // Hide the mBaseSpriteOpaque game object.
         mGameObjectOpaque.gameObject.SetActive(false);
-        //mGameObjectTransparent.gameObject.SetActive(false);
     }
 
     void Update()
@@ -229,10 +231,6 @@ public class BoardGen : MonoBehaviour
                 // Create a game object for the tile.
                 mTileGameObjects[i, j] = Tile.CreateGameObjectFromTile(tile);
                 mTileGameObjects[i, j].transform.SetParent(transform);
-
-                // add the TileMovement script component.
-                TileMovement tm = mTileGameObjects[i, j].AddComponent<TileMovement>();
-                tm.tile = tile;
             }
         }
     }

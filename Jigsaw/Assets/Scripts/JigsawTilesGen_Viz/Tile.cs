@@ -99,6 +99,8 @@ namespace Puzzle
         public int xIndex = 0;
         public int yIndex = 0;
 
+        public static TilesSorting TilesSorting { get; set; } = new TilesSorting();
+
         #region Public Methods
 
         // The constructor.
@@ -160,6 +162,8 @@ namespace Puzzle
 
             // Create a SpriteRenderer.
             SpriteRenderer spriteRenderer = obj.AddComponent<SpriteRenderer>();
+
+            // Set the sorting layer for the tile
             spriteRenderer.sortingLayerName = "Tiles";
 
             // Set the sprite created with the FinalCut 
@@ -174,6 +178,12 @@ namespace Puzzle
             // Add a box colliders so that we can handle 
             // picking/selection of the Tiles.
             BoxCollider2D box = obj.AddComponent<BoxCollider2D>();
+
+            // add the TileMovement script component.
+            TileMovement tm = obj.AddComponent<TileMovement>();
+            tm.tile = tile;
+
+            Tile.TilesSorting.Add(spriteRenderer);
 
             return obj;
         }

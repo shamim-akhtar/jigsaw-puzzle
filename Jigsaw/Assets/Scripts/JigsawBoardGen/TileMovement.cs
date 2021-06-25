@@ -8,6 +8,8 @@ public class TileMovement : MonoBehaviour
 {
     public Tile tile { get; set; }
 
+    private SpriteRenderer mSpriteRenderer;
+
     private Vector3 GetCorrectPosition()
     {
         return new Vector3(tile.xIndex * 100.0f, tile.yIndex * 100.0f, 0.0f);
@@ -18,6 +20,7 @@ public class TileMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -32,6 +35,7 @@ public class TileMovement : MonoBehaviour
             return;
         }
 
+        Tile.TilesSorting.BringToTop(mSpriteRenderer);
         mOffset = transform.position - Camera.main.ScreenToWorldPoint(
             new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
     }

@@ -35,6 +35,9 @@ public class TileMovement : MonoBehaviour
             return;
         }
 
+        // Hit piece. So disable the camera panning.
+        CameraMovement.CameraPanning = false;
+
         Tile.TilesSorting.BringToTop(mSpriteRenderer);
         mOffset = transform.position - Camera.main.ScreenToWorldPoint(
             new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
@@ -61,6 +64,9 @@ public class TileMovement : MonoBehaviour
         {
             transform.position = GetCorrectPosition();
         }
+
+        // Enable back the camera panning.
+        CameraMovement.CameraPanning = true;
     }
 
     void LateUpdate()

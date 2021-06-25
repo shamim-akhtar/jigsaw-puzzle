@@ -96,17 +96,20 @@ namespace Puzzle
         private Stack<Vector2Int> mStack = new Stack<Vector2Int>();
         #endregion
 
+        public int xIndex = 0;
+        public int yIndex = 0;
+
         #region Public Methods
 
         // The constructor.
         public Tile(Texture2D tex)
         {
             int tileSizeWithPadding = 2 * Padding + TileSize;
-            if (tex.width != tileSizeWithPadding || tex.height != tileSizeWithPadding)
-            {
-                Debug.Log("Unsupported texture dimension for Jigsaw tile");
-                return;
-            }
+            //if (tex.width != tileSizeWithPadding || tex.height != tileSizeWithPadding)
+            //{
+            //    Debug.Log("Unsupported texture dimension for Jigsaw tile");
+            //    return;
+            //}
 
             mOriginalTex = tex;
 
@@ -128,6 +131,11 @@ namespace Puzzle
             mPosNeg[(int)dir] = type;
         }
 
+        public PosNegType GetPosNegType(Direction dir)
+        {
+            return mPosNeg[(int)dir];
+        }
+
         public void Apply()
         {
             FloodFillInit();
@@ -135,6 +143,40 @@ namespace Puzzle
             FinalCut.Apply();
         }
         #endregion
+
+        public static GameObject CreateGameObjectFromTile(Tile tile)
+        {
+            // Create a game object for the tile.
+            GameObject obj = new GameObject();
+
+            // Give a name that is recognizable for the GameObject.
+            obj.name = "TileGameObj_" + tile.xIndex.ToString() + "_" + tile.yIndex.ToString();
+
+            // Set the position of this GameObject.
+            // We will use the xIndex and yIndex to find the actual 
+            // position of the tile. We can get this position by multiplying
+            // xIndex by TileSize and yIndex by TileSize.
+            obj.transform.position = new Vector3(tile.xIndex * TileSize, tile.yIndex * TileSize, 0.0f);
+
+            // Create a SpriteRenderer.
+            SpriteRenderer spriteRenderer = obj.AddComponent<SpriteRenderer>();
+            spriteRenderer.sortingLayerName = "Tiles";
+
+            // Set the sprite created with the FinalCut 
+            // texture of the tile to the SpriteRenderer
+            spriteRenderer.sprite = SpriteUtils.CreateSpriteFromTexture2D(
+                tile.FinalCut,
+                0,
+                0,
+                Padding * 2 + TileSize,
+                Padding * 2 + TileSize);
+
+            // Add a box colliders so that we can handle 
+            // picking/selection of the Tiles.
+            BoxCollider2D box = obj.AddComponent<BoxCollider2D>();
+
+            return obj;
+        }
 
         #region Helper functions to visualize data
         public static LineRenderer CreateLineRenderer(Color color, float lineWidth = 1.0f)
@@ -179,7 +221,7 @@ namespace Puzzle
 
         void Fill(int x, int y)
         {
-            Color c = mOriginalTex.GetPixel(x, y);
+            Color c = mOriginalTex.GetPixel(x + xIndex * TileSize, y + yIndex * TileSize);
             c.a = 1.0f;
             FinalCut.SetPixel(x, y, c);
         }

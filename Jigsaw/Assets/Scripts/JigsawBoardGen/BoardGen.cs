@@ -15,7 +15,11 @@ public class BoardGen : MonoBehaviour
     // The transparent (or Ghost sprite)
     Sprite mBaseSpriteTransparent;
 
+    // The game object that holds the opaque sprite.
+    // This should be SetActive to false by default.
     GameObject mGameObjectOpaque;
+
+    // The game object that holds the transparent sprite.
     GameObject mGameObjectTransparent;
 
     Sprite LoadBaseTexture()
@@ -105,12 +109,6 @@ public class BoardGen : MonoBehaviour
             newTex.width,
             newTex.height);
         return sprite;
-    }
-
-    void CreateBaseTextureGameObject()
-    {
-        //Sprite sprite = LoadBaseTexture();
-
     }
 
     void Start()

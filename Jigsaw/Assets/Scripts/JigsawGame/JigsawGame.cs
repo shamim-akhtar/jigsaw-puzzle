@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Patterns;
+using UnityEngine.SceneManagement;
 
 public class JigsawGame : BoardGen
 {
@@ -79,6 +80,13 @@ public class JigsawGame : BoardGen
         menu.SetTotalTiles(NumTilesX * NumTilesY);
         menu.SetTilesInPlace(JigsawGameData.Instance.mTotalTilesInCorrectPosition);
         menu.SetTimeInSeconds(JigsawGameData.Instance.mSecondsSinceStart);
+
+        // Reposition camera.
+        CameraMovement cm = Camera.main.GetComponent<CameraMovement>();
+        if(cm != null)
+        {
+            cm.RePositionCamera(NumTilesX, NumTilesY);
+        }
     }
 
     public void OnClickBtnScramble()
@@ -89,7 +97,12 @@ public class JigsawGame : BoardGen
     public void OnClickNextGame()
     {
         // Load the next game.
+        // Get a random index.
+        int index = Random.Range(0, JigsawGameData.Instance.mNamedImages.Count);
+        JigsawGameData.Instance.mFilename = JigsawGameData.Instance.mNamedImages[4].Item2;
 
+        // Load the same scene with a different image.
+        SceneManager.LoadScene("JigsawGame");
     }
 
 

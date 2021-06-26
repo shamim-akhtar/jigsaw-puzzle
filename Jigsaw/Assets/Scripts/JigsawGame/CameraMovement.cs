@@ -28,6 +28,15 @@ public class CameraMovement : MonoBehaviour
         menu.OnClickZoomOut += ZoomOut;
     }
 
+    public void RePositionCamera(int numTilesX, int numTilesY)
+    {
+        mCamera.orthographicSize = numTilesX < numTilesY ? numTilesX * 100 : numTilesY * 100;
+        mCamera.transform.position = new Vector3((numTilesX * 100 + 40) / 2, (numTilesY * 100 + 40) / 2, -100.0f);
+
+        mCameraSizeMax = mCamera.orthographicSize;
+        mOriginalPosition = mCamera.transform.position;
+    }
+
     void Update()
     {
         // Camera panning is disabled when a tile is selected.

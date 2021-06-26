@@ -28,6 +28,15 @@ public class StateLoading : State<JigsawGameStates>
         Game.LoadLevel();
     }
 
+    public override void Update()
+    {
+        base.Update();
+        if(Game.LoadingFinished)
+        {
+            Game.OnFinishedLoading();
+        }
+    }
+
     public override void Exit()
     {
         base.Exit();

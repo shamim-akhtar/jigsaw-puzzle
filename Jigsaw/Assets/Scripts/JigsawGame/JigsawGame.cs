@@ -61,12 +61,20 @@ public class JigsawGame : BoardGen
         // Create the Jigsaw board.
         // We will change the flow when we implement
         // savling and loading data from file.
-        CreateJigsawBoard();
+        CreateJigsawBoardUsingCoroutines();
 
+        // Reposition camera.
+        CameraMovement cm = Camera.main.GetComponent<CameraMovement>();
+        if (cm != null)
+        {
+            cm.RePositionCamera(NumTilesX, NumTilesY);
+        }
+    }
+
+    public void OnFinishedLoading()
+    {
         // After loading change the state to waiting.
         Fsm.SetCurrentState(JigsawGameStates.WAITING);
-
-
         for (int i = 0; i < NumTilesX; i++)
         {
             for (int j = 0; j < NumTilesY; ++j)
@@ -81,12 +89,6 @@ public class JigsawGame : BoardGen
         menu.SetTilesInPlace(JigsawGameData.Instance.mTotalTilesInCorrectPosition);
         menu.SetTimeInSeconds(JigsawGameData.Instance.mSecondsSinceStart);
 
-        // Reposition camera.
-        CameraMovement cm = Camera.main.GetComponent<CameraMovement>();
-        if(cm != null)
-        {
-            cm.RePositionCamera(NumTilesX, NumTilesY);
-        }
     }
 
     public void OnClickBtnScramble()
@@ -99,7 +101,13 @@ public class JigsawGame : BoardGen
         // Load the next game.
         // Get a random index.
         int index = Random.Range(0, JigsawGameData.Instance.mNamedImages.Count);
-        JigsawGameData.Instance.mFilename = JigsawGameData.Instance.mNamedImages[4].Item2;
+        string filename = JigsawGameData.Instance.mNamedImages[index].Item2;
+        while(filename == JigsawGameData.Instance.mFilename)
+        {
+            index = Random.Range(0, JigsawGameData.Instance.mNamedImages.Count);
+            filename = JigsawGameData.Instance.mNamedImages[index].Item2;
+        }
+        JigsawGameData.Instance.mFilename = JigsawGameData.Instance.mNamedImages[index].Item2;
 
         // Load the same scene with a different image.
         SceneManager.LoadScene("JigsawGame");

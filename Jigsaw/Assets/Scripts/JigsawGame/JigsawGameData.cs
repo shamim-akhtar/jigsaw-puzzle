@@ -9,6 +9,7 @@ public class JigsawGameData : Singleton<JigsawGameData>
     public string mFilename;
     public double mSecondsSinceStart = 0;
     public int mTotalTilesInCorrectPosition = 0;
+    //public int mImageIndex = 0;
 
     public List<(string, string)> mNamedImages = new List<(string, string)>()
     {

@@ -15,7 +15,7 @@ public class Jigsaw : MonoBehaviour
     public List<Rect> mRegions = new List<Rect>();
     public Material mShadowMaterial;
 
-    private FiniteStateMachine mFsm = new FiniteStateMachine();
+    private FiniteStateMachine<GameStates> mFsm = new FiniteStateMachine<GameStates>();
     enum GameStates
     {
         LOADING,
@@ -40,18 +40,18 @@ public class Jigsaw : MonoBehaviour
         mSplitImage.TilesParent = TilesParent;
         mSplitImage.mShadowMaterial = mShadowMaterial;
 
-        mFsm.Add(new State((int)GameStates.LOADING, OnEnterLoading, null, null, null));
-        mFsm.Add(new State((int)GameStates.SHUFFLING, OnEnterShuffling, null, null, null));
-        mFsm.Add(new State((int)GameStates.PLAYING, OnEnterPlaying, null, OnUpdatePlaying, null));
-        mFsm.Add(new State((int)GameStates.WIN, OnEnterWin, null, null, null));
-        mFsm.Add(new State((int)GameStates.SHOW_SOLUTION, OnEnterShowSolution, null, null, null));
+        mFsm.Add(new State<GameStates>(GameStates.LOADING, OnEnterLoading, null, null, null));
+        mFsm.Add(new State<GameStates>(GameStates.SHUFFLING, OnEnterShuffling, null, null, null));
+        mFsm.Add(new State<GameStates>(GameStates.PLAYING, OnEnterPlaying, null, OnUpdatePlaying, null));
+        mFsm.Add(new State<GameStates>(GameStates.WIN, OnEnterWin, null, null, null));
+        mFsm.Add(new State<GameStates>(GameStates.SHOW_SOLUTION, OnEnterShowSolution, null, null, null));
 
-        mFsm.SetCurrentState((int)GameStates.LOADING);
+        mFsm.SetCurrentState(GameStates.LOADING);
     }
 
     void OnDestroy()
     {
-        if(mFsm.GetCurrentState().ID == (int)GameStates.PLAYING)
+        if(mFsm.GetCurrentState().ID == GameStates.PLAYING)
             mSplitImage.SaveGame();
     }
 
@@ -66,7 +66,7 @@ public class Jigsaw : MonoBehaviour
         {
             // directly go to PLAY mode.
             mPlayButton.gameObject.SetActive(false);
-            mFsm.SetCurrentState((int)GameStates.PLAYING);
+            mFsm.SetCurrentState(GameStates.PLAYING);
         }
         return false;
     }
@@ -91,7 +91,7 @@ public class Jigsaw : MonoBehaviour
     {
         if (HasCompleted())
         {
-            mFsm.SetCurrentState((int)GameStates.WIN);
+            mFsm.SetCurrentState(GameStates.WIN);
         }
     }
 
@@ -107,7 +107,7 @@ public class Jigsaw : MonoBehaviour
 
     public void OnClicplPlayButton()
     {
-        mFsm.SetCurrentState((int)GameStates.SHUFFLING);
+        mFsm.SetCurrentState(GameStates.SHUFFLING);
     }
 
     IEnumerator Coroutine_Shuffle()
@@ -156,7 +156,7 @@ public class Jigsaw : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         mPlayButton.gameObject.SetActive(false);
-        mFsm.SetCurrentState((int)GameStates.PLAYING);
+        mFsm.SetCurrentState(GameStates.PLAYING);
     }
 
     void Shuffle()

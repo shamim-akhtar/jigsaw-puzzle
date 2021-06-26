@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PGGE.Patterns;
+using Patterns;
 using UnityEngine.SceneManagement;
 
 public class GameApp : Singleton<GameApp>

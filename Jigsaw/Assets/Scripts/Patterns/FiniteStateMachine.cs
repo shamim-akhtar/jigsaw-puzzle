@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Patterns
 {
 
-    public class FiniteStateMachine
+    public class FiniteStateMachine<T>
     {
         /// <summary>
         /// We know that a state machine comprises many states (or finite number of states). 
@@ -17,43 +17,41 @@ namespace Patterns
         /// </summary>
         /// 
 
-        protected Dictionary<int, State> mStates; // this is the finite number of states that the state machine can have.
-        protected State mCurrentState;
+        protected Dictionary<T, State<T>> mStates; // this is the finite number of states that the state machine can have.
+        protected State<T> mCurrentState;
 
         public FiniteStateMachine()
         {
-            mStates = new Dictionary<int, State>();
+            mStates = new Dictionary<T, State<T>>();
         }
 
-        public void Add(State state)
+        public void Add(State<T> state)
         {
             mStates.Add(state.ID, state);
-            //mStates[stateID] = state;
         }
 
-        public void Add(int stateID, State state)
+        public void Add(T stateID, State<T> state)
         {
             mStates.Add(stateID, state);
-            //mStates[stateID] = state;
         }
 
-        public State GetState(int stateID)
+        public State<T> GetState(T stateID)
         {
             return mStates[stateID];
         }
 
-        public void SetCurrentState(int stateID)
+        public void SetCurrentState(T stateID)
         {
-            State state = mStates[stateID];
+            State<T> state = mStates[stateID];
             SetCurrentState(state);
         }
 
-        public State GetCurrentState()
+        public State<T> GetCurrentState()
         {
             return mCurrentState;
         }
 
-        public void SetCurrentState(State state)
+        public void SetCurrentState(State<T> state)
         {
             if (mCurrentState == state)
             {

@@ -5,9 +5,8 @@ using Puzzle;
 
 public class BoardGen : MonoBehaviour
 {
-    [SerializeField]
-    [Tooltip("The image for the Jigsaw puzzle")]
-    string ImageFilename;
+    public string ImageFilename;
+    public Transform ParentForTiles;
 
     // The opaque sprite. 
     Sprite mBaseSpriteOpaque;
@@ -111,7 +110,7 @@ public class BoardGen : MonoBehaviour
         return sprite;
     }
 
-    void Start()
+    public void CreateJigsawBoard()
     {
         mBaseSpriteOpaque = LoadBaseTexture();
         mGameObjectOpaque = new GameObject();
@@ -131,16 +130,16 @@ public class BoardGen : MonoBehaviour
         mGameObjectOpaque.gameObject.SetActive(false);
     }
 
-    void Update()
+    protected void Start()
     {
-        
+        CreateJigsawBoard();
     }
 
     public int NumTilesX { get; private set; }
     public int NumTilesY { get; private set; }
 
-    Tile[,] mTiles = null;
-    GameObject[,] mTileGameObjects = null;
+    protected Tile[,] mTiles = null;
+    protected GameObject[,] mTileGameObjects = null;
 
     void CreateJigsawTiles()
     {
@@ -228,8 +227,19 @@ public class BoardGen : MonoBehaviour
 
                 // Create a game object for the tile.
                 mTileGameObjects[i, j] = Tile.CreateGameObjectFromTile(tile);
-                mTileGameObjects[i, j].transform.SetParent(transform);
+
+                if (ParentForTiles != null)
+                {
+                    mTileGameObjects[i, j].transform.SetParent(ParentForTiles);
+                }
             }
         }
     }
+
+    #region Other public functions
+    public void ShowOpaqueImage(bool flag)
+    {
+        mGameObjectOpaque.SetActive(flag);
+    }
+    #endregion
 }

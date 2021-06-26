@@ -23,12 +23,12 @@ using UnityEngine;
 namespace Patterns
 {
     // we create the state class.
-    public class State
+    public class State<T>
     {
         public State()
         {
         }
-        public State(int id,
+        public State(T id,
             DelegateOnEnter onEnter,
             DelegateOnEnter onExit = null,
             DelegateOnEnter onUpdate = null,
@@ -51,7 +51,7 @@ namespace Patterns
         public DelegateOnEnter OnFixedUpdate;
 
         public string Name { get; set; }
-        public int ID { get; set; }
+        public T ID { get; set; }
 
         virtual public void Enter()
         {

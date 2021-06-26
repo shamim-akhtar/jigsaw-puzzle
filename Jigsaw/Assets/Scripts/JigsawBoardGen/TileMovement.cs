@@ -17,6 +17,12 @@ public class TileMovement : MonoBehaviour
 
     private Vector3 mOffset = new Vector3(0.0f, 0.0f, 0.0f);
 
+    // Global setting to disable tile movement.
+    public static bool TileMovementEnabled { get; set; } = true;
+
+    public delegate void DelegateOnTileInPlace(TileMovement tm);
+    public DelegateOnTileInPlace OnTileInPlace;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +41,9 @@ public class TileMovement : MonoBehaviour
             return;
         }
 
+        if (!TileMovementEnabled || !enabled)
+            return;
+
         // Hit piece. So disable the camera panning.
         CameraMovement.CameraPanning = false;
 
@@ -49,6 +58,10 @@ public class TileMovement : MonoBehaviour
         {
             return;
         }
+
+        if (!TileMovementEnabled || !enabled)
+            return;
+
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f);
         Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + mOffset;
         transform.position = curPosition;
@@ -59,10 +72,15 @@ public class TileMovement : MonoBehaviour
         {
             return;
         }
+
+        if (!TileMovementEnabled || !enabled)
+            return;
+
         float dist = (transform.position - GetCorrectPosition()).magnitude;
         if (dist < 20.0f)
         {
             transform.position = GetCorrectPosition();
+            OnTileInPlace?.Invoke(this);
         }
 
         // Enable back the camera panning.

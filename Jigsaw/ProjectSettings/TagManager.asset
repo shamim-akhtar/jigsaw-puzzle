@@ -50,6 +50,9 @@ TagManager:
   - name: DropShadow
     uniqueID: 4118380257
     locked: 0
+  - name: TilesInPlace
+    uniqueID: 2499058519
+    locked: 0
   - name: Tiles
     uniqueID: 2072811139
     locked: 0

@@ -17,5 +17,6 @@ public class StateCompleted : State<JigsawGameStates>
     {
         base.Enter();
         Game.menu.TextWin.gameObject.SetActive(true);
+        Game.menu.SetActivePlayBtn(true);
     }
 }

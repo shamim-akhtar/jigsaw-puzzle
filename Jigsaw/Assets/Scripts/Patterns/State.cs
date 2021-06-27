@@ -1,57 +1,76 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 
 /// <summary>
-/// Our objective is to implement a finite state machine using the class based approach.
+/// Our objective is to implement a finite state machine using 
+/// the class based approach.
+/// 
 /// What is a finite state mcahine?
-/// A finite state machine is a computational pattern that models the state behaviour of a system.
-/// Such a system comprises a finite number of states and at any given point in time the
+/// A finite state machine is a computational pattern that models 
+/// the state behaviour of a system. Such a system comprises a 
+/// finite number of states and at any given point in time the
 /// system exists in only one state.
 /// 
 /// What we need?
 /// 1. State
-/// This is a data structure (class) that encapsulates the state related functionlities.
+/// This is a data structure (class) that encapsulates the 
+/// state related functionlities.
 /// 
 /// 2. The State Machine itself. 
 /// This is the class that will manage all the states and the transitions.
 /// </summary>
-/// 
 
 
 namespace Patterns
 {
-    // we create the state class.
     public class State<T>
     {
-        public State()
-        {
-        }
-        public State(T id,
-            DelegateOnEnter onEnter,
-            DelegateOnEnter onExit = null,
-            DelegateOnEnter onUpdate = null,
-            DelegateOnEnter onFixedUpdate = null) : base()
+        // The name for the state.
+        public string Name { get; set; }
+
+        // The ID of the state.
+        public T ID { get; private set; }
+
+        public State(T id)
         {
             ID = id;
+        }
+        public State(T id, string name) : this(id)
+        {
+            Name = name;
+        }
+
+        public delegate void DelegateNoArg();
+
+        public DelegateNoArg OnEnter;
+        public DelegateNoArg OnExit;
+        public DelegateNoArg OnUpdate;
+        public DelegateNoArg OnFixedUpdate;
+
+        public State(T id,
+            DelegateNoArg onEnter,
+            DelegateNoArg onExit = null,
+            DelegateNoArg onUpdate = null,
+            DelegateNoArg onFixedUpdate = null) : this(id)
+        {
             OnEnter = onEnter;
             OnExit = onExit;
             OnUpdate = onUpdate;
             OnFixedUpdate = onFixedUpdate;
         }
-
-        public delegate void DelegateOnEnter();
-        public DelegateOnEnter OnEnter;
-        public delegate void DelegateOnExit();
-        public DelegateOnEnter OnExit;
-        public delegate void DelegateOnUpdate();
-        public DelegateOnEnter OnUpdate;
-        public delegate void DelegateOnFixedUpdate();
-        public DelegateOnEnter OnFixedUpdate;
-
-        public string Name { get; set; }
-        public T ID { get; set; }
+        public State(T id, 
+            string name,
+            DelegateNoArg onEnter,
+            DelegateNoArg onExit = null,
+            DelegateNoArg onUpdate = null,
+            DelegateNoArg onFixedUpdate = null) : this(id, name)
+        {
+            OnEnter = onEnter;
+            OnExit = onExit;
+            OnUpdate = onUpdate;
+            OnFixedUpdate = onFixedUpdate;
+        }
 
         virtual public void Enter()
         {
@@ -72,6 +91,5 @@ namespace Patterns
             OnFixedUpdate?.Invoke();
         }
     }
-
 }
 

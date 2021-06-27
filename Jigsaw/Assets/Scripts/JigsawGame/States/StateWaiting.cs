@@ -8,10 +8,10 @@ using Patterns;
 public class StateWaiting : State<JigsawGameStates>
 {
     public JigsawGame Game { get; set; }
-    public StateWaiting(JigsawGame game) : base()
+    public StateWaiting(JigsawGame game) 
+        : base(JigsawGameStates.WAITING)
     {
         Game = game;
-        ID = JigsawGameStates.WAITING;
     }
 
     public override void Enter()

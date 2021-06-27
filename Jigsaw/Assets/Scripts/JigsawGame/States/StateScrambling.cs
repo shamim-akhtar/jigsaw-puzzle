@@ -7,10 +7,10 @@ using Patterns;
 public class StateScrambling : State<JigsawGameStates>
 {
     public JigsawGame Game { get; set; }
-    public StateScrambling(JigsawGame game) : base()
+    public StateScrambling(JigsawGame game) 
+        : base(JigsawGameStates.SCRAMBLING)
     {
         Game = game;
-        ID = JigsawGameStates.SCRAMBLING;
     }
 
     public override void Enter()

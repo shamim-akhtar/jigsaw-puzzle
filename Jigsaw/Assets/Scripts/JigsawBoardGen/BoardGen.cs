@@ -125,18 +125,17 @@ public class BoardGen : MonoBehaviour
         mGameObjectOpaque.AddComponent<SpriteRenderer>().sprite = mBaseSpriteOpaque;
         mGameObjectOpaque.GetComponent<SpriteRenderer>().sortingLayerName = "Opaque";
 
-        StartCoroutine(Coroutine_CreateJigsawBoard());
-    }
-
-    IEnumerator Coroutine_CreateJigsawBoard()
-    {
         mBaseSpriteTransparent = CreateTransparentView();
         mGameObjectTransparent = new GameObject();
         mGameObjectTransparent.name = ImageFilename + "_Transparent";
         mGameObjectTransparent.AddComponent<SpriteRenderer>().sprite = mBaseSpriteTransparent;
         mGameObjectTransparent.GetComponent<SpriteRenderer>().sortingLayerName = "Transparent";
-        yield return null;
 
+        StartCoroutine(Coroutine_CreateJigsawBoard());
+    }
+
+    IEnumerator Coroutine_CreateJigsawBoard()
+    {
         yield return StartCoroutine(Coroutine_CreateJigsawTiles());
 
         // Hide the mBaseSpriteOpaque game object.
@@ -237,8 +236,8 @@ public class BoardGen : MonoBehaviour
                 {
                     mTileGameObjects[i, j].transform.SetParent(ParentForTiles);
                 }
-                yield return null;
             }
+            yield return null;
         }
     }
     #endregion
@@ -246,6 +245,11 @@ public class BoardGen : MonoBehaviour
     public void CreateJigsawBoard()
     {
         mBaseSpriteOpaque = LoadBaseTexture();
+
+        Texture2D baseTexture = mBaseSpriteOpaque.texture;
+        NumTilesX = baseTexture.width / Tile.TileSize;
+        NumTilesY = baseTexture.height / Tile.TileSize;
+
         mGameObjectOpaque = new GameObject();
         mGameObjectOpaque.name = ImageFilename + "_Opaque";
         mGameObjectOpaque.AddComponent<SpriteRenderer>().sprite = mBaseSpriteOpaque;
@@ -277,8 +281,6 @@ public class BoardGen : MonoBehaviour
     void CreateJigsawTiles()
     {
         Texture2D baseTexture = mBaseSpriteOpaque.texture;
-        NumTilesX = baseTexture.width / Tile.TileSize;
-        NumTilesY = baseTexture.height / Tile.TileSize;
 
         mTiles = new Tile[NumTilesX, NumTilesY];
         mTileGameObjects = new GameObject[NumTilesX, NumTilesY];

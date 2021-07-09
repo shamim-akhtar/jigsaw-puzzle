@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/_preload.unity
+    guid: e4a2c5a2450b71b40b4440fad558144d
+  - enabled: 1
+    path: Assets/Scenes/SplashScreen.unity
+    guid: df947c0e6f77f9f4288800c115a0523c
+  - enabled: 1
     path: Assets/Scenes/JigsawGame.unity
     guid: 53e609bdc4d6c7945934a8c8694c3e26
   m_configObjects: {}

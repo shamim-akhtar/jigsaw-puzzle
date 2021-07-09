@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
+    public CameraMovement CameraMovement;
     public Button BtnHome;
     public FixedButton BtnZoomIn;
     public Button BtnReset;
@@ -20,18 +21,15 @@ public class Menu : MonoBehaviour
 
     public Text TextWin;
 
-    public delegate void DelegateOnClick();
-    public DelegateOnClick OnClickHome;
-    public DelegateOnClick OnClickZoomIn;
-    public DelegateOnClick OnClickReset;
-    public DelegateOnClick OnClickZoomOut;
-    public DelegateOnClick OnClickPlay;
-    public DelegateOnClick OnClickNext;
-
     // Our game controls when the menu is enabled of disabled.
     // Enabled = false means that the UI won't handle
     // inputs.
     static public bool Enabled { get; set; } = true;
+
+    public delegate void DelegateOnClick();
+    public DelegateOnClick OnClickHome;
+    public DelegateOnClick OnClickPlay;
+    public DelegateOnClick OnClickNext;
 
     // Start is called before the first frame update
     void Start()
@@ -46,12 +44,12 @@ public class Menu : MonoBehaviour
 
         if (BtnZoomIn.Pressed)
         {
-            OnClickZoomIn?.Invoke();
+            CameraMovement.ZoomIn();
         }
 
         if (BtnZoomOut.Pressed)
         {
-            OnClickZoomOut?.Invoke();
+            CameraMovement.ZoomOut();
         }
     }
 
@@ -81,12 +79,6 @@ public class Menu : MonoBehaviour
     {
         if (!Enabled) return;
         OnClickHome?.Invoke();
-    }
-
-    public void OnClickBtnReset()
-    {
-        if (!Enabled) return;
-        OnClickReset?.Invoke();
     }
 
     public void OnClickBtnPlay()

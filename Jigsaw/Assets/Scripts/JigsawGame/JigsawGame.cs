@@ -11,7 +11,6 @@ public class JigsawGame : BoardGen
     [Tooltip("Set the regions where the tiles should be scrambled to")]
     public List<Rect> Regions = new List<Rect>();
 
-    //private BoardGen mBoard = new BoardGen();
     public FiniteStateMachine<JigsawGameStates> Fsm { get; set; } = new FiniteStateMachine<JigsawGameStates>();
 
     new void Start()
@@ -56,7 +55,7 @@ public class JigsawGame : BoardGen
         Puzzle.Tile.TilesSorting.Clear();
 
         // Get the finename from the JigsawGameData singleton.
-        ImageFilename = JigsawGameData.Instance.mFilename;
+        ImageFilename = JigsawGameData.Instance.GetImageFilename();
 
         // Create the Jigsaw board.
         // We will change the flow when we implement
@@ -98,16 +97,7 @@ public class JigsawGame : BoardGen
 
     public void OnClickNextGame()
     {
-        // Load the next game.
-        // Get a random index.
-        int index = Random.Range(0, JigsawGameData.Instance.mNamedImages.Count);
-        string filename = JigsawGameData.Instance.mNamedImages[index].Item2;
-        while(filename == JigsawGameData.Instance.mFilename)
-        {
-            index = Random.Range(0, JigsawGameData.Instance.mNamedImages.Count);
-            filename = JigsawGameData.Instance.mNamedImages[index].Item2;
-        }
-        JigsawGameData.Instance.mFilename = JigsawGameData.Instance.mNamedImages[index].Item2;
+        JigsawGameData.Instance.NextImage();
 
         // Load the same scene with a different image.
         SceneManager.LoadScene("JigsawGame");

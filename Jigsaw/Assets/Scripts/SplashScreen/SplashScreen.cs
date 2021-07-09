@@ -16,6 +16,6 @@ public class SplashScreen : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         yield return StartCoroutine(Utils.Coroutine_FadeIn(Filler, 1.0f));
 
-        SceneManager.LoadScene("JigsawGame");
+        SceneManager.LoadScene("JigsawImageSelection");
     }
 }

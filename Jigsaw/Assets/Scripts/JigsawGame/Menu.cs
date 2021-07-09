@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
     public CameraMovement CameraMovement;
     public Button BtnHome;
+    public Button BtnPrev;
     public FixedButton BtnZoomIn;
     public Button BtnReset;
     public FixedButton BtnZoomOut;
@@ -77,8 +79,8 @@ public class Menu : MonoBehaviour
 
     public void OnClickBtnHome()
     {
-        if (!Enabled) return;
-        OnClickHome?.Invoke();
+        //OnClickHome?.Invoke();
+        SceneManager.LoadScene("JigsawImageSelection");
     }
 
     public void OnClickBtnPlay()
@@ -88,14 +90,17 @@ public class Menu : MonoBehaviour
 
     public void OnClickBtnNext()
     {
-        OnClickNext?.Invoke();
+        //OnClickNext?.Invoke();
+        SceneManager.LoadScene("JigsawImageSelection");
     }
 
     public void SetActivePlayBtn(bool flag)
     {
         BtnPlay.gameObject.SetActive(flag);
-        BtnNext.gameObject.SetActive(flag);
+        //BtnNext.gameObject.SetActive(flag);
+        BtnPrev.gameObject.SetActive(flag);
 
+        BtnHome.gameObject.SetActive(!flag);
         BtnZoomIn.gameObject.SetActive(!flag);
         BtnReset.gameObject.SetActive(!flag);
         BtnZoomOut.gameObject.SetActive(!flag);

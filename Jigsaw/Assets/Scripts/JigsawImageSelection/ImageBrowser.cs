@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ImageBrowser : MonoBehaviour
 {
@@ -54,5 +55,10 @@ public class ImageBrowser : MonoBehaviour
     {
         JigsawGameData.Instance.PreviousImage();
         SetImage(JigsawGameData.Instance.GetCurrentImageData());
+    }
+
+    public void OnClickPlay()
+    {
+        SceneManager.LoadScene("JigsawGame");
     }
 }

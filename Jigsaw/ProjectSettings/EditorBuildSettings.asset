@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JigsawGame.unity
     guid: 53e609bdc4d6c7945934a8c8694c3e26
+  - enabled: 1
+    path: Assets/Scenes/JigsawImageSelection.unity
+    guid: d492c618696e0db4283cd35747346885
   m_configObjects: {}

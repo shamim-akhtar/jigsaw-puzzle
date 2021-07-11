@@ -21,7 +21,7 @@ public class ImageBrowser : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     private IEnumerator Coroutine_WaitUntilMetadataLoaded()

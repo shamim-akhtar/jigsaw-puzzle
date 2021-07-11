@@ -12,6 +12,10 @@ public class JigsawGame : BoardGen
     public List<Rect> Regions = new List<Rect>();
 
     public FiniteStateMachine<JigsawGameStates> Fsm { get; set; } = new FiniteStateMachine<JigsawGameStates>();
+    public AudioSource mAudioSource;
+
+    public AudioClip mAudioClipCompleted;
+    public AudioClip mAudioClipShuffle;
 
     new void Start()
     {

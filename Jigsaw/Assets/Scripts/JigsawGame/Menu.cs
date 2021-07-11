@@ -33,6 +33,9 @@ public class Menu : MonoBehaviour
     public DelegateOnClick OnClickPlay;
     public DelegateOnClick OnClickNext;
 
+    public AudioSource mAudioSource;
+    public AudioClip mBtnClickAudio;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,17 +88,21 @@ public class Menu : MonoBehaviour
 
     public void OnClickBtnPlay()
     {
+        mAudioSource.PlayOneShot(mBtnClickAudio);
         OnClickPlay?.Invoke();
     }
 
     public void OnClickBtnNext()
     {
+        mAudioSource.PlayOneShot(mBtnClickAudio);
         //OnClickNext?.Invoke();
         SceneManager.LoadScene("JigsawImageSelection");
     }
 
     public void SetActivePlayBtn(bool flag)
     {
+        mAudioSource.PlayOneShot(mBtnClickAudio);
+
         BtnPlay.gameObject.SetActive(flag);
         //BtnNext.gameObject.SetActive(flag);
         BtnPrev.gameObject.SetActive(flag);

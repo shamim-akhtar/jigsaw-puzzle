@@ -459,6 +459,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mAmbientSound: {fileID: 1757671802}
-  mAudioClips:
+  mGameAudioClips:
+  - {fileID: 8300000, guid: 4ec8177a0a5c3a04baffc24a760141db, type: 3}
   - {fileID: 8300000, guid: 40d1f910179b28242820f44b8b1f07e7, type: 3}
+  - {fileID: 8300000, guid: ccd28673565a3c34f9ba221f85c2a954, type: 3}
+  - {fileID: 8300000, guid: 04c6580058e18fc4b8c65ff84b16db5f, type: 3}
+  - {fileID: 8300000, guid: 6af43507f58238041a2b6d255c35a68e, type: 3}
   - {fileID: 8300000, guid: 23bdc0a8b9f695b4c8333e8c3781fa21, type: 3}
+  - {fileID: 8300000, guid: f033b573a8923f842bfb775d3bb85f17, type: 3}
+  - {fileID: 8300000, guid: 4b214c852e860c8439676fe568d194a5, type: 3}
+  - {fileID: 8300000, guid: 036a9a92d2fa2554cbf816301bc63ffc, type: 3}

@@ -23,5 +23,7 @@ public class StateScrambling : State<JigsawGameStates>
         JigsawGameData.Instance.SetCurrentImageDataStatus(JigsawGameData.Status.STARTED);
         JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
         data.startDateTime = System.DateTime.Now;
+
+        Game.mAudioSource.PlayOneShot(Game.mAudioClipShuffle);
     }
 }

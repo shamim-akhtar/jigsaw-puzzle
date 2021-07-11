@@ -23,6 +23,8 @@ public class StateCompleted : State<JigsawGameStates>
         JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
         data.completedDateTime = System.DateTime.Now;
 
+        Game.mAudioSource.PlayOneShot(Game.mAudioClipCompleted);
+
         Game.Save();
         JigsawGameData.Instance.SaveMetaData();
     }

@@ -20,6 +20,8 @@ public class StateCompleted : State<JigsawGameStates>
         Game.menu.SetActivePlayBtn(true);
 
         JigsawGameData.Instance.SetCurrentImageDataStatus(JigsawGameData.Status.COMPLETED);
+        JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
+        data.completedDateTime = System.DateTime.Now;
 
         Game.Save();
         JigsawGameData.Instance.SaveMetaData();

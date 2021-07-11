@@ -30,13 +30,13 @@ public class JigsawGameData : Singleton<JigsawGameData>
         public int tilesInPlace = 0;
         public int totalTiles;
         public double secondsSinceStart = 0;
+        public System.DateTime startDateTime;
+        public System.DateTime completedDateTime;
     }
 
     public List<ImageData> mImageDataList = new List<ImageData>();
     public bool mMetaDataLoaded = false;
 
-    //public double mSecondsSinceStart = 0;
-    //public int mTotalTilesInCorrectPosition = 0;
     private int mIndex = 0;
 
     public void NextImage()
@@ -128,6 +128,21 @@ public class JigsawGameData : Singleton<JigsawGameData>
                     data.status = (JigsawGameData.Status)Reader.ReadInt32();
                     data.tilesInPlace = Reader.ReadInt32();
                     data.secondsSinceStart = Reader.ReadDouble();
+
+                    string startDate = Reader.ReadString();
+                    string endDate = Reader.ReadString();
+                    if (data.status == Status.NOT_STARTED)
+                    {
+                    }
+                    else if (data.status == Status.STARTED)
+                    {
+                        data.startDateTime = System.DateTime.FromBinary(long.Parse(startDate)); 
+                    }
+                    else //if (data.status == Status.COMPLETED)
+                    {
+                        data.completedDateTime = System.DateTime.FromBinary(long.Parse(endDate));
+                        data.startDateTime = System.DateTime.FromBinary(long.Parse(startDate));
+                    }
                 }
             }
             return true;
@@ -149,6 +164,29 @@ public class JigsawGameData : Singleton<JigsawGameData>
                 Writer.Write((int)data.status);
                 Writer.Write(data.tilesInPlace);
                 Writer.Write(data.secondsSinceStart);
+
+                string startDate;
+                string endDate;// = now1.ToBinary().ToString();
+                if (data.status == Status.NOT_STARTED)
+                {
+                    startDate = "0";
+                    endDate = "0";
+                }
+                else if(data.status == Status.STARTED)
+                {
+                    startDate = data.startDateTime.ToBinary().ToString();
+                    endDate = "0";
+                }
+                else //if (data.status == Status.COMPLETED)
+                {
+                    startDate = data.startDateTime.ToBinary().ToString();
+                    endDate = data.completedDateTime.ToBinary().ToString();
+                }
+                //DateTime now1 = DateTime.Now;
+                //DateTime now2 = DateTime.FromBinary(long.Parse(strDate));
+
+                Writer.Write(startDate);
+                Writer.Write(endDate);
             }
 
             Writer.Close();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Globalization;
 
 public class ImageBrowser : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class ImageBrowser : MonoBehaviour
     public Text mCredit;
     public Text mStatus;
     public Text mTiles;
+    public Text mTimeSpent;
 
     void Start()
     {
@@ -40,16 +42,29 @@ public class ImageBrowser : MonoBehaviour
         mCredit.text = data.credit;
         if(data.status == JigsawGameData.Status.COMPLETED)
         {
-            mStatus.text = "<color=green> Completed </color>";// on 21 June, 2021
+            mStatus.text = "<color=green> Completed </color> on " + data.completedDateTime.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
+
+            System.TimeSpan t = System.TimeSpan.FromSeconds(data.secondsSinceStart);
+            mTimeSpent.text = "You spent <color=yellow>" + 
+                t.Hours.ToString() + " hr " + 
+                t.Minutes.ToString() + " mins and " + 
+                t.Seconds.ToString() + "sec</color>";
         }
         else if(data.status == JigsawGameData.Status.STARTED)
         {
-            mStatus.text = "<color=yellow> Started </color>";// on 21 June, 2021
+            mStatus.text = "<color=yellow> Started </color>" + data.startDateTime.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
+
+            System.TimeSpan t = System.TimeSpan.FromSeconds(data.secondsSinceStart);
+            mTimeSpent.text = "You spent <color=yellow>" +
+                t.Hours.ToString() + " hr " +
+                t.Minutes.ToString() + " mins and " +
+                t.Seconds.ToString() + "sec</color>";
         }
         else
         {
             mStatus.text = "<color=white> Not started </color>";// on 21 June, 2021
             data.tilesInPlace = 0;
+            mTimeSpent.text = "";
         }
         mTiles.text = data.tilesInPlace.ToString() + "/<color=yellow>" + data.totalTiles.ToString() + "</color>";
     }

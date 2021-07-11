@@ -25,7 +25,6 @@ public class StatePlaying : State<JigsawGameStates>
         TileMovement.TileMovementEnabled = true;
         Game.menu.SetActivePlayBtn(false);
 
-        JigsawGameData.Instance.SetCurrentImageDataStatus(JigsawGameData.Status.STARTED);
         for (int i = 0; i < Game.NumTilesX; i++)
         {
             for (int j = 0; j < Game.NumTilesY; ++j)

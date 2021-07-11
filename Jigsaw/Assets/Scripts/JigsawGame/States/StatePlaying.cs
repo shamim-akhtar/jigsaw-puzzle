@@ -18,7 +18,22 @@ public class StatePlaying : State<JigsawGameStates>
     {
         base.Enter();
 
+        // Enabble back camera movement and menu input handling.
+        CameraMovement.CameraPanning = true;
+        Menu.Enabled = true;
+
         TileMovement.TileMovementEnabled = true;
+        Game.menu.SetActivePlayBtn(false);
+
+        JigsawGameData.Instance.SetCurrentImageDataStatus(JigsawGameData.Status.STARTED);
+        for (int i = 0; i < Game.NumTilesX; i++)
+        {
+            for (int j = 0; j < Game.NumTilesY; ++j)
+            {
+                TileMovement tile = Game.mTileGameObjects[i, j].GetComponent<TileMovement>();
+                tile.ApplyTileInPlace();
+            }
+        }
 
         // Start the timer.
         Game.StartTimer();

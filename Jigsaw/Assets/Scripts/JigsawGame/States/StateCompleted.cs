@@ -18,5 +18,10 @@ public class StateCompleted : State<JigsawGameStates>
         base.Enter();
         Game.menu.TextWin.gameObject.SetActive(true);
         Game.menu.SetActivePlayBtn(true);
+
+        JigsawGameData.Instance.SetCurrentImageDataStatus(JigsawGameData.Status.COMPLETED);
+
+        Game.Save();
+        JigsawGameData.Instance.SaveMetaData();
     }
 }

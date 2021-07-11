@@ -55,12 +55,34 @@ public class JigsawGame : BoardGen
         Puzzle.Tile.TilesSorting.Clear();
 
         // Get the finename from the JigsawGameData singleton.
-        ImageFilename = JigsawGameData.Instance.GetImageFilename();
+        //ImageFilename = JigsawGameData.Instance.GetImageFilename();
+        JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
+        ImageFilename = data.filename;
 
-        // Create the Jigsaw board.
-        // We will change the flow when we implement
-        // savling and loading data from file.
-        CreateJigsawBoardUsingCoroutines();
+        if (Load())
+        {
+            if(data.status == JigsawGameData.Status.NOT_STARTED)
+            {
+                Fsm.SetCurrentState(JigsawGameStates.WAITING);
+            }
+            else if(data.status == JigsawGameData.Status.STARTED)
+            {
+                Fsm.SetCurrentState(JigsawGameStates.PLAYING);
+            }
+            else
+            {
+                // Game completed.
+                Fsm.SetCurrentState(JigsawGameStates.COMPLETED);
+            }
+            OnFinishedLoading();
+        }
+        else
+        {
+            // Create the Jigsaw board.
+            // We will change the flow when we implement
+            // savling and loading data from file.
+            CreateJigsawBoardUsingCoroutines();
+        }
 
         // Reposition camera.
         CameraMovement cm = Camera.main.GetComponent<CameraMovement>();
@@ -72,8 +94,6 @@ public class JigsawGame : BoardGen
 
     public void OnFinishedLoading()
     {
-        // After loading change the state to waiting.
-        Fsm.SetCurrentState(JigsawGameStates.WAITING);
         for (int i = 0; i < NumTilesX; i++)
         {
             for (int j = 0; j < NumTilesY; ++j)
@@ -85,9 +105,10 @@ public class JigsawGame : BoardGen
 
         // Set the values to the menu.
         menu.SetTotalTiles(NumTilesX * NumTilesY);
-        menu.SetTilesInPlace(JigsawGameData.Instance.mTotalTilesInCorrectPosition);
-        menu.SetTimeInSeconds(JigsawGameData.Instance.mSecondsSinceStart);
 
+        JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
+        menu.SetTilesInPlace(data.tilesInPlace);
+        menu.SetTimeInSeconds(data.secondsSinceStart);
     }
 
     public void OnClickBtnScramble()
@@ -106,7 +127,8 @@ public class JigsawGame : BoardGen
 
     void OnTileOnPlace(TileMovement tm)
     {
-        JigsawGameData.Instance.mTotalTilesInCorrectPosition += 1;
+        JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
+        data.tilesInPlace += 1;
         // We disable the tile for any movement.
         tm.enabled = false;
 
@@ -117,12 +139,12 @@ public class JigsawGame : BoardGen
 
         // We also change the name of the sorting layer.
         spriteRenderer.sortingLayerName = "TilesInPlace";
-        if (JigsawGameData.Instance.mTotalTilesInCorrectPosition == mTileGameObjects.Length)
+        if (data.tilesInPlace == mTileGameObjects.Length)
         {
             Fsm.SetCurrentState(JigsawGameStates.COMPLETED);
         }
         //mTextInPlaceTiles.text = mTotalTilesInCorrectPosition.ToString();
-        menu.SetTilesInPlace(JigsawGameData.Instance.mTotalTilesInCorrectPosition);
+        menu.SetTilesInPlace(data.tilesInPlace);
     }
     #endregion
 
@@ -199,9 +221,11 @@ public class JigsawGame : BoardGen
         while (true)
         {
             yield return new WaitForSeconds(1.0f);
-            JigsawGameData.Instance.mSecondsSinceStart += 1;
 
-            menu.SetTimeInSeconds(JigsawGameData.Instance.mSecondsSinceStart);
+            JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
+            data.secondsSinceStart += 1;
+
+            menu.SetTimeInSeconds(data.secondsSinceStart);
         }
     }
 

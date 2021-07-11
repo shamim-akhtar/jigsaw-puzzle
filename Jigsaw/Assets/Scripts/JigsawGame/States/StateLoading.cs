@@ -34,6 +34,8 @@ public class StateLoading : State<JigsawGameStates>
         if(Game.LoadingFinished)
         {
             Game.OnFinishedLoading();
+            // After loading change the state to waiting.
+            Game.Fsm.SetCurrentState(JigsawGameStates.WAITING);
         }
     }
 

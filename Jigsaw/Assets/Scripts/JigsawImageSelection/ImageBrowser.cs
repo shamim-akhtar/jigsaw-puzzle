@@ -14,12 +14,21 @@ public class ImageBrowser : MonoBehaviour
 
     void Start()
     {
-        SetImage(JigsawGameData.Instance.GetCurrentImageData());
+        StartCoroutine(Coroutine_WaitUntilMetadataLoaded());
     }
 
     void Update()
     {
         
+    }
+
+    private IEnumerator Coroutine_WaitUntilMetadataLoaded()
+    {
+        while(!JigsawGameData.Instance.mMetaDataLoaded)
+        {
+            yield return null;
+        }
+        SetImage(JigsawGameData.Instance.GetCurrentImageData());
     }
 
     void SetImage(JigsawGameData.ImageData data)

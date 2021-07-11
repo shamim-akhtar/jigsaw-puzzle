@@ -75,16 +75,20 @@ public class TileMovement : MonoBehaviour
 
         if (!TileMovementEnabled || !enabled)
             return;
+        ApplyTileInPlace();
 
+        // Enable back the camera panning.
+        CameraMovement.CameraPanning = true;
+    }
+
+    public void ApplyTileInPlace()
+    {
         float dist = (transform.position - GetCorrectPosition()).magnitude;
         if (dist < 20.0f)
         {
             transform.position = GetCorrectPosition();
             OnTileInPlace?.Invoke(this);
         }
-
-        // Enable back the camera panning.
-        CameraMovement.CameraPanning = true;
     }
 
     void LateUpdate()

@@ -103,6 +103,11 @@ namespace Puzzle
 
         #region Public Methods
 
+        public Tile()
+        {
+
+        }
+
         // The constructor.
         public Tile(Texture2D tex)
         {
@@ -126,6 +131,11 @@ namespace Puzzle
                     FinalCut.SetPixel(i, j, TransparentColor);
                 }
             }
+        }
+
+        public void SetFinalCut(Texture2D fin)
+        {
+            FinalCut = fin;
         }
 
         public void SetPosNegType(Direction dir, PosNegType type)

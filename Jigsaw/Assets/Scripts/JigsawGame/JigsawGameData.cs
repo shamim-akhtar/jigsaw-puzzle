@@ -19,7 +19,7 @@ public class JigsawGameData : Singleton<JigsawGameData>
         LANDSCAPE,
         PORTRAIT,
     }
-     
+
     public class ImageData
     {
         public string filename;
@@ -33,7 +33,6 @@ public class JigsawGameData : Singleton<JigsawGameData>
         public System.DateTime startDateTime;
         public System.DateTime completedDateTime;
     }
-
     public List<ImageData> mImageDataList = new List<ImageData>();
     public bool mMetaDataLoaded = false;
 

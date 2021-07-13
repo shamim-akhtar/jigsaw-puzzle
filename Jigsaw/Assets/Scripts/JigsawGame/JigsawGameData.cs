@@ -69,17 +69,23 @@ public class JigsawGameData : Singleton<JigsawGameData>
         string filename = Application.persistentDataPath + "/metadata.json";
         if (!File.Exists(filename))
         {
-            filename = /*Application.dataPath + */"metadata";
+            filename = "metadata";
             Debug.Log(filename);
             TextAsset targetFile = Resources.Load<TextAsset>(filename);
             mImageDataList = JsonHelper.FromJson<ImageMetaData>(targetFile.text);
         }
         else
         {
-            StreamReader inStream = System.IO.File.OpenText(filename);
+            StreamReader inStream = File.OpenText(filename);
             string jsonString = inStream.ReadToEnd();
             inStream.Close();
             mImageDataList = JsonHelper.FromJson<ImageMetaData>(jsonString);
+
+            if(mImageDataList.Length == 0)
+            {
+                TextAsset targetFile = Resources.Load<TextAsset>("metadata");
+                mImageDataList = JsonHelper.FromJson<ImageMetaData>(targetFile.text);
+            }
         }
 
         return true;

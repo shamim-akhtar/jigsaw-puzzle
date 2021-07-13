@@ -84,6 +84,17 @@ public class JigsawGame : JigsawBoard
                 Fsm.SetCurrentState(JigsawGameStates.COMPLETED);
             }
             OnFinishedLoading();
+
+            // Check for the tiles in place.
+            data.tilesInPlace = 0;
+            for (int i = 0; i < NumTilesX; i++)
+            {
+                for (int j = 0; j < NumTilesY; ++j)
+                {
+                    TileMovement tile = TileGameObjects[i, j].GetComponent<TileMovement>();
+                    tile.ApplyTileInPlace();
+                }
+            }
         }
         else
         {

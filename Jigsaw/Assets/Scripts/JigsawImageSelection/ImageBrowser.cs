@@ -41,7 +41,6 @@ public class ImageBrowser : MonoBehaviour
             yield return null;
         }
         mBtnShowAll.onClick.Invoke();
-        //ExecuteEvents.Execute(mBtnShowAll.gameObject, new BaseEventData(eventSystem), ExecuteEvents.submitHandler);
         mBtnShowAll.Select();
 
         ImageMetaData data = JigsawGameData.Instance.GetCurrentImageData();

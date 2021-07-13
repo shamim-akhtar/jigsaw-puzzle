@@ -12,7 +12,7 @@ public class JigsawGen : MonoBehaviour
 
     void RenameInagesAndCreateJSon()
     {
-        string path = Application.dataPath + "/Resources";
+        string path = Application.dataPath + "/Resources/Images/Jigsaw";
 
         string[] files = System.IO.Directory.GetFiles(path, "*.jpg");
 

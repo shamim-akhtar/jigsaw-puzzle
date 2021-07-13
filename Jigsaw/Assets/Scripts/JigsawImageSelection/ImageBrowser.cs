@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Globalization;
+using UnityEngine.EventSystems;
 
 public class ImageBrowser : MonoBehaviour
 {
@@ -14,6 +15,13 @@ public class ImageBrowser : MonoBehaviour
     public Text mTiles;
     public Text mTimeSpent;
 
+    public Button mBtnShowAll;
+    public Button mBtnCompleted;
+    public Button mBtnPlaying;
+    int sw = 2;
+
+    public Menu menu;
+
     void Start()
     {
         StartCoroutine(Coroutine_WaitUntilMetadataLoaded());
@@ -21,7 +29,9 @@ public class ImageBrowser : MonoBehaviour
 
     void Update()
     {
-
+        if (sw == 0) mBtnPlaying.Select();
+        if (sw == 1) mBtnCompleted.Select();
+        if (sw == 2) mBtnShowAll.Select();
     }
 
     private IEnumerator Coroutine_WaitUntilMetadataLoaded()
@@ -30,11 +40,21 @@ public class ImageBrowser : MonoBehaviour
         {
             yield return null;
         }
-        SetImage(JigsawGameData.Instance.GetCurrentImageData());
+        mBtnShowAll.onClick.Invoke();
+        //ExecuteEvents.Execute(mBtnShowAll.gameObject, new BaseEventData(eventSystem), ExecuteEvents.submitHandler);
+        mBtnShowAll.Select();
+
+        ImageMetaData data = JigsawGameData.Instance.GetCurrentImageData();
+        SetImage(data);
     }
 
     void SetImage(ImageMetaData data)
     {
+        if(data == null)
+        {
+            SetImageEmpty();
+            return;
+        }
         Texture2D tex = SpriteUtils.LoadTexture(data.filename);
         if(tex == null)
         {
@@ -44,8 +64,8 @@ public class ImageBrowser : MonoBehaviour
         data.totalTiles = tex.width / 100 * tex.height / 100;
         mImage.sprite = SpriteUtils.CreateSpriteFromTexture2D(tex, 0, 0, tex.width, tex.height);
         mName.text = data.name;
-        mCredit.text = data.credit;
-        if(data.status == ImageMetaData.Status.COMPLETED)
+        mCredit.text = "Photo by <b><color=yellow>" + data.credit + "</color></b> from Pexels";
+        if (data.status == ImageMetaData.Status.COMPLETED)
         {
             mStatus.text = "<color=green> Completed </color> on " + data.completedDateTime.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -74,6 +94,17 @@ public class ImageBrowser : MonoBehaviour
         mTiles.text = data.tilesInPlace.ToString() + "/<color=yellow>" + data.totalTiles.ToString() + "</color>";
     }
 
+    void SetImageEmpty()
+    {
+        Texture2D tex = SpriteUtils.LoadTexture("empty");
+        mImage.sprite = SpriteUtils.CreateSpriteFromTexture2D(tex, 0, 0, tex.width, tex.height);
+        mName.text = "Empty";
+        mCredit.text = "";
+        mStatus.text = "";
+        mTiles.text = "";
+        mTimeSpent.text = "";
+    }
+
     public void OnClickNextImage()
     {
         JigsawGameData.Instance.NextImage();
@@ -89,5 +120,47 @@ public class ImageBrowser : MonoBehaviour
     public void OnClickPlay()
     {
         SceneManager.LoadScene("JigsawGame");
+    }
+
+    public void OnClickShowNowPlayingImagesList()
+    {
+        JigsawGameData.Instance.SetFilter(ImageMetaData.Status.STARTED);
+        UpdateMenu();
+        sw = 0;
+        //Debug.Log("OnClickShowNowPlayingImagesList");
+    }
+
+    public void OnClickShowCompletedImagesList()
+    {
+        JigsawGameData.Instance.SetFilter(ImageMetaData.Status.COMPLETED);
+        UpdateMenu();
+        sw = 1;
+        //Debug.Log("OnClickShowCompletedImagesList");
+    }
+
+    public void OnClickShowAllImagesList()
+    {
+        JigsawGameData.Instance.SetFilter(ImageMetaData.Status.NOT_STARTED);
+        UpdateMenu();
+        sw = 2;
+        //Debug.Log("OnClickShowAllImagesList");
+    }
+
+    void UpdateMenu()
+    {
+        if (JigsawGameData.Instance.GetFilteredImageCount() == 0)
+        {
+            menu.BtnNext.gameObject.SetActive(false);
+            menu.BtnHome.gameObject.SetActive(false);
+            menu.BtnPlay.gameObject.SetActive(false);
+        }
+        else
+        {
+            menu.BtnNext.gameObject.SetActive(true);
+            menu.BtnHome.gameObject.SetActive(true);
+            menu.BtnPlay.gameObject.SetActive(true);
+            //JigsawGameData.Instance.NextImage();
+        }
+        SetImage(JigsawGameData.Instance.GetCurrentImageData());
     }
 }

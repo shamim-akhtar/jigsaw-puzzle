@@ -242,7 +242,7 @@ public class JigsawGame : JigsawBoard
 
     private void OnDestroy()
     {
-        Save();
         JigsawGameData.Instance.SaveMetaData();
+        Save();
     }
 }

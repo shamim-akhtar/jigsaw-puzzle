@@ -1,7 +1,7 @@
 {
     "Items": [
         {
-            "filename": "/jig/image_000.jpg",
+            "filename": "jig/image_000",
             "name": "",
             "credit": "",
             "status": 0,
@@ -11,7 +11,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_001.jpg",
+            "filename": "jig/image_001",
             "name": "2481670",
             "credit": "Aleksandar Pasaric ",
             "status": 0,
@@ -21,7 +21,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_002.jpg",
+            "filename": "jig/image_002",
             "name": "4238349",
             "credit": "Alleksana ",
             "status": 0,
@@ -31,7 +31,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_003.jpg",
+            "filename": "jig/image_003",
             "name": "2301177",
             "credit": "Artem Lysenko ",
             "status": 0,
@@ -41,7 +41,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_004.jpg",
+            "filename": "jig/image_004",
             "name": "2609106",
             "credit": "Darius Krause ",
             "status": 0,
@@ -51,7 +51,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_005.jpg",
+            "filename": "jig/image_005",
             "name": "2218344",
             "credit": "Ekrulila ",
             "status": 0,
@@ -61,7 +61,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_006.jpg",
+            "filename": "jig/image_006",
             "name": "7345377",
             "credit": "Ekrulila ",
             "status": 0,
@@ -71,7 +71,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_007.jpg",
+            "filename": "jig/image_007",
             "name": "5170362",
             "credit": "Eman Genatilan ",
             "status": 0,
@@ -81,7 +81,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_008.jpg",
+            "filename": "jig/image_008",
             "name": "1435735",
             "credit": "Engin Akyurt ",
             "status": 0,
@@ -91,7 +91,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_009.jpg",
+            "filename": "jig/image_009",
             "name": "2128040",
             "credit": "Ethan Brooke ",
             "status": 0,
@@ -101,7 +101,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_010.jpg",
+            "filename": "jig/image_010",
             "name": "4254555",
             "credit": "Grafixartphoto Samir Belhamra ",
             "status": 0,
@@ -111,7 +111,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_011.jpg",
+            "filename": "jig/image_011",
             "name": "2817087",
             "credit": "Julia Kuzenkov ",
             "status": 0,
@@ -121,7 +121,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_012.jpg",
+            "filename": "jig/image_012",
             "name": "1337713",
             "credit": "Kristina Paukshtite ",
             "status": 0,
@@ -131,7 +131,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_013.jpg",
+            "filename": "jig/image_013",
             "name": "4915526",
             "credit": "Maria Orlova ",
             "status": 0,
@@ -141,7 +141,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_014.jpg",
+            "filename": "jig/image_014",
             "name": "4916146",
             "credit": "Maria Orlova ",
             "status": 0,
@@ -151,7 +151,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_015.jpg",
+            "filename": "jig/image_015",
             "name": "8647586",
             "credit": "Maxim Kovalev ",
             "status": 0,
@@ -161,7 +161,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_016.jpg",
+            "filename": "jig/image_016",
             "name": "1837590",
             "credit": "Oleg Magni ",
             "status": 0,
@@ -171,7 +171,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_017.jpg",
+            "filename": "jig/image_017",
             "name": "2033997",
             "credit": "Oleg Magni ",
             "status": 0,
@@ -181,7 +181,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_018.jpg",
+            "filename": "jig/image_018",
             "name": "2728784",
             "credit": "Radiographie ",
             "status": 0,
@@ -191,7 +191,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_019.jpg",
+            "filename": "jig/image_019",
             "name": "2388639",
             "credit": "Raul Juarez ",
             "status": 0,
@@ -201,7 +201,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_020.jpg",
+            "filename": "jig/image_020",
             "name": "572861",
             "credit": "Richard Verbeek ",
             "status": 0,
@@ -211,7 +211,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_021.jpg",
+            "filename": "jig/image_021",
             "name": "5472522",
             "credit": "Ryutaro Tsukata ",
             "status": 0,
@@ -221,7 +221,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_022.jpg",
+            "filename": "jig/image_022",
             "name": "5472528",
             "credit": "Ryutaro Tsukata ",
             "status": 0,
@@ -231,7 +231,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_023.jpg",
+            "filename": "jig/image_023",
             "name": "1294671",
             "credit": "Sunyu Kim ",
             "status": 0,
@@ -241,7 +241,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_024.jpg",
+            "filename": "jig/image_024",
             "name": "1559821",
             "credit": "Tobias Bjørkli ",
             "status": 0,
@@ -251,7 +251,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_025.jpg",
+            "filename": "jig/image_025",
             "name": "85773",
             "credit": "Unchalee Srirugsar ",
             "status": 0,
@@ -261,7 +261,7 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "/jig/image_026.jpg",
+            "filename": "jig/image_026",
             "name": "",
             "credit": "",
             "status": 0,

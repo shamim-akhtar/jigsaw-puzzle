@@ -29,7 +29,7 @@ public class StatePlaying : State<JigsawGameStates>
         {
             for (int j = 0; j < Game.NumTilesY; ++j)
             {
-                TileMovement tile = Game.mTileGameObjects[i, j].GetComponent<TileMovement>();
+                TileMovement tile = Game.TileGameObjects[i, j].GetComponent<TileMovement>();
                 tile.ApplyTileInPlace();
             }
         }

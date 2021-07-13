@@ -4,7 +4,7 @@ using UnityEngine;
 using Patterns;
 using UnityEngine.SceneManagement;
 
-public class JigsawGame : BoardGen
+public class JigsawGame : JigsawBoard
 {
     public Menu menu;
 
@@ -46,6 +46,11 @@ public class JigsawGame : BoardGen
         }
     }
 
+    void ShowOpaqueImage(bool flag)
+    {
+        GetOpaqueGameObject().SetActive(flag);
+    }
+
     private void FixedUpdate()
     {
         Fsm.FixedUpdate();
@@ -60,16 +65,16 @@ public class JigsawGame : BoardGen
 
         // Get the finename from the JigsawGameData singleton.
         //ImageFilename = JigsawGameData.Instance.GetImageFilename();
-        JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
-        ImageFilename = data.filename;
+        ImageMetaData data = JigsawGameData.Instance.GetCurrentImageData();
+        mImageFilename = data.filename;
 
         if (Load())
         {
-            if(data.status == JigsawGameData.Status.NOT_STARTED)
+            if(data.status == ImageMetaData.Status.NOT_STARTED)
             {
                 Fsm.SetCurrentState(JigsawGameStates.WAITING);
             }
-            else if(data.status == JigsawGameData.Status.STARTED)
+            else if(data.status == ImageMetaData.Status.STARTED)
             {
                 Fsm.SetCurrentState(JigsawGameStates.PLAYING);
             }
@@ -102,7 +107,7 @@ public class JigsawGame : BoardGen
         {
             for (int j = 0; j < NumTilesY; ++j)
             {
-                TileMovement tile = mTileGameObjects[i, j].GetComponent<TileMovement>();
+                TileMovement tile = TileGameObjects[i, j].GetComponent<TileMovement>();
                 tile.OnTileInPlace += OnTileOnPlace;
             }
         }
@@ -110,7 +115,7 @@ public class JigsawGame : BoardGen
         // Set the values to the menu.
         menu.SetTotalTiles(NumTilesX * NumTilesY);
 
-        JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
+        ImageMetaData data = JigsawGameData.Instance.GetCurrentImageData();
         menu.SetTilesInPlace(data.tilesInPlace);
         menu.SetTimeInSeconds(data.secondsSinceStart);
     }
@@ -131,7 +136,7 @@ public class JigsawGame : BoardGen
 
     void OnTileOnPlace(TileMovement tm)
     {
-        JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
+        ImageMetaData data = JigsawGameData.Instance.GetCurrentImageData();
         data.tilesInPlace += 1;
         // We disable the tile for any movement.
         tm.enabled = false;
@@ -143,7 +148,7 @@ public class JigsawGame : BoardGen
 
         // We also change the name of the sorting layer.
         spriteRenderer.sortingLayerName = "TilesInPlace";
-        if (data.tilesInPlace == mTileGameObjects.Length)
+        if (data.tilesInPlace == TileGameObjects.Length)
         {
             Fsm.SetCurrentState(JigsawGameStates.COMPLETED);
         }
@@ -166,7 +171,7 @@ public class JigsawGame : BoardGen
         {
             for (int j = 0; j < NumTilesY; ++j)
             {
-                Shuffle(mTileGameObjects[i, j]);
+                Shuffle(TileGameObjects[i, j]);
                 yield return null;
             }
         }
@@ -226,7 +231,7 @@ public class JigsawGame : BoardGen
         {
             yield return new WaitForSeconds(1.0f);
 
-            JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
+            ImageMetaData data = JigsawGameData.Instance.GetCurrentImageData();
             data.secondsSinceStart += 1;
 
             menu.SetTimeInSeconds(data.secondsSinceStart);
@@ -234,4 +239,10 @@ public class JigsawGame : BoardGen
     }
 
     #endregion
+
+    private void OnDestroy()
+    {
+        Save();
+        JigsawGameData.Instance.SaveMetaData();
+    }
 }

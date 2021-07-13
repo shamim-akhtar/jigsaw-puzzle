@@ -2,6 +2,7 @@ using UnityEngine;
 using Puzzle;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Collections;
 
 public class JigsawBoard : MonoBehaviour
 {
@@ -31,12 +32,19 @@ public class JigsawBoard : MonoBehaviour
     public Tile[,] Tiles { get; private set; } = null;
     public GameObject[,] TileGameObjects { get; private set; } = null;
 
-    private void Start()
+    public bool LoadingFinished = false;
+
+    protected void Start()
     {
         if(ParentForTiles == null)
         {
             ParentForTiles = transform;
         }
+    }
+
+    public GameObject GetOpaqueGameObject()
+    {
+        return mGameObjectOpaque;
     }
 
     #region Jigsaw raw (Create from image)
@@ -233,6 +241,100 @@ public class JigsawBoard : MonoBehaviour
         }
     }
 
+    IEnumerator Coroutine_CreateJigsawTiles()
+    {
+        Texture2D baseTexture = mBaseSpriteOpaque.texture;
+
+        Tiles = new Tile[NumTilesX, NumTilesY];
+        TileGameObjects = new GameObject[NumTilesX, NumTilesY];
+        for (int i = 0; i < NumTilesX; ++i)
+        {
+            for (int j = 0; j < NumTilesY; ++j)
+            {
+                Tile tile = new Tile(baseTexture);
+                tile.xIndex = i;
+                tile.yIndex = j;
+
+                // Left side tiles
+                if (i == 0)
+                {
+                    tile.SetPosNegType(Tile.Direction.LEFT, Tile.PosNegType.NONE);
+                }
+                else
+                {
+                    // We have to create a tile that has LEFT direction opposite operation 
+                    // of the tile on the left's RIGHT direction operation.
+                    Tile leftTile = Tiles[i - 1, j];
+                    Tile.PosNegType rightOp = leftTile.GetPosNegType(Tile.Direction.RIGHT);
+                    tile.SetPosNegType(Tile.Direction.LEFT, rightOp == Tile.PosNegType.NEG ? Tile.PosNegType.POS : Tile.PosNegType.NEG);
+                }
+
+                // Bottom side tiles
+                if (j == 0)
+                {
+                    tile.SetPosNegType(Tile.Direction.DOWN, Tile.PosNegType.NONE);
+                }
+                else
+                {
+                    // We have to create a tile that has LEFT direction opposite operation 
+                    // of the tile on the left's RIGHT direction operation.
+                    Tile downTile = Tiles[i, j - 1];
+                    Tile.PosNegType rightOp = downTile.GetPosNegType(Tile.Direction.UP);
+                    tile.SetPosNegType(Tile.Direction.DOWN, rightOp == Tile.PosNegType.NEG ? Tile.PosNegType.POS : Tile.PosNegType.NEG);
+                }
+
+                // Right side tiles
+                if (i == NumTilesX - 1)
+                {
+                    tile.SetPosNegType(Tile.Direction.RIGHT, Tile.PosNegType.NONE);
+                }
+                else
+                {
+                    float toss = Random.Range(0.0f, 1.0f);
+                    if (toss < 0.5f)
+                    {
+                        tile.SetPosNegType(Tile.Direction.RIGHT, Tile.PosNegType.POS);
+                    }
+                    else
+                    {
+                        tile.SetPosNegType(Tile.Direction.RIGHT, Tile.PosNegType.NEG);
+                    }
+                }
+
+                // Up side tiles
+                if (j == NumTilesY - 1)
+                {
+                    tile.SetPosNegType(Tile.Direction.UP, Tile.PosNegType.NONE);
+                }
+                else
+                {
+                    float toss = Random.Range(0.0f, 1.0f);
+                    if (toss < 0.5f)
+                    {
+                        tile.SetPosNegType(Tile.Direction.UP, Tile.PosNegType.POS);
+                    }
+                    else
+                    {
+                        tile.SetPosNegType(Tile.Direction.UP, Tile.PosNegType.NEG);
+                    }
+                }
+
+                tile.Apply();
+
+                Tiles[i, j] = tile;
+
+                // Create a game object for the tile.
+                TileGameObjects[i, j] = Tile.CreateGameObjectFromTile(tile);
+
+                if (ParentForTiles != null)
+                {
+                    TileGameObjects[i, j].transform.SetParent(ParentForTiles);
+                }
+            }
+            yield return null;
+        }
+    }
+
     #endregion
 
     // Creates a jigsaw board from an image.
@@ -242,6 +344,24 @@ public class JigsawBoard : MonoBehaviour
         CreateTransparentSprite();
         CreateJigsawTiles();
     }
+
+    public void CreateJigsawBoardUsingCoroutines()
+    {
+        CreateOpaqueSprite();
+        CreateTransparentSprite();
+        StartCoroutine(Coroutine_CreateJigsawBoard());
+    }
+
+    IEnumerator Coroutine_CreateJigsawBoard()
+    {
+        yield return StartCoroutine(Coroutine_CreateJigsawTiles());
+
+        // Hide the mBaseSpriteOpaque game object.
+        mGameObjectOpaque.gameObject.SetActive(false);
+
+        LoadingFinished = true;
+    }
+
     // Loads a Jigsaw borad from a file.
     // The filename is same as the image filename.
     public void LoadJigsawBoard()
@@ -254,6 +374,8 @@ public class JigsawBoard : MonoBehaviour
     {
         BinaryWriter Writer = null;
         string filename = Application.persistentDataPath + "/" + mImageFilename + ".jigsaw";
+
+        Directory.CreateDirectory(Path.GetDirectoryName(filename));
 
         try
         {

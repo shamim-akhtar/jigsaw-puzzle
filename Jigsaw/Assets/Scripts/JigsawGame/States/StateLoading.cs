@@ -31,7 +31,7 @@ public class StateLoading : State<JigsawGameStates>
     public override void Update()
     {
         base.Update();
-        if(Game.LoadingFinished)
+        if (Game.LoadingFinished)
         {
             Game.OnFinishedLoading();
             // After loading change the state to waiting.

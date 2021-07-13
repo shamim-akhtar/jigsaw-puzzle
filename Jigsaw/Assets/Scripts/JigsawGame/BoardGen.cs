@@ -129,7 +129,7 @@ public class BoardGen : MonoBehaviour
             // Create a new stream to write to the file
             Writer = new BinaryWriter(File.OpenWrite(filename));
 
-            JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
+            ImageMetaData data = JigsawGameData.Instance.GetCurrentImageData();
             // get the time and save it.
             //long dateTime = System.DateTime.Now.ToBinary();
             Writer.Write(data.secondsSinceStart);
@@ -194,7 +194,7 @@ public class BoardGen : MonoBehaviour
         {
             using (BinaryReader Reader = new BinaryReader(File.Open(filename, FileMode.Open)))
             {
-                JigsawGameData.ImageData data = JigsawGameData.Instance.GetCurrentImageData();
+                ImageMetaData data = JigsawGameData.Instance.GetCurrentImageData();
                 data.secondsSinceStart = Reader.ReadDouble();
 
                 string ifilename = Reader.ReadString();

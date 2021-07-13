@@ -33,14 +33,19 @@ public class ImageBrowser : MonoBehaviour
         SetImage(JigsawGameData.Instance.GetCurrentImageData());
     }
 
-    void SetImage(JigsawGameData.ImageData data)
+    void SetImage(ImageMetaData data)
     {
         Texture2D tex = SpriteUtils.LoadTexture(data.filename);
+        if(tex == null)
+        {
+            Debug.Log("Fatal error. Could not load image <" + data.filename + ">");
+            return;
+        }
         data.totalTiles = tex.width / 100 * tex.height / 100;
         mImage.sprite = SpriteUtils.CreateSpriteFromTexture2D(tex, 0, 0, tex.width, tex.height);
         mName.text = data.name;
         mCredit.text = data.credit;
-        if(data.status == JigsawGameData.Status.COMPLETED)
+        if(data.status == ImageMetaData.Status.COMPLETED)
         {
             mStatus.text = "<color=green> Completed </color> on " + data.completedDateTime.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
 
@@ -50,7 +55,7 @@ public class ImageBrowser : MonoBehaviour
                 t.Minutes.ToString() + " mins and " + 
                 t.Seconds.ToString() + "sec</color>";
         }
-        else if(data.status == JigsawGameData.Status.STARTED)
+        else if(data.status == ImageMetaData.Status.STARTED)
         {
             mStatus.text = "<color=yellow> Started </color>" + data.startDateTime.ToString("D", CultureInfo.CreateSpecificCulture("en-US"));
 

@@ -25,14 +25,14 @@ public class StatePlaying : State<JigsawGameStates>
         TileMovement.TileMovementEnabled = true;
         Game.menu.SetActivePlayBtn(false);
 
-        for (int i = 0; i < Game.NumTilesX; i++)
-        {
-            for (int j = 0; j < Game.NumTilesY; ++j)
-            {
-                TileMovement tile = Game.TileGameObjects[i, j].GetComponent<TileMovement>();
-                tile.ApplyTileInPlace();
-            }
-        }
+        //for (int i = 0; i < Game.NumTilesX; i++)
+        //{
+        //    for (int j = 0; j < Game.NumTilesY; ++j)
+        //    {
+        //        TileMovement tile = Game.TileGameObjects[i, j].GetComponent<TileMovement>();
+        //        tile.ApplyTileInPlace();
+        //    }
+        //}
 
         // Start the timer.
         Game.StartTimer();

@@ -70,7 +70,19 @@ public class JigsawGame : JigsawBoard
 
         if (Load())
         {
-            if(data.status == ImageMetaData.Status.NOT_STARTED)
+            OnFinishedLoading();
+            // Check for the tiles in place.
+            data.tilesInPlace = 0;
+            for (int i = 0; i < NumTilesX; i++)
+            {
+                for (int j = 0; j < NumTilesY; ++j)
+                {
+                    TileMovement tile = TileGameObjects[i, j].GetComponent<TileMovement>();
+                    tile.ApplyTileInPlace();
+                }
+            }
+
+            if (data.status == ImageMetaData.Status.NOT_STARTED)
             {
                 Fsm.SetCurrentState(JigsawGameStates.WAITING);
             }
@@ -82,18 +94,6 @@ public class JigsawGame : JigsawBoard
             {
                 // Game completed.
                 Fsm.SetCurrentState(JigsawGameStates.COMPLETED);
-            }
-            OnFinishedLoading();
-
-            // Check for the tiles in place.
-            data.tilesInPlace = 0;
-            for (int i = 0; i < NumTilesX; i++)
-            {
-                for (int j = 0; j < NumTilesY; ++j)
-                {
-                    TileMovement tile = TileGameObjects[i, j].GetComponent<TileMovement>();
-                    tile.ApplyTileInPlace();
-                }
             }
         }
         else
@@ -141,7 +141,8 @@ public class JigsawGame : JigsawBoard
         JigsawGameData.Instance.NextImage();
 
         // Load the same scene with a different image.
-        SceneManager.LoadScene("JigsawGame");
+        //SceneManager.LoadScene("JigsawGame");
+        FadeSceneLoader.Instance.FadeSceneLoad("JigsawGame");
     }
 
 
@@ -251,9 +252,8 @@ public class JigsawGame : JigsawBoard
 
     #endregion
 
-    private void OnDestroy()
+    private void OnApplicationQuit()
     {
-        JigsawGameData.Instance.SaveMetaData();
         Save();
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Patterns;
 using UnityEngine.SceneManagement;
 
 public class GameApp : Singleton<GameApp>
 {
     public AmbientSound mAmbientSound;
+    public InterstitialAdsScript mAds;
 
     public List<AudioClip> mGameAudioClips = new List<AudioClip>();
 
@@ -42,6 +44,4 @@ public class GameApp : Singleton<GameApp>
             yield return new WaitForSeconds(mGameAudioClips[mCurrentAudioIndex].length);
         }
     }
-
-
 }

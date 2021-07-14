@@ -127,7 +127,7 @@ public class JigsawBoard : MonoBehaviour
                 Color c = tex.GetPixel(x, y);
                 if (x > Tile.Padding && x < (newTex.width - Tile.Padding) && y > Tile.Padding && y < newTex.height - Tile.Padding)
                 {
-                    c.a = 0.2f;
+                    c.a = 0.1f;
                 }
                 newTex.SetPixel(x, y, c);
             }
@@ -347,13 +347,17 @@ public class JigsawBoard : MonoBehaviour
 
     public void CreateJigsawBoardUsingCoroutines()
     {
-        CreateOpaqueSprite();
-        CreateTransparentSprite();
         StartCoroutine(Coroutine_CreateJigsawBoard());
     }
 
     IEnumerator Coroutine_CreateJigsawBoard()
     {
+        CreateOpaqueSprite();
+        yield return null;
+
+        CreateTransparentSprite();
+        yield return null;
+
         yield return StartCoroutine(Coroutine_CreateJigsawTiles());
 
         // Hide the mBaseSpriteOpaque game object.

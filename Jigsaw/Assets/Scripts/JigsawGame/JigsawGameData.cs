@@ -137,4 +137,9 @@ public class JigsawGameData : Singleton<JigsawGameData>
                 }
         }
     }
+
+    void OnApplicationQuit()
+    {
+        SaveMetaData();
+    }
 }

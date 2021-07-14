@@ -118,7 +118,8 @@ public class ImageBrowser : MonoBehaviour
 
     public void OnClickPlay()
     {
-        SceneManager.LoadScene("JigsawGame");
+        FadeSceneLoader.Instance.FadeSceneLoad("JigsawGame");
+        //SceneManager.LoadScene("JigsawGame");
     }
 
     public void OnClickShowNowPlayingImagesList()

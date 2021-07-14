@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 
 public class Menu : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class Menu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameApp.Instance.mAds.onAdFinish += OnUnityAdsDidFinish;
     }
 
     // Update is called once per frame
@@ -83,7 +84,8 @@ public class Menu : MonoBehaviour
     public void OnClickBtnHome()
     {
         //OnClickHome?.Invoke();
-        SceneManager.LoadScene("JigsawImageSelection");
+        //SceneManager.LoadScene("JigsawImageSelection");
+        GameApp.Instance.mAds.ShowInterstitialAd();
     }
 
     public void OnClickBtnPlay()
@@ -96,7 +98,8 @@ public class Menu : MonoBehaviour
     {
         mAudioSource.PlayOneShot(mBtnClickAudio);
         //OnClickNext?.Invoke();
-        SceneManager.LoadScene("JigsawImageSelection");
+        //SceneManager.LoadScene("JigsawImageSelection");
+        GameApp.Instance.mAds.ShowInterstitialAd();
     }
 
     public void SetActivePlayBtn(bool flag)
@@ -112,5 +115,24 @@ public class Menu : MonoBehaviour
         BtnReset.gameObject.SetActive(!flag);
         BtnZoomOut.gameObject.SetActive(!flag);
         BtnHint.gameObject.SetActive(!flag);
+    }
+
+    public void OnUnityAdsDidFinish(string surfacingId, ShowResult showResult)
+    {
+        // Define conditional logic for each ad completion status:
+        if (showResult == ShowResult.Finished)
+        {
+            // Reward the user for watching the ad to completion.
+        }
+        else if (showResult == ShowResult.Skipped)
+        {
+            // Do not reward the user for skipping the ad.
+        }
+        else if (showResult == ShowResult.Failed)
+        {
+            //Debug.LogWarning(“The ad did not finish due to an error.”);
+        }
+        FadeSceneLoader.Instance.FadeSceneLoad("JigsawImageSelection");
+        //SceneManager.LoadScene("JigsawImageSelection");
     }
 }

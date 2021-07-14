@@ -21,6 +21,7 @@ public class SplashScreen : MonoBehaviour
         yield return StartCoroutine(Utils.Coroutine_FadeIn(Filler, 1.0f));
 
         GameApp.Instance.StartShufflePlay();
-        SceneManager.LoadScene("JigsawImageSelection");
+        FadeSceneLoader.Instance.FadeSceneLoad("JigsawImageSelection");
+        //SceneManager.LoadScene("JigsawImageSelection");
     }
 }

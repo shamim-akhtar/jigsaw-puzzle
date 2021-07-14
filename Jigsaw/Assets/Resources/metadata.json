@@ -1,16 +1,6 @@
 {
     "Items": [
         {
-            "filename": "jig/image_000",
-            "name": "People Walking Under Gardens by the Bay",
-            "credit": "Addie ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
             "filename": "jig/image_001",
             "name": "Pink Cluster Petaled Flower",
             "credit": "Adrianna Calvo ",
@@ -41,16 +31,6 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "jig/image_004",
-            "name": "Santorini, Greece",
-            "credit": "Alex Azabache ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
             "filename": "jig/image_005",
             "name": "Green Tree on White Concrete Building",
             "credit": "Alleksana ",
@@ -61,28 +41,8 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "jig/image_006",
-            "name": "Red and White Flowers on White Ceramic Vase",
-            "credit": "Alleksana ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
             "filename": "jig/image_007",
             "name": "Pink and White Flowers in Green Ceramic Vase",
-            "credit": "Anthony Shkraba ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_008",
-            "name": "Woman in White Dress Photo",
             "credit": "Anthony Shkraba ",
             "status": 0,
             "layout": 0,
@@ -111,39 +71,9 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "jig/image_011",
-            "name": "Tall Brown Trees",
-            "credit": "Darwis Alwan ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
             "filename": "jig/image_012",
             "name": "Gray and Brown Boat Traveling on River",
             "credit": "David Bartus ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_013",
-            "name": "A Classic Design Of Living Room",
-            "credit": "Ekrulila ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_014",
-            "name": "Facade of old building with shop in town street",
-            "credit": "Ekrulila ",
             "status": 0,
             "layout": 0,
             "tilesInPlace": 0,
@@ -161,29 +91,9 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "jig/image_016",
-            "name": "Assorted Color Signages",
-            "credit": "Ethan Brooke ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
             "filename": "jig/image_017",
             "name": "Empty Lighted City Street at Night",
             "credit": "Ethan Brooke ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_018",
-            "name": "Gray Paved Road Between Trees",
-            "credit": "Felix Mittermeier ",
             "status": 0,
             "layout": 0,
             "tilesInPlace": 0,
@@ -201,49 +111,9 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "jig/image_020",
-            "name": "City street with cars and buildings at night",
-            "credit": "Furknsaglam ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_021",
-            "name": "Green Grass Field Near Mountain",
-            "credit": "Gianluca Grisenti ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
             "filename": "jig/image_022",
             "name": "Photo of Woman Holding Pink Flower",
             "credit": "Jc Laurio ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_023",
-            "name": "Watercrafts on River",
-            "credit": "Jeremy Bishop ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_024",
-            "name": "angle Photography of Concrete Tower Clock",
-            "credit": "Joen Nguyen Low ",
             "status": 0,
             "layout": 0,
             "tilesInPlace": 0,
@@ -271,59 +141,9 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "jig/image_027",
-            "name": "Canal between old building facades in town",
-            "credit": "Maria Orlova ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_028",
-            "name": "Cobblestone street between masonry residential houses",
-            "credit": "Maria Orlova ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_029",
-            "name": "Potted plant near doorway and chair",
-            "credit": "Maria Orlova ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_030",
-            "name": "Brown Wooden Bench Surrounded by Trees",
-            "credit": "Markus Spiske ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
             "filename": "jig/image_031",
             "name": "Sunflower Selective Focus Photography",
             "credit": "Max Andrey ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_032",
-            "name": "Turned on Street Lights",
-            "credit": "Nicole Avagliano ",
             "status": 0,
             "layout": 0,
             "tilesInPlace": 0,
@@ -351,49 +171,9 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "jig/image_035",
-            "name": "Photo of Woman Leaning on Wall",
-            "credit": "Palu Malerba ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_036",
-            "name": "Brown Wooden Drumstick",
-            "credit": "Paula ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
             "filename": "jig/image_037",
             "name": "Person Holding White Kitten With Flowers Necklace",
             "credit": "Peng Louis ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_038",
-            "name": "Bird's Eye View Of City During Dawn",
-            "credit": "Pierre Blaché ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_039",
-            "name": "Bridge Near Waterfall",
-            "credit": "Pixabay ",
             "status": 0,
             "layout": 0,
             "tilesInPlace": 0,
@@ -441,16 +221,6 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "jig/image_044",
-            "name": "Crop woman near window",
-            "credit": "Pnw Production ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
             "filename": "jig/image_045",
             "name": "Brown and Black Leopard Animal",
             "credit": "Public Domain Pictures ",
@@ -491,46 +261,6 @@
             "secondsSinceStart": 0.0
         },
         {
-            "filename": "jig/image_049",
-            "name": "Elephant on Green Grass Field",
-            "credit": "Saifuddin Ratlamwala ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_050",
-            "name": "Photo Of Alley During Daytime",
-            "credit": "Shvets Anna ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_051",
-            "name": "Reflection of Trees",
-            "credit": "Stijn Dijkstra ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_052",
-            "name": "Lighted Up Alleyway",
-            "credit": "Sunyu Kim ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
             "filename": "jig/image_053",
             "name": "Island Surrounded By City",
             "credit": "Tobias Bjørkli ",
@@ -554,26 +284,6 @@
             "filename": "jig/image_055",
             "name": "Yellow Flowers in Brown Woven Basket on Bicycle",
             "credit": "Valeriia Miller ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_056",
-            "name": "People in cafe on street in city",
-            "credit": "Volkan Vardar ",
-            "status": 0,
-            "layout": 0,
-            "tilesInPlace": 0,
-            "totalTiles": 0,
-            "secondsSinceStart": 0.0
-        },
-        {
-            "filename": "jig/image_057",
-            "name": "Disney Castle",
-            "credit": "Zichuan Han ",
             "status": 0,
             "layout": 0,
             "tilesInPlace": 0,

@@ -60,15 +60,15 @@ public class TilesGen : MonoBehaviour
         Tile tile = new Tile(mTextureOriginal);
 
         tile.SetPosNegType(Tile.Direction.UP, Tile.PosNegType.NEG);
-        tile.SetPosNegType(Tile.Direction.RIGHT, Tile.PosNegType.NONE);
-        tile.SetPosNegType(Tile.Direction.DOWN, Tile.PosNegType.NEG);
+        tile.SetPosNegType(Tile.Direction.RIGHT, Tile.PosNegType.POS);
+        tile.SetPosNegType(Tile.Direction.DOWN, Tile.PosNegType.POS);
         tile.SetPosNegType(Tile.Direction.LEFT, Tile.PosNegType.NEG);
 
         // Uncomment the following 4 lines of code if you want to see the 
         // curves drawn on the tile too.
         tile.DrawCurve(Tile.Direction.UP, Tile.PosNegType.NEG, Color.white);
-        tile.DrawCurve(Tile.Direction.RIGHT, Tile.PosNegType.NONE, Color.white);
-        tile.DrawCurve(Tile.Direction.DOWN, Tile.PosNegType.NEG, Color.white);
+        tile.DrawCurve(Tile.Direction.RIGHT, Tile.PosNegType.POS, Color.white);
+        tile.DrawCurve(Tile.Direction.DOWN, Tile.PosNegType.POS, Color.white);
         tile.DrawCurve(Tile.Direction.LEFT, Tile.PosNegType.NEG, Color.white);
 
         tile.Apply();

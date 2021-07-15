@@ -252,7 +252,7 @@ public class JigsawGame : JigsawBoard
 
     #endregion
 
-    private void OnApplicationQuit()
+    private void OnDestroy()
     {
         Save();
     }

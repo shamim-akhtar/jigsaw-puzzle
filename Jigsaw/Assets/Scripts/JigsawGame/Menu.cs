@@ -83,8 +83,8 @@ public class Menu : MonoBehaviour
 
     public void OnClickBtnHome()
     {
-        //OnClickHome?.Invoke();
-        //SceneManager.LoadScene("JigsawImageSelection");
+
+#if (UNITY_ANDROID || UNITY_IOS)
         if (Advertisement.isInitialized)
         {
             GameApp.Instance.mAds.ShowInterstitialAd();
@@ -93,6 +93,9 @@ public class Menu : MonoBehaviour
         {
             FadeSceneLoader.Instance.FadeSceneLoad("JigsawImageSelection");
         }
+#else
+        FadeSceneLoader.Instance.FadeSceneLoad("JigsawImageSelection");
+#endif
     }
 
     public void OnClickBtnPlay()
@@ -104,8 +107,7 @@ public class Menu : MonoBehaviour
     public void OnClickBtnNext()
     {
         mAudioSource.PlayOneShot(mBtnClickAudio);
-        //OnClickNext?.Invoke();
-        //SceneManager.LoadScene("JigsawImageSelection");
+#if (UNITY_ANDROID || UNITY_IOS)
         if (Advertisement.isInitialized)
         {
             GameApp.Instance.mAds.ShowInterstitialAd();
@@ -114,6 +116,7 @@ public class Menu : MonoBehaviour
         {
             FadeSceneLoader.Instance.FadeSceneLoad("JigsawImageSelection");
         }
+#endif
     }
 
     public void SetActivePlayBtn(bool flag)

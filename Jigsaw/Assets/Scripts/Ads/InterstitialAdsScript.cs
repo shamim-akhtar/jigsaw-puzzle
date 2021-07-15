@@ -15,21 +15,26 @@ public class InterstitialAdsScript : MonoBehaviour, IUnityAdsListener
     readonly string mInterstitialSurfaceId = "Interstitial_iOS";
     readonly string mBannerSurfaceId = "Banner_iOS";
 #endif
+#if (UNITY_ANDROID || UNITY_IOS)
     bool mTestMode = true;
+#endif
 
     public delegate void DelegateAdFinish(string surfacingId, ShowResult showResult);
     public DelegateAdFinish onAdFinish;
 
     void Start()
     {
+#if (UNITY_ANDROID || UNITY_IOS)
         Advertisement.AddListener(this);
         Advertisement.Initialize(gameId, mTestMode);
         Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
         StartCoroutine(ShowBannerWhenInitialized());
+#endif
     }
 
     public void ShowInterstitialAd()
     {
+#if (UNITY_ANDROID || UNITY_IOS)
         if (Advertisement.IsReady())
         {
             Advertisement.Show(mInterstitialSurfaceId);
@@ -38,8 +43,10 @@ public class InterstitialAdsScript : MonoBehaviour, IUnityAdsListener
         {
             Debug.Log("Interstitial ad not ready at the moment! Please try again later!");
         }
+#endif
     }
 
+#if (UNITY_ANDROID || UNITY_IOS)
     IEnumerator ShowBannerWhenInitialized()
     {
         while (!Advertisement.isInitialized)
@@ -48,15 +55,10 @@ public class InterstitialAdsScript : MonoBehaviour, IUnityAdsListener
         }
         Advertisement.Banner.Show(mBannerSurfaceId);
     }
+#endif
 
-    // Implement IUnityAdsListener interface methods:
     public void OnUnityAdsReady(string surfacingId)
     {
-        // If the ready Ad Unit or legacy Placement is rewarded, activate the button: 
-        if (surfacingId == mInterstitialSurfaceId)
-        {
-            //myButton.interactable = true;
-        }
     }
 
     public void OnUnityAdsDidFinish(string surfacingId, ShowResult showResult)

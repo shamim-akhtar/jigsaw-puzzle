@@ -64,6 +64,15 @@ public class JigsawGameData : Singleton<JigsawGameData>
         mMetaDataLoaded = true;
     }
 
+    IEnumerator Coroutine_AutoSave()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(15.0f);
+            SaveMetaData();
+        }
+    }
+
     private bool LoadMetaData()
     {
         string filename = Application.persistentDataPath + "/metadata.json";
@@ -97,7 +106,7 @@ public class JigsawGameData : Singleton<JigsawGameData>
 
         string jsonString = JsonHelper.ToJson(mImageDataList, true);
 
-        StreamWriter outStream = System.IO.File.CreateText(filename);
+        StreamWriter outStream = File.CreateText(filename);
         outStream.Write(jsonString);
         outStream.Close();
     }
@@ -138,8 +147,11 @@ public class JigsawGameData : Singleton<JigsawGameData>
         }
     }
 
-    void OnApplicationQuit()
+    void OnApplicationPause(bool flag)
     {
-        SaveMetaData();
+        if (flag)
+        {
+            SaveMetaData();
+        }
     }
 }

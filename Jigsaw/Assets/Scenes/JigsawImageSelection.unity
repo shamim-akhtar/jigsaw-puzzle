@@ -1123,8 +1123,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00000011921, y: -111}
-  m_SizeDelta: {x: 204.3076, y: 79.00571}
+  m_AnchoredPosition: {x: -0.00000011921, y: -126.13199}
+  m_SizeDelta: {x: 204.3076, y: 109.265}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &559867411
 MonoBehaviour:
@@ -2281,8 +2281,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 101.91, y: -52.998}
-  m_SizeDelta: {x: 195.88, y: 14.003}
+  m_AnchoredPosition: {x: 101.91, y: -68.628}
+  m_SizeDelta: {x: 195.88, y: 23.8741}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1070334679
 MonoBehaviour:
@@ -2413,8 +2413,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 56.413}
-  m_SizeDelta: {x: 0, y: -112.83}
+  m_AnchoredPosition: {x: 0, y: 44.896797}
+  m_SizeDelta: {x: 0, y: -89.7975}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1175656247
 MonoBehaviour:
@@ -2696,8 +2696,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 102.4, y: -29.917}
-  m_SizeDelta: {x: 194.9032, y: 14.8008}
+  m_AnchoredPosition: {x: 102.4, y: -39.6038}
+  m_SizeDelta: {x: 194.9032, y: 34.1736}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1470408767
 MonoBehaviour:
@@ -2732,7 +2732,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Photo by <b><color=yellow>Artem Saranin</color></b> from Pexels
+  m_Text: 'Photo by <b><color=yellow>Artem Saranin</color></b> from Pexels ghhhh
+
+'
 --- !u!222 &1470408768
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2984,8 +2986,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 102.26, y: -67.074}
-  m_SizeDelta: {x: 195.18, y: 14.1488}
+  m_AnchoredPosition: {x: 102.26, y: -92.974}
+  m_SizeDelta: {x: 195.18, y: 29.016}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1836713073
 MonoBehaviour:
@@ -3443,6 +3445,7 @@ MonoBehaviour:
   TextWin: {fileID: 264173976}
   mAudioSource: {fileID: 2109151532}
   mBtnClickAudio: {fileID: 8300000, guid: 1698a5eb460aebb4aa5fd514d10d520e, type: 3}
+  mDurationAdShow: 60
 --- !u!114 &2109151528
 MonoBehaviour:
   m_ObjectHideFlags: 0

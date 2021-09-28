@@ -28,3 +28,17 @@ This project is a Jigsaw Puzzle game. The tiles are dynamically created at runti
     <img src="https://img.shields.io/badge/%20-C%23-blue" />
   </a>
 </p>
+
+This repository comprises the source codes for my tutorial on [**Create a Jigsaw Puzzle Game in Unity**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/).
+
+> [**Read Part 1 – Implement Bezier Curve using C# in Unity**](https://faramira.com/implement-bezier-curve-using-csharp-in-unity/)
+> 
+> In this tutorial, we will learn how to implement the Bezier curve using C# in Unity. We will then create a sample application that displays the Bezier curve.
+
+> [**Read Part 2: Create a Jigsaw Tile from an Existing Image**](https://faramira.com/create-a-jigsaw-tile-from-an-existing-image/)
+>
+> In this tutorial, we will learn how to create a Jigsaw tile from an existing image using the Bezier curve.
+
+> [**Read Part 3: Create a Jigsaw Board from an Existing Image**](https://faramira.com/create-a-jigsaw-board-from-an-existing-image/)
+>
+> In this tutorial, we will learn how to create a Jigsaw board from an existing image.

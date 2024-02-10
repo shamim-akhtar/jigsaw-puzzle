@@ -330,7 +330,6 @@ MonoBehaviour:
   controlPoints:
   - {x: -5, y: -5}
   - {x: 0, y: 2}
-  - {x: 5, y: -2}
   PointPrefab: {fileID: 6262811035211227349, guid: a18f73ecccff4f1429777e9a67aadec4, type: 3}
   LineWidth: 0.1
   LineWidthBezier: 0.1

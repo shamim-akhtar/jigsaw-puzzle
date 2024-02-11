@@ -7,10 +7,13 @@ public class TilesGen : MonoBehaviour
   public string imageFilename;
   private Texture2D mTextureOriginal;
 
+  Tile mTile = new Tile();
+
   // Start is called before the first frame update
   void Start()
   {
     CreateBaseTexture();
+    DrawCurves();
   }
 
   void CreateBaseTexture()
@@ -31,9 +34,21 @@ public class TilesGen : MonoBehaviour
       mTextureOriginal.height);
   }
 
+  void DrawCurves()
+  {
+
+    //mTile.DrawCurve(Tile.Direction.UP, Tile.PosNegType.POS, UnityEngine.Color.blue);
+    //mTile.DrawCurve(Tile.Direction.RIGHT, Tile.PosNegType.POS, UnityEngine.Color.blue);
+    //mTile.DrawCurve(Tile.Direction.DOWN, Tile.PosNegType.POS, UnityEngine.Color.blue);
+    //mTile.DrawCurve(Tile.Direction.LEFT, Tile.PosNegType.POS, UnityEngine.Color.blue);
+    mTile.DrawCurve(Tile.Direction.UP, Tile.PosNegType.NEG, UnityEngine.Color.red);
+    mTile.DrawCurve(Tile.Direction.RIGHT, Tile.PosNegType.NEG, UnityEngine.Color.red);
+    mTile.DrawCurve(Tile.Direction.DOWN, Tile.PosNegType.NEG, UnityEngine.Color.red);
+    mTile.DrawCurve(Tile.Direction.LEFT, Tile.PosNegType.NEG, UnityEngine.Color.red);
+  }
+
   // Update is called once per frame
   void Update()
   {
-
   }
 }

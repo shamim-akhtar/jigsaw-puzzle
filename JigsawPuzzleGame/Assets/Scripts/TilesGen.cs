@@ -7,22 +7,13 @@ public class TilesGen : MonoBehaviour
   public string imageFilename;
   private Texture2D mTextureOriginal;
 
-  private Tile mTile = new Tile();
+  private Tile mTile = null;
+  private Sprite mSprite = null;
 
   // Start is called before the first frame update
   void Start()
   {
     CreateBaseTexture();
-
-    //mTile.DrawCurve(Tile.Direction.UP, Tile.PosNegType.POS, UnityEngine.Color.blue);
-    //mTile.DrawCurve(Tile.Direction.RIGHT, Tile.PosNegType.POS, UnityEngine.Color.blue);
-    //mTile.DrawCurve(Tile.Direction.DOWN, Tile.PosNegType.POS, UnityEngine.Color.blue);
-    //mTile.DrawCurve(Tile.Direction.LEFT, Tile.PosNegType.POS, UnityEngine.Color.blue);
-
-    //mTile.DrawCurve(Tile.Direction.UP, Tile.PosNegType.NEG, UnityEngine.Color.red);
-    //mTile.DrawCurve(Tile.Direction.RIGHT, Tile.PosNegType.NEG, UnityEngine.Color.red);
-    //mTile.DrawCurve(Tile.Direction.DOWN, Tile.PosNegType.NEG, UnityEngine.Color.red);
-    //mTile.DrawCurve(Tile.Direction.LEFT, Tile.PosNegType.NEG, UnityEngine.Color.red);
   }
 
   void CreateBaseTexture()
@@ -35,12 +26,13 @@ public class TilesGen : MonoBehaviour
     }
 
     SpriteRenderer spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-    spriteRenderer.sprite = SpriteUtils.CreateSpriteFromTexture2D(
+    mSprite = SpriteUtils.CreateSpriteFromTexture2D(
       mTextureOriginal,
       0,
       0,
       mTextureOriginal.width,
       mTextureOriginal.height);
+    spriteRenderer.sprite = mSprite;
   }
 
   private (Tile.PosNegType, UnityEngine.Color) GetRendomType()
@@ -67,16 +59,77 @@ public class TilesGen : MonoBehaviour
   {
     if(Input.GetKeyDown(KeyCode.Space))
     {
-      mTile.HideAllCurves();
-
-      var type_color = GetRendomType();
-      mTile.DrawCurve(Tile.Direction.UP, type_color.Item1, type_color.Item2);
-      type_color = GetRendomType();
-      mTile.DrawCurve(Tile.Direction.RIGHT, type_color.Item1, type_color.Item2);
-      type_color = GetRendomType();
-      mTile.DrawCurve(Tile.Direction.DOWN, type_color.Item1, type_color.Item2);
-      type_color = GetRendomType();
-      mTile.DrawCurve(Tile.Direction.LEFT, type_color.Item1, type_color.Item2);
+      TestRandomCurves();
     }
+    else if(Input.GetKeyDown(KeyCode.F))
+    {
+      TestTileFloodFill();
+    }
+  }
+
+  void TestRandomCurves()
+  {
+    if(mTile != null)
+    {
+      mTile.DestroyAllCurves();
+      mTile = null;
+    }
+
+    Tile tile = new Tile(mTextureOriginal);
+    mTile = tile;
+
+    var type_color = GetRendomType();
+    mTile.DrawCurve(Tile.Direction.UP, type_color.Item1, type_color.Item2);
+    type_color = GetRendomType();
+    mTile.DrawCurve(Tile.Direction.RIGHT, type_color.Item1, type_color.Item2);
+    type_color = GetRendomType();
+    mTile.DrawCurve(Tile.Direction.DOWN, type_color.Item1, type_color.Item2);
+    type_color = GetRendomType();
+    mTile.DrawCurve(Tile.Direction.LEFT, type_color.Item1, type_color.Item2);
+
+    SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+    spriteRenderer.sprite = mSprite;
+
+  }
+
+  void TestTileFloodFill()
+  {
+    if(mTile != null)
+    {
+      mTile.DestroyAllCurves();
+      mTile = null;
+    }
+
+    mTile = new Tile(mTextureOriginal);
+
+
+    var type_color = GetRendomType();
+    mTile.DrawCurve(Tile.Direction.UP, type_color.Item1, type_color.Item2);
+    mTile.SetCurveType(Tile.Direction.UP, type_color.Item1);
+
+    type_color = GetRendomType();
+    mTile.DrawCurve(Tile.Direction.RIGHT, type_color.Item1, type_color.Item2);
+    mTile.SetCurveType(Tile.Direction.RIGHT, type_color.Item1);
+
+    type_color = GetRendomType();
+    mTile.DrawCurve(Tile.Direction.DOWN, type_color.Item1, type_color.Item2);
+    mTile.SetCurveType(Tile.Direction.DOWN, type_color.Item1);
+
+    type_color = GetRendomType();
+    mTile.DrawCurve(Tile.Direction.LEFT, type_color.Item1, type_color.Item2);
+    mTile.SetCurveType(Tile.Direction.LEFT, type_color.Item1);
+
+    mTile.Apply();
+
+    // We will now set the texture finalCut to the sprite.
+    SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+    Sprite sprite = SpriteUtils.CreateSpriteFromTexture2D(
+      mTile.finalCut,
+      0,
+      0,
+      mTile.finalCut.width,
+      mTile.finalCut.height);
+
+    spriteRenderer.sprite = sprite;
   }
 }

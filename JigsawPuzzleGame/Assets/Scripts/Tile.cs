@@ -32,6 +32,177 @@ public class Tile
   public static List<Vector2> BezCurve =
     BezierCurve.PointList2(TemplateBezierCurve.templateControlPoints, 0.001f);
 
+  // The original texture used to create the jigsaw tile.
+  private Texture2D mOriginalTexture;
+
+  public Texture2D finalCut { get; private set; }
+
+  public static readonly Color TransparentColor = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+
+  private PosNegType[] mCurveTypes = new PosNegType[4]
+  {
+    PosNegType.NONE,
+    PosNegType.NONE,
+    PosNegType.NONE,
+    PosNegType.NONE,
+  };
+
+  // A 2d boolean array that stores whether a particular
+  // pixel is visited. We will need this array for the flood fill.
+  private bool[,] mVisited;
+
+  // A stack needed for the flood fill of the texture.
+  private Stack<Vector2Int> mStack = new Stack<Vector2Int>();
+
+  public int xIndex = 0;
+  public int yIndex = 0;
+
+
+  public void SetCurveType(Direction dir, PosNegType type)
+  {
+    mCurveTypes[(int)dir] = type;
+  }
+
+  public PosNegType GetCurveType(Direction dir)
+  {
+    return mCurveTypes[(int)dir];
+  }
+
+  public Tile(Texture2D texture)
+  {
+    mOriginalTexture = texture;
+    int padding = mOffset.x;
+    int tileSizeWithPadding = 2 * padding + tileSize;
+
+    finalCut = new Texture2D(tileSizeWithPadding, tileSizeWithPadding, TextureFormat.ARGB32, false);
+
+    // We initialise this newly created texture with transparent color.
+    for(int i = 0; i < tileSizeWithPadding; ++i)
+    {
+      for(int j = 0; j < tileSizeWithPadding; ++j)
+      {
+        finalCut.SetPixel(i, j, TransparentColor);
+      }
+    }
+  }
+
+  public void Apply()
+  {
+    FloodFillInit();
+    FloodFill();
+    finalCut.Apply();
+  }
+
+  void FloodFillInit()
+  {
+    int padding = mOffset.x;
+    int tileSizeWithPadding = 2 * padding + tileSize;
+
+    mVisited = new bool[tileSizeWithPadding, tileSizeWithPadding];
+    for(int i = 0; i < tileSizeWithPadding; ++i)
+    {
+      for(int j = 0; j < tileSizeWithPadding; ++j)
+      {
+        mVisited[i, j] = false;
+      }
+    }
+
+    List<Vector2> pts = new List<Vector2>();
+    for(int i = 0; i < mCurveTypes.Length; ++i)
+    {
+      pts.AddRange(CreateCurve((Direction)i, mCurveTypes[i]));
+    }
+
+    // Now we should have a closed curve.
+    for(int i = 0; i < pts.Count; ++i)
+    {
+      mVisited[(int)pts[i].x, (int)pts[i].y] = true;
+    }
+    // start from the center.
+    Vector2Int start = new Vector2Int(tileSizeWithPadding / 2, tileSizeWithPadding / 2);
+
+    mVisited[start.x, start.y] = true;
+    mStack.Push(start);
+  }
+
+  void Fill(int x, int y)
+  {
+    Color c = mOriginalTexture.GetPixel(x + xIndex * tileSize, y + yIndex * tileSize);
+    c.a = 1.0f;
+    finalCut.SetPixel(x, y, c);
+  }
+
+  void FloodFill()
+  {
+    int padding = mOffset.x;
+    int width_height = padding * 2 + tileSize;
+
+    while(mStack.Count > 0)
+    {
+      Vector2Int v = mStack.Pop();
+
+      int xx = v.x;
+      int yy = v.y;
+
+      Fill(v.x, v.y);
+
+      // Check right.
+      int x = xx + 1;
+      int y = yy;
+
+      if(x < width_height)
+      {
+        Color c = finalCut.GetPixel(x, y);
+        if (!mVisited[x, y])
+        {
+          mVisited[x, y] = true;
+          mStack.Push(new Vector2Int(x, y));
+        }
+      }
+
+      // check left.
+      x = xx - 1;
+      y = yy;
+      if(x > 0)
+      {
+        Color c = finalCut.GetPixel(x, y);
+        if (!mVisited[x, y])
+        {
+          mVisited[x, y] = true;
+          mStack.Push(new Vector2Int(x, y));
+        }
+      }
+
+      // Check up.
+      x = xx;
+      y = yy + 1;
+
+      if(y < width_height)
+      {
+        Color c = finalCut.GetPixel(x, y);
+        if (!mVisited[x, y])
+        {
+          mVisited[x, y] = true;
+          mStack.Push(new Vector2Int(x, y));
+        }
+      }
+
+      // Check down.
+      x = xx;
+      y = yy - 1;
+
+      if(y >= 0)
+      {
+        Color c = finalCut.GetPixel(x, y);
+        if (!mVisited[x, y])
+        {
+          mVisited[x, y] = true;
+          mStack.Push(new Vector2Int(x, y));
+        }
+      }
+    }
+  }
+
   public static LineRenderer CreateLineRenderer(UnityEngine.Color color, float lineWidth = 1.0f)
   {
     GameObject obj = new GameObject();
@@ -190,6 +361,16 @@ public class Tile
     {
       item.Value.gameObject.SetActive(false);
     }
+  }
+
+  public void DestroyAllCurves()
+  {
+    foreach(var item in mLineRenderers)
+    {
+      GameObject.Destroy(item.Value.gameObject);
+    }
+
+    mLineRenderers.Clear();
   }
 
 }

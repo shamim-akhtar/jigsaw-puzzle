@@ -18,10 +18,11 @@ public class Tile
 
   // The offset at which the curve will start.
   // For an image of size 140 by 140 it will start at 20, 20.
-  public Vector2Int mOffset = new Vector2Int(20, 20);
+  //public Vector2Int mOffset = new Vector2Int(20, 20);
+  public static int padding = 20;
 
   // The size of our jigsaw tile.
-  public int tileSize = 100;
+  public static int tileSize = 100;
 
   // The line renderers for all directions and types.
   private Dictionary<(Direction, PosNegType), LineRenderer> mLineRenderers
@@ -71,7 +72,7 @@ public class Tile
   public Tile(Texture2D texture)
   {
     mOriginalTexture = texture;
-    int padding = mOffset.x;
+    //int padding = mOffset.x;
     int tileSizeWithPadding = 2 * padding + tileSize;
 
     finalCut = new Texture2D(tileSizeWithPadding, tileSizeWithPadding, TextureFormat.ARGB32, false);
@@ -95,7 +96,7 @@ public class Tile
 
   void FloodFillInit()
   {
-    int padding = mOffset.x;
+    //int padding = mOffset.x;
     int tileSizeWithPadding = 2 * padding + tileSize;
 
     mVisited = new bool[tileSizeWithPadding, tileSizeWithPadding];
@@ -134,7 +135,7 @@ public class Tile
 
   void FloodFill()
   {
-    int padding = mOffset.x;
+    //int padding = mOffset.x;
     int width_height = padding * 2 + tileSize;
 
     while(mStack.Count > 0)
@@ -242,8 +243,8 @@ public class Tile
 
   public List<Vector2> CreateCurve(Direction dir, PosNegType type)
   {
-    int padding_x = mOffset.x;
-    int padding_y = mOffset.y;
+    int padding_x = padding;
+    int padding_y = padding;
     int sw = tileSize;
     int sh = tileSize;
 

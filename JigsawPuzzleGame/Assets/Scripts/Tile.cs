@@ -28,6 +28,11 @@ public class Tile
   private Dictionary<(Direction, PosNegType), LineRenderer> mLineRenderers
     = new Dictionary<(Direction, PosNegType), LineRenderer>();
 
+  public Dictionary<(Direction, PosNegType), LineRenderer> GetLineRenderers()
+  { 
+    return mLineRenderers; 
+  }
+
   // Lets store the list of bezier curve points created
   // from the template bezier curve control points.
   public static List<Vector2> BezCurve =

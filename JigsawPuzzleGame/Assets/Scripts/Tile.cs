@@ -18,20 +18,14 @@ public class Tile
 
   // The offset at which the curve will start.
   // For an image of size 140 by 140 it will start at 20, 20.
-  //public Vector2Int mOffset = new Vector2Int(20, 20);
-  public static int padding = 20;
+  public Vector2Int mOffset = new Vector2Int(20, 20);
 
   // The size of our jigsaw tile.
-  public static int tileSize = 100;
+  public int tileSize = 100;
 
   // The line renderers for all directions and types.
   private Dictionary<(Direction, PosNegType), LineRenderer> mLineRenderers
     = new Dictionary<(Direction, PosNegType), LineRenderer>();
-
-  public Dictionary<(Direction, PosNegType), LineRenderer> GetLineRenderers()
-  { 
-    return mLineRenderers; 
-  }
 
   // Lets store the list of bezier curve points created
   // from the template bezier curve control points.
@@ -77,15 +71,15 @@ public class Tile
   public Tile(Texture2D texture)
   {
     mOriginalTexture = texture;
-    //int padding = mOffset.x;
+    int padding = mOffset.x;
     int tileSizeWithPadding = 2 * padding + tileSize;
 
     finalCut = new Texture2D(tileSizeWithPadding, tileSizeWithPadding, TextureFormat.ARGB32, false);
 
     // We initialise this newly created texture with transparent color.
-    for(int i = 0; i < tileSizeWithPadding; ++i)
+    for (int i = 0; i < tileSizeWithPadding; ++i)
     {
-      for(int j = 0; j < tileSizeWithPadding; ++j)
+      for (int j = 0; j < tileSizeWithPadding; ++j)
       {
         finalCut.SetPixel(i, j, TransparentColor);
       }
@@ -101,26 +95,26 @@ public class Tile
 
   void FloodFillInit()
   {
-    //int padding = mOffset.x;
+    int padding = mOffset.x;
     int tileSizeWithPadding = 2 * padding + tileSize;
 
     mVisited = new bool[tileSizeWithPadding, tileSizeWithPadding];
-    for(int i = 0; i < tileSizeWithPadding; ++i)
+    for (int i = 0; i < tileSizeWithPadding; ++i)
     {
-      for(int j = 0; j < tileSizeWithPadding; ++j)
+      for (int j = 0; j < tileSizeWithPadding; ++j)
       {
         mVisited[i, j] = false;
       }
     }
 
     List<Vector2> pts = new List<Vector2>();
-    for(int i = 0; i < mCurveTypes.Length; ++i)
+    for (int i = 0; i < mCurveTypes.Length; ++i)
     {
       pts.AddRange(CreateCurve((Direction)i, mCurveTypes[i]));
     }
 
     // Now we should have a closed curve.
-    for(int i = 0; i < pts.Count; ++i)
+    for (int i = 0; i < pts.Count; ++i)
     {
       mVisited[(int)pts[i].x, (int)pts[i].y] = true;
     }
@@ -140,10 +134,10 @@ public class Tile
 
   void FloodFill()
   {
-    //int padding = mOffset.x;
+    int padding = mOffset.x;
     int width_height = padding * 2 + tileSize;
 
-    while(mStack.Count > 0)
+    while (mStack.Count > 0)
     {
       Vector2Int v = mStack.Pop();
 
@@ -156,7 +150,7 @@ public class Tile
       int x = xx + 1;
       int y = yy;
 
-      if(x < width_height)
+      if (x < width_height)
       {
         Color c = finalCut.GetPixel(x, y);
         if (!mVisited[x, y])
@@ -169,7 +163,7 @@ public class Tile
       // check left.
       x = xx - 1;
       y = yy;
-      if(x > 0)
+      if (x > 0)
       {
         Color c = finalCut.GetPixel(x, y);
         if (!mVisited[x, y])
@@ -183,7 +177,7 @@ public class Tile
       x = xx;
       y = yy + 1;
 
-      if(y < width_height)
+      if (y < width_height)
       {
         Color c = finalCut.GetPixel(x, y);
         if (!mVisited[x, y])
@@ -197,7 +191,7 @@ public class Tile
       x = xx;
       y = yy - 1;
 
-      if(y >= 0)
+      if (y >= 0)
       {
         Color c = finalCut.GetPixel(x, y);
         if (!mVisited[x, y])
@@ -248,13 +242,13 @@ public class Tile
 
   public List<Vector2> CreateCurve(Direction dir, PosNegType type)
   {
-    int padding_x = padding;
-    int padding_y = padding;
+    int padding_x = mOffset.x;
+    int padding_y = mOffset.y;
     int sw = tileSize;
     int sh = tileSize;
 
     List<Vector2> pts = new List<Vector2>(BezCurve);
-    switch(dir)
+    switch (dir)
     {
       case Direction.UP:
         if (type == PosNegType.POS)
@@ -269,19 +263,19 @@ public class Tile
         else
         {
           pts.Clear();
-          for(int i = 0; i < 100; ++i)
+          for (int i = 0; i < 100; ++i)
           {
             pts.Add(new Vector2(i + padding_x, padding_y + sh));
           }
         }
         break;
       case Direction.RIGHT:
-        if(type == PosNegType.POS)
+        if (type == PosNegType.POS)
         {
           SwapXY(pts);
           TranslatePoints(pts, new Vector2(padding_x + sw, padding_y));
         }
-        else if(type == PosNegType.NEG)
+        else if (type == PosNegType.NEG)
         {
           InvertY(pts);
           SwapXY(pts);
@@ -290,7 +284,7 @@ public class Tile
         else
         {
           pts.Clear();
-          for(int i = 0; i < 100; ++i)
+          for (int i = 0; i < 100; ++i)
           {
             pts.Add(new Vector2(padding_x + sw, i + padding_y));
           }
@@ -332,7 +326,7 @@ public class Tile
           pts.Clear();
           for (int i = 0; i < 100; ++i)
           {
-            pts.Add(new Vector2(padding_x, i+ padding_y));
+            pts.Add(new Vector2(padding_x, i + padding_y));
           }
         }
         break;
@@ -342,20 +336,20 @@ public class Tile
 
   public void DrawCurve(Direction dir, PosNegType type, UnityEngine.Color color)
   {
-    if(!mLineRenderers.ContainsKey((dir, type)))
+    if (!mLineRenderers.ContainsKey((dir, type)))
     {
       mLineRenderers.Add((dir, type), CreateLineRenderer(color));
     }
 
     LineRenderer lr = mLineRenderers[(dir, type)];
     lr.gameObject.SetActive(true);
-    lr.startColor= color;
-    lr.endColor= color;
+    lr.startColor = color;
+    lr.endColor = color;
     lr.gameObject.name = "LineRenderer_" + dir.ToString() + "_" + type.ToString();
     List<Vector2> pts = CreateCurve(dir, type);
 
-    lr.positionCount= pts.Count;
-    for(int i = 0; i < pts.Count; ++i)
+    lr.positionCount = pts.Count;
+    for (int i = 0; i < pts.Count; ++i)
     {
       lr.SetPosition(i, pts[i]);
     }
@@ -363,7 +357,7 @@ public class Tile
 
   public void HideAllCurves()
   {
-    foreach(var item in mLineRenderers)
+    foreach (var item in mLineRenderers)
     {
       item.Value.gameObject.SetActive(false);
     }
@@ -371,7 +365,7 @@ public class Tile
 
   public void DestroyAllCurves()
   {
-    foreach(var item in mLineRenderers)
+    foreach (var item in mLineRenderers)
     {
       GameObject.Destroy(item.Value.gameObject);
     }

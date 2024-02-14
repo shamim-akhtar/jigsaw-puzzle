@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageFilename: Images/Jigsaws/flower_12_8
+  ghostTransparency: 0.1
 --- !u!1 &2052199217
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,9 +19,25 @@ public class BoardGen : MonoBehaviour
   // The game object that holds the transparent sprite.
   GameObject mGameObjectTransparent;
 
+  public float ghostTransparency = 0.2f;
+
   private void Start()
   {
-    CreateJigsawBoard();
+    mBaseSpriteOpaque = LoadBaseTexture();
+    mGameObjectOpaque = new GameObject();
+    mGameObjectOpaque.name = imageFilename + "_Opaque";
+    mGameObjectOpaque.AddComponent<SpriteRenderer>().sprite = mBaseSpriteOpaque;
+    mGameObjectOpaque.GetComponent<SpriteRenderer>().sortingLayerName = "Opaque";
+
+    mBaseSpriteTransparent = CreateTransparentView(mBaseSpriteOpaque.texture);
+    mGameObjectTransparent = new GameObject();
+    mGameObjectTransparent.name = imageFilename + "_Transparent";
+    mGameObjectTransparent.AddComponent<SpriteRenderer>().sprite = mBaseSpriteTransparent;
+    mGameObjectTransparent.GetComponent<SpriteRenderer>().sortingLayerName = "Transparent";
+
+    // Hide the mBaseSpriteOpaque game object.
+    mGameObjectOpaque.gameObject.SetActive(false);
+
     SetCameraPosition();
   }
 
@@ -102,7 +118,7 @@ public class BoardGen : MonoBehaviour
         Color c = tex.GetPixel(x, y);
         if (x > Tile.padding && x < (newTex.width - Tile.padding) && y > Tile.padding && y < newTex.height - Tile.padding)
         {
-          c.a = 0.2f;
+          c.a = ghostTransparency;
         }
         newTex.SetPixel(x, y, c);
       }
@@ -117,24 +133,6 @@ public class BoardGen : MonoBehaviour
         newTex.width,
         newTex.height);
     return sprite;
-  }
-
-  public void CreateJigsawBoard()
-  {
-    mBaseSpriteOpaque = LoadBaseTexture();
-    mGameObjectOpaque = new GameObject();
-    mGameObjectOpaque.name = imageFilename + "_Opaque";
-    mGameObjectOpaque.AddComponent<SpriteRenderer>().sprite = mBaseSpriteOpaque;
-    mGameObjectOpaque.GetComponent<SpriteRenderer>().sortingLayerName = "Opaque";
-
-    mBaseSpriteTransparent = CreateTransparentView(mBaseSpriteOpaque.texture);
-    mGameObjectTransparent = new GameObject();
-    mGameObjectTransparent.name = imageFilename + "_Transparent";
-    mGameObjectTransparent.AddComponent<SpriteRenderer>().sprite = mBaseSpriteTransparent;
-    mGameObjectTransparent.GetComponent<SpriteRenderer>().sortingLayerName = "Transparent";
-
-    // Hide the mBaseSpriteOpaque game object.
-    mGameObjectOpaque.gameObject.SetActive(false);
   }
 
 }

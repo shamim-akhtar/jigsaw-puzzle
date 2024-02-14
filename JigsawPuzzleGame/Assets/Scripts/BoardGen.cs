@@ -21,13 +21,6 @@ public class BoardGen : MonoBehaviour
 
   public float ghostTransparency = 0.2f;
 
-  // Jigsaw tiles creation.
-  public int numTilesX { get; private set; }
-  public int numTilesY { get; private set; }
-  Tile[,] mTiles = null;
-  GameObject[,] mTileGameObjects = null; 
-  public Transform parentForTiles = null;
-
   private void Start()
   {
     mBaseSpriteOpaque = LoadBaseTexture();
@@ -46,7 +39,6 @@ public class BoardGen : MonoBehaviour
     mGameObjectOpaque.gameObject.SetActive(false);
 
     SetCameraPosition();
-    StartCoroutine(Coroutine_CreateJigsawTiles());
   }
 
   void SetCameraPosition()
@@ -141,164 +133,5 @@ public class BoardGen : MonoBehaviour
         newTex.width,
         newTex.height);
     return sprite;
-  }
-  public static GameObject CreateGameObjectFromTile(Tile tile)
-  {
-    // Create a game object for the tile.
-    GameObject obj = new GameObject();
-
-    // Give a name that is recognizable for the GameObject.
-    obj.name = "TileGameObj_" + tile.xIndex.ToString() + "_" + tile.yIndex.ToString();
-
-    // Set the position of this GameObject.
-    // We will use the xIndex and yIndex to find the actual 
-    // position of the tile. We can get this position by multiplying
-    // xIndex by tileSize and yIndex by tileSize.
-    obj.transform.position = new Vector3(tile.xIndex * Tile.tileSize, tile.yIndex * Tile.tileSize, 0.0f);
-
-    // Create a SpriteRenderer.
-    SpriteRenderer spriteRenderer = obj.AddComponent<SpriteRenderer>();
-
-    // Set the sprite created with the FinalCut 
-    // texture of the tile to the SpriteRenderer
-    spriteRenderer.sprite = SpriteUtils.CreateSpriteFromTexture2D(
-        tile.finalCut,
-        0,
-        0,
-        Tile.padding * 2 + Tile.tileSize,
-        Tile.padding * 2 + Tile.tileSize);
-
-    // Add a box colliders so that we can handle 
-    // picking/selection of the Tiles.
-    BoxCollider2D box = obj.AddComponent<BoxCollider2D>();
-
-    return obj;
-  }
-
-  Tile CreateTile(int i, int j, Texture2D baseTexture)
-  {
-    Tile tile = new Tile(baseTexture);
-    tile.xIndex = i;
-    tile.yIndex = j;
-
-    // Left side tiles
-    if (i == 0)
-    {
-      tile.SetCurveType(Tile.Direction.LEFT, Tile.PosNegType.NONE);
-    }
-    else
-    {
-      // We have to create a tile that has LEFT direction opposite operation 
-      // of the tile on the left's RIGHT direction operation.
-      Tile leftTile = mTiles[i - 1, j];
-      Tile.PosNegType rightOp = leftTile.GetCurveType(Tile.Direction.RIGHT);
-      tile.SetCurveType(Tile.Direction.LEFT, rightOp == Tile.PosNegType.NEG ? Tile.PosNegType.POS : Tile.PosNegType.NEG);
-    }
-
-    // Bottom side tiles
-    if (j == 0)
-    {
-      tile.SetCurveType(Tile.Direction.DOWN, Tile.PosNegType.NONE);
-    }
-    else
-    {
-      // We have to create a tile that has LEFT direction opposite operation 
-      // of the tile on the left's RIGHT direction operation.
-      Tile downTile = mTiles[i, j - 1];
-      Tile.PosNegType rightOp = downTile.GetCurveType(Tile.Direction.UP);
-      tile.SetCurveType(Tile.Direction.DOWN, rightOp == Tile.PosNegType.NEG ? Tile.PosNegType.POS : Tile.PosNegType.NEG);
-    }
-
-    // Right side tiles
-    if (i == numTilesX - 1)
-    {
-      tile.SetCurveType(Tile.Direction.RIGHT, Tile.PosNegType.NONE);
-    }
-    else
-    {
-      float toss = Random.Range(0.0f, 1.0f);
-      if (toss < 0.5f)
-      {
-        tile.SetCurveType(Tile.Direction.RIGHT, Tile.PosNegType.POS);
-      }
-      else
-      {
-        tile.SetCurveType(Tile.Direction.RIGHT, Tile.PosNegType.NEG);
-      }
-    }
-
-    // Up side tiles
-    if (j == numTilesY - 1)
-    {
-      tile.SetCurveType(Tile.Direction.UP, Tile.PosNegType.NONE);
-    }
-    else
-    {
-      float toss = Random.Range(0.0f, 1.0f);
-      if (toss < 0.5f)
-      {
-        tile.SetCurveType(Tile.Direction.UP, Tile.PosNegType.POS);
-      }
-      else
-      {
-        tile.SetCurveType(Tile.Direction.UP, Tile.PosNegType.NEG);
-      }
-    }
-
-    tile.Apply();
-    return tile;
-  }
-
-  void CreateJigsawTiles()
-  {
-    Texture2D baseTexture = mBaseSpriteOpaque.texture;
-    numTilesX = baseTexture.width / Tile.tileSize;
-    numTilesY = baseTexture.height / Tile.tileSize;
-
-    mTiles = new Tile[numTilesX, numTilesY];
-    mTileGameObjects = new GameObject[numTilesX, numTilesY];
-    for (int i = 0; i < numTilesX; ++i)
-    {
-      for (int j = 0; j < numTilesY; ++j)
-      {        
-
-        mTiles[i, j] = CreateTile(i, j, baseTexture);
-
-        // Create a game object for the tile.
-        mTileGameObjects[i, j] = CreateGameObjectFromTile(mTiles[i, j]);
-
-        if (parentForTiles != null)
-        {
-          mTileGameObjects[i, j].transform.SetParent(parentForTiles);
-        }
-      }
-    }
-  }
-
-  IEnumerator Coroutine_CreateJigsawTiles()
-  {
-    Texture2D baseTexture = mBaseSpriteOpaque.texture;
-    numTilesX = baseTexture.width / Tile.tileSize;
-    numTilesY = baseTexture.height / Tile.tileSize;
-
-    mTiles = new Tile[numTilesX, numTilesY];
-    mTileGameObjects = new GameObject[numTilesX, numTilesY];
-    for (int i = 0; i < numTilesX; ++i)
-    {
-      for (int j = 0; j < numTilesY; ++j)
-      {
-
-        mTiles[i, j] = CreateTile(i, j, baseTexture);
-
-        // Create a game object for the tile.
-        mTileGameObjects[i, j] = CreateGameObjectFromTile(mTiles[i, j]);
-
-        if (parentForTiles != null)
-        {
-          mTileGameObjects[i, j].transform.SetParent(parentForTiles);
-        }
-        yield return null;
-      }
-    }
   }
 }

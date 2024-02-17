@@ -156,6 +156,10 @@ public class BoardGen : MonoBehaviour
       Tile.padding * 2 + Tile.tileSize);
 
     BoxCollider2D box = obj.AddComponent<BoxCollider2D>();
+
+    TileMovement tileMovement = obj.AddComponent<TileMovement>();
+    tileMovement.tile = tile;
+
     return obj;
   }
 

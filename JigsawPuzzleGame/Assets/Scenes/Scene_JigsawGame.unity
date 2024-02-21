@@ -240,11 +240,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c557a7b8463dac44be6d456094dd41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelTopPanel: {fileID: 0}
-  panelBottomPanel: {fileID: 0}
-  textTime: {fileID: 0}
-  textTotalTiles: {fileID: 0}
-  textTilesInPlace: {fileID: 0}
+  panelTopPanel: {fileID: 773713490}
+  panelBottomPanel: {fileID: 1533241562}
+  textTime: {fileID: 1921999701}
+  textTotalTiles: {fileID: 1365826365}
+  textTilesInPlace: {fileID: 286084214}
 --- !u!1 &201303732
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &773713491
 RectTransform:
   m_ObjectHideFlags: 0
@@ -768,6 +768,7 @@ MonoBehaviour:
   imageFilename: Images/jigsaws/flower_12_8
   ghostTransparency: 0.1
   parentForTiles: {fileID: 767284541}
+  menu: {fileID: 42172104}
 --- !u!4 &1126957626
 Transform:
   m_ObjectHideFlags: 0
@@ -1099,7 +1100,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1404949099}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42172104}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: OnClickPlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1404949099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1232,7 +1245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1533241563
 RectTransform:
   m_ObjectHideFlags: 0

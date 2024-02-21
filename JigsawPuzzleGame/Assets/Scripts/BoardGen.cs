@@ -22,6 +22,11 @@ public class BoardGen : MonoBehaviour
 
   public Transform parentForTiles = null;
 
+  // Access to the menu.
+  public Menu menu = null;
+  private List<Rect> regions = new List<Rect>();
+  private List<Coroutine> activeCoroutines = new List<Coroutine>();
+
   Sprite LoadBaseTexture()
   {
     Texture2D tex = SpriteUtils.LoadTexture(imageFilename);
@@ -184,6 +189,10 @@ public class BoardGen : MonoBehaviour
         }
       }
     }
+
+    // Enable the bottom panel and set the onlcick delegate to the play button.
+    menu.SetEnableBottomPanel(true);
+    menu.btnPlayOnClick = ShuffleTiles;
   }
 
   IEnumerator Coroutine_CreateJigsawTiles()
@@ -209,7 +218,13 @@ public class BoardGen : MonoBehaviour
         yield return null;
       }
     }
+
+    // Enable the bottom panel and set the delegate to button play on click.
+    menu.SetEnableBottomPanel(true);
+    menu.btnPlayOnClick = ShuffleTiles;
+
   }
+
 
   Tile CreateTile(int i, int j, Texture2D baseTexture)
   {
@@ -290,4 +305,108 @@ public class BoardGen : MonoBehaviour
   {
 
   }
+
+  #region Shuffling related codes
+
+  private IEnumerator Coroutine_MoveOverSeconds(GameObject objectToMove, Vector3 end, float seconds)
+  {
+    float elaspedTime = 0.0f;
+    Vector3 startingPosition = objectToMove.transform.position;
+    while(elaspedTime < seconds)
+    {
+      objectToMove.transform.position = Vector3.Lerp(
+        startingPosition, end, (elaspedTime / seconds));
+      elaspedTime += Time.deltaTime;
+
+      yield return new WaitForEndOfFrame();
+    }
+    objectToMove.transform.position = end;
+  }
+
+  void Shuffle(GameObject obj)
+  {
+    if(regions.Count == 0)
+    {
+      regions.Add(new Rect(-300.0f, -100.0f, 50.0f, numTileY * Tile.tileSize));
+      regions.Add(new Rect((numTileX+1) * Tile.tileSize, -100.0f, 50.0f, numTileY * Tile.tileSize));
+    }
+
+    int regionIndex = Random.Range(0, regions.Count);
+    float x = Random.Range(regions[regionIndex].xMin, regions[regionIndex].xMax);
+    float y = Random.Range(regions[regionIndex].yMin, regions[regionIndex].yMax);
+
+    Vector3 pos = new Vector3(x, y, 0.0f);
+    Coroutine moveCoroutine = StartCoroutine(Coroutine_MoveOverSeconds(obj, pos, 1.0f));
+    activeCoroutines.Add(moveCoroutine);
+  }
+
+  IEnumerator Coroutine_Shuffle()
+  {
+    for(int i = 0; i < numTileX; ++i)
+    {
+      for(int j = 0; j < numTileY; ++j)
+      {
+        Shuffle(mTileGameObjects[i, j]);
+        yield return null;
+      }
+    }
+
+    foreach(var item in activeCoroutines)
+    {
+      if(item != null)
+      {
+        yield return null;
+      }
+    }
+
+    OnFinishedShuffling();
+  }
+
+  public void ShuffleTiles()
+  {
+    StartCoroutine(Coroutine_Shuffle());
+  }
+
+  void OnFinishedShuffling()
+  {
+    activeCoroutines.Clear();
+
+    menu.SetEnableBottomPanel(false);
+    StartCoroutine(Coroutine_CallAfterDelay(() => menu.SetEnableTopPanel(true), 1.0f));
+    GameApp.Instance.TileMovementEnabled = true;
+
+    StartTimer();
+
+    menu.SetTotalTiles(numTileX * numTileY);
+  }
+
+  IEnumerator Coroutine_CallAfterDelay(System.Action function, float delay)
+  {
+    yield return new WaitForSeconds(delay);
+    function();
+  }
+
+
+  public void StartTimer()
+  {
+    StartCoroutine(Coroutine_Timer());
+  }
+
+  IEnumerator Coroutine_Timer()
+  {
+    while(true)
+    {
+      yield return new WaitForSeconds(1.0f);
+      GameApp.Instance.SecondsSinceStart += 1;
+
+      menu.SetTimeInSeconds(GameApp.Instance.SecondsSinceStart);
+    }
+  }
+
+  public void StopTimer()
+  {
+    StopCoroutine(Coroutine_Timer());
+  }
+
+  #endregion
 }

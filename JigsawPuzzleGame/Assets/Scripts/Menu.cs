@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
@@ -10,6 +11,7 @@ public class Menu : MonoBehaviour
 
   public GameObject panelTopPanel;
   public GameObject panelBottomPanel;
+  public GameObject panelGameCompletion;
 
   public Text textTime;
   public Text textTotalTiles;
@@ -81,4 +83,22 @@ public class Menu : MonoBehaviour
     textTilesInPlace.text = count.ToString();
   }
 
+  public void SetEnableGameCompletionPanel(bool flag)
+  {
+    panelGameCompletion.SetActive(flag);
+    if(flag)
+    {
+      FadeInUI(panelGameCompletion);
+    }
+  }
+
+  public void OnClickExit()
+  {
+    Application.Quit();
+  }
+
+  public void OnClickPlayAgain()
+  {
+    SceneManager.LoadScene("Scene_JigsawGame");
+  }
 }

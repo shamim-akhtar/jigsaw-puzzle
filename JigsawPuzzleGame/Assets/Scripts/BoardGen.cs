@@ -441,7 +441,9 @@ public class BoardGen : MonoBehaviour
     spriteRenderer.sortingLayerName = "TilesInPlace";
     if(GameApp.Instance.TotalTilesInCorrectPosition == mTileGameObjects.Length)
     {
-      Debug.Log("Game completed. We will implement an end screen later");
+      //Debug.Log("Game completed. We will implement an end screen later");
+      menu.SetEnableTopPanel(false);
+      menu.SetEnableGameCompletionPanel(true);
     }
     menu.SetTilesInPlace(GameApp.Instance.TotalTilesInCorrectPosition);
   }

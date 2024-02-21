@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BoardGen : MonoBehaviour
 {
-  public string imageFilename;
+  private string imageFilename;
   Sprite mBaseSpriteOpaque;
   Sprite mBaseSpriteTransparent;
 
@@ -21,6 +22,11 @@ public class BoardGen : MonoBehaviour
   GameObject[,] mTileGameObjects= null;
 
   public Transform parentForTiles = null;
+
+  // Access to the menu.
+  public Menu menu = null;
+  private List<Rect> regions = new List<Rect>();
+  private List<Coroutine> activeCoroutines = new List<Coroutine>();
 
   Sprite LoadBaseTexture()
   {
@@ -77,6 +83,8 @@ public class BoardGen : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
+    imageFilename = GameApp.Instance.GetJigsawImageName();
+
     mBaseSpriteOpaque = LoadBaseTexture();
     mGameObjectOpaque = new GameObject();
     mGameObjectOpaque.name = imageFilename + "_Opaque";
@@ -136,7 +144,9 @@ public class BoardGen : MonoBehaviour
   {
     Camera.main.transform.position = new Vector3(mBaseSpriteOpaque.texture.width / 2,
       mBaseSpriteOpaque.texture.height / 2, -10.0f);
-    Camera.main.orthographicSize = mBaseSpriteOpaque.texture.width / 2;
+    //Camera.main.orthographicSize = mBaseSpriteOpaque.texture.width / 2;
+    int smaller_value = Mathf.Min(mBaseSpriteOpaque.texture.width, mBaseSpriteOpaque.texture.height);
+    Camera.main.orthographicSize = smaller_value * 0.8f;
   }
 
   public static GameObject CreateGameObjectFromTile(Tile tile)
@@ -184,6 +194,10 @@ public class BoardGen : MonoBehaviour
         }
       }
     }
+
+    // Enable the bottom panel and set the onlcick delegate to the play button.
+    menu.SetEnableBottomPanel(true);
+    menu.btnPlayOnClick = ShuffleTiles;
   }
 
   IEnumerator Coroutine_CreateJigsawTiles()
@@ -209,7 +223,13 @@ public class BoardGen : MonoBehaviour
         yield return null;
       }
     }
+
+    // Enable the bottom panel and set the delegate to button play on click.
+    menu.SetEnableBottomPanel(true);
+    menu.btnPlayOnClick = ShuffleTiles;
+
   }
+
 
   Tile CreateTile(int i, int j, Texture2D baseTexture)
   {
@@ -251,7 +271,7 @@ public class BoardGen : MonoBehaviour
     }
     else
     {
-      float toss = Random.Range(0f, 1f);
+      float toss = UnityEngine.Random.Range(0f, 1f);
       if(toss < 0.5f)
       {
         tile.SetCurveType(Tile.Direction.RIGHT, Tile.PosNegType.POS);
@@ -269,7 +289,7 @@ public class BoardGen : MonoBehaviour
     }
     else
     {
-      float toss = Random.Range(0f, 1f);
+      float toss = UnityEngine.Random.Range(0f, 1f);
       if (toss < 0.5f)
       {
         tile.SetCurveType(Tile.Direction.UP, Tile.PosNegType.POS);
@@ -289,5 +309,153 @@ public class BoardGen : MonoBehaviour
   void Update()
   {
 
+  }
+
+  #region Shuffling related codes
+
+  private IEnumerator Coroutine_MoveOverSeconds(GameObject objectToMove, Vector3 end, float seconds)
+  {
+    float elaspedTime = 0.0f;
+    Vector3 startingPosition = objectToMove.transform.position;
+    while(elaspedTime < seconds)
+    {
+      objectToMove.transform.position = Vector3.Lerp(
+        startingPosition, end, (elaspedTime / seconds));
+      elaspedTime += Time.deltaTime;
+
+      yield return new WaitForEndOfFrame();
+    }
+    objectToMove.transform.position = end;
+  }
+
+  void Shuffle(GameObject obj)
+  {
+    if(regions.Count == 0)
+    {
+      regions.Add(new Rect(-300.0f, -100.0f, 50.0f, numTileY * Tile.tileSize));
+      regions.Add(new Rect((numTileX+1) * Tile.tileSize, -100.0f, 50.0f, numTileY * Tile.tileSize));
+    }
+
+    int regionIndex = UnityEngine.Random.Range(0, regions.Count);
+    float x = UnityEngine.Random.Range(regions[regionIndex].xMin, regions[regionIndex].xMax);
+    float y = UnityEngine.Random.Range(regions[regionIndex].yMin, regions[regionIndex].yMax);
+
+    Vector3 pos = new Vector3(x, y, 0.0f);
+    Coroutine moveCoroutine = StartCoroutine(Coroutine_MoveOverSeconds(obj, pos, 1.0f));
+    activeCoroutines.Add(moveCoroutine);
+  }
+
+  IEnumerator Coroutine_Shuffle()
+  {
+    for(int i = 0; i < numTileX; ++i)
+    {
+      for(int j = 0; j < numTileY; ++j)
+      {
+        Shuffle(mTileGameObjects[i, j]);
+        yield return null;
+      }
+    }
+
+    foreach(var item in activeCoroutines)
+    {
+      if(item != null)
+      {
+        yield return null;
+      }
+    }
+
+    OnFinishedShuffling();
+  }
+
+  public void ShuffleTiles()
+  {
+    StartCoroutine(Coroutine_Shuffle());
+  }
+
+  void OnFinishedShuffling()
+  {
+    activeCoroutines.Clear();
+
+    menu.SetEnableBottomPanel(false);
+    StartCoroutine(Coroutine_CallAfterDelay(() => menu.SetEnableTopPanel(true), 1.0f));
+    GameApp.Instance.TileMovementEnabled = true;
+
+    StartTimer();
+
+    for(int i = 0; i < numTileX; ++i)
+    {
+      for(int j = 0; j < numTileY; ++j)
+      {
+        TileMovement tm = mTileGameObjects[i, j].GetComponent<TileMovement>();
+        tm.onTileInPlace += OnTileInPlace;
+        SpriteRenderer spriteRenderer = tm.gameObject.GetComponent<SpriteRenderer>();
+        Tile.tilesSorting.BringToTop(spriteRenderer);
+      }
+    }
+
+    menu.SetTotalTiles(numTileX * numTileY);
+  }
+
+  IEnumerator Coroutine_CallAfterDelay(System.Action function, float delay)
+  {
+    yield return new WaitForSeconds(delay);
+    function();
+  }
+
+
+  public void StartTimer()
+  {
+    StartCoroutine(Coroutine_Timer());
+  }
+
+  IEnumerator Coroutine_Timer()
+  {
+    while(true)
+    {
+      yield return new WaitForSeconds(1.0f);
+      GameApp.Instance.SecondsSinceStart += 1;
+
+      menu.SetTimeInSeconds(GameApp.Instance.SecondsSinceStart);
+    }
+  }
+
+  public void StopTimer()
+  {
+    StopCoroutine(Coroutine_Timer());
+  }
+
+  #endregion
+
+  public void ShowOpaqueImage()
+  {
+    mGameObjectOpaque.SetActive(true);
+  }
+
+  public void HideOpaqueImage()
+  {
+    mGameObjectOpaque.SetActive(false);
+  }
+
+  void OnTileInPlace(TileMovement tm)
+  {
+    GameApp.Instance.TotalTilesInCorrectPosition += 1;
+
+    tm.enabled = false;
+    Destroy(tm);
+
+    SpriteRenderer spriteRenderer = tm.gameObject.GetComponent<SpriteRenderer>();
+    Tile.tilesSorting.Remove(spriteRenderer);
+
+    if (GameApp.Instance.TotalTilesInCorrectPosition == mTileGameObjects.Length)
+    {
+      //Debug.Log("Game completed. We will implement an end screen later");
+      menu.SetEnableTopPanel(false);
+      menu.SetEnableGameCompletionPanel(true);
+
+      // Reset the values.
+      GameApp.Instance.SecondsSinceStart = 0;
+      GameApp.Instance.TotalTilesInCorrectPosition = 0;
+    }
+    menu.SetTilesInPlace(GameApp.Instance.TotalTilesInCorrectPosition);
   }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
@@ -10,6 +11,7 @@ public class Menu : MonoBehaviour
 
   public GameObject panelTopPanel;
   public GameObject panelBottomPanel;
+  public GameObject panelGameCompletion;
 
   public Text textTime;
   public Text textTotalTiles;
@@ -68,7 +70,7 @@ public class Menu : MonoBehaviour
     System.TimeSpan t = System.TimeSpan.FromSeconds(tt);
     string time = string.Format("{0:D2} : {1:D2} : {2:D2}", t.Hours, t.Minutes, t.Seconds);
 
-    textTilesInPlace.text = time;
+    textTime.text = time;
   }
 
   public void SetTotalTiles(int count)
@@ -81,4 +83,22 @@ public class Menu : MonoBehaviour
     textTilesInPlace.text = count.ToString();
   }
 
+  public void SetEnableGameCompletionPanel(bool flag)
+  {
+    panelGameCompletion.SetActive(flag);
+    if(flag)
+    {
+      FadeInUI(panelGameCompletion);
+    }
+  }
+
+  public void OnClickExit()
+  {
+    Application.Quit();
+  }
+
+  public void OnClickPlayAgain()
+  {
+    SceneManager.LoadScene("Scene_JigsawGame");
+  }
 }

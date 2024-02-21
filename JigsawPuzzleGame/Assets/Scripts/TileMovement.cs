@@ -9,6 +9,10 @@ public class TileMovement : MonoBehaviour
   private Vector3 mOffset = new Vector3(0.0f, 0.0f, 0.0f);
 
   private SpriteRenderer mSpriteRenderer;
+
+  public delegate void DelegateOnTileInPlace(TileMovement tm);
+  public DelegateOnTileInPlace onTileInPlace;
+
   void Start()
   {
     mSpriteRenderer= GetComponent<SpriteRenderer>();
@@ -21,6 +25,7 @@ public class TileMovement : MonoBehaviour
 
   private void OnMouseDown()
   {
+    if (!GameApp.Instance.TileMovementEnabled) return;
     if(EventSystem.current.IsPointerOverGameObject())
     {
       return;
@@ -35,6 +40,7 @@ public class TileMovement : MonoBehaviour
 
   private void OnMouseDrag()
   {
+    if (!GameApp.Instance.TileMovementEnabled) return;
     if (EventSystem.current.IsPointerOverGameObject())
     {
       return;
@@ -47,6 +53,7 @@ public class TileMovement : MonoBehaviour
 
   private void OnMouseUp()
   {
+    if (!GameApp.Instance.TileMovementEnabled) return;
     if (EventSystem.current.IsPointerOverGameObject())
     {
       return;
@@ -55,6 +62,7 @@ public class TileMovement : MonoBehaviour
     if(dist < 20.0f)
     {
       transform.position = GetCorrectPosition();
+      onTileInPlace?.Invoke(this);
     }
   }
 

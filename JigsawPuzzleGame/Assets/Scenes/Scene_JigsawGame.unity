@@ -1594,6 +1594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jigsawImageNames:
+  - images/jigsaws/flower_12_8
   - images/jigsaws/image01_4_3
   - images/jigsaws/image02_6_4
   - images/jigsaws/image03_8_6

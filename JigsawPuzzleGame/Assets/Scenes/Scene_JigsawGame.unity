@@ -952,6 +952,7 @@ GameObject:
   - component: {fileID: 1397919330}
   - component: {fileID: 1397919332}
   - component: {fileID: 1397919331}
+  - component: {fileID: 1397919333}
   m_Layer: 5
   m_Name: ImageHint
   m_TagString: Untagged
@@ -1018,6 +1019,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1397919329}
   m_CullTransparentMesh: 1
+--- !u!114 &1397919333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397919329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61b708010a6f892409916042a2bfd4f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPressed: 0
+  onPressAndHold:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1126957625}
+        m_TargetAssemblyTypeName: BoardGen, Assembly-CSharp
+        m_MethodName: ShowOpaqueImage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onRelease:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1126957625}
+        m_TargetAssemblyTypeName: BoardGen, Assembly-CSharp
+        m_MethodName: HideOpaqueImage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1404949096
 GameObject:
   m_ObjectHideFlags: 0

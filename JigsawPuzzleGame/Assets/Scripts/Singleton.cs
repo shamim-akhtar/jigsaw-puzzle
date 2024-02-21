@@ -28,7 +28,7 @@ namespace Patterns
 
     protected virtual void Awake()
     {
-      if(s_instance!= null)
+      if(s_instance == null)
       {
         s_instance = this as T;
         DontDestroyOnLoad(gameObject);

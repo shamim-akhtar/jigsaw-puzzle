@@ -409,4 +409,14 @@ public class BoardGen : MonoBehaviour
   }
 
   #endregion
+
+  public void ShowOpaqueImage()
+  {
+    mGameObjectOpaque.SetActive(true);
+  }
+
+  public void HideOpaqueImage()
+  {
+    mGameObjectOpaque.SetActive(false);
+  }
 }

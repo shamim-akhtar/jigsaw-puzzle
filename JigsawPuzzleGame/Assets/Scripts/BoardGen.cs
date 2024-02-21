@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BoardGen : MonoBehaviour
 {
-  public string imageFilename;
+  private string imageFilename;
   Sprite mBaseSpriteOpaque;
   Sprite mBaseSpriteTransparent;
 
@@ -82,6 +83,8 @@ public class BoardGen : MonoBehaviour
   // Start is called before the first frame update
   void Start()
   {
+    imageFilename = GameApp.Instance.GetJigsawImageName();
+
     mBaseSpriteOpaque = LoadBaseTexture();
     mGameObjectOpaque = new GameObject();
     mGameObjectOpaque.name = imageFilename + "_Opaque";
@@ -141,7 +144,9 @@ public class BoardGen : MonoBehaviour
   {
     Camera.main.transform.position = new Vector3(mBaseSpriteOpaque.texture.width / 2,
       mBaseSpriteOpaque.texture.height / 2, -10.0f);
-    Camera.main.orthographicSize = mBaseSpriteOpaque.texture.width / 2;
+    //Camera.main.orthographicSize = mBaseSpriteOpaque.texture.width / 2;
+    int smaller_value = Mathf.Min(mBaseSpriteOpaque.texture.width, mBaseSpriteOpaque.texture.height);
+    Camera.main.orthographicSize = smaller_value * 0.8f;
   }
 
   public static GameObject CreateGameObjectFromTile(Tile tile)
@@ -266,7 +271,7 @@ public class BoardGen : MonoBehaviour
     }
     else
     {
-      float toss = Random.Range(0f, 1f);
+      float toss = UnityEngine.Random.Range(0f, 1f);
       if(toss < 0.5f)
       {
         tile.SetCurveType(Tile.Direction.RIGHT, Tile.PosNegType.POS);
@@ -284,7 +289,7 @@ public class BoardGen : MonoBehaviour
     }
     else
     {
-      float toss = Random.Range(0f, 1f);
+      float toss = UnityEngine.Random.Range(0f, 1f);
       if (toss < 0.5f)
       {
         tile.SetCurveType(Tile.Direction.UP, Tile.PosNegType.POS);
@@ -331,9 +336,9 @@ public class BoardGen : MonoBehaviour
       regions.Add(new Rect((numTileX+1) * Tile.tileSize, -100.0f, 50.0f, numTileY * Tile.tileSize));
     }
 
-    int regionIndex = Random.Range(0, regions.Count);
-    float x = Random.Range(regions[regionIndex].xMin, regions[regionIndex].xMax);
-    float y = Random.Range(regions[regionIndex].yMin, regions[regionIndex].yMax);
+    int regionIndex = UnityEngine.Random.Range(0, regions.Count);
+    float x = UnityEngine.Random.Range(regions[regionIndex].xMin, regions[regionIndex].xMax);
+    float y = UnityEngine.Random.Range(regions[regionIndex].yMin, regions[regionIndex].yMax);
 
     Vector3 pos = new Vector3(x, y, 0.0f);
     Coroutine moveCoroutine = StartCoroutine(Coroutine_MoveOverSeconds(obj, pos, 1.0f));
@@ -383,6 +388,8 @@ public class BoardGen : MonoBehaviour
       {
         TileMovement tm = mTileGameObjects[i, j].GetComponent<TileMovement>();
         tm.onTileInPlace += OnTileInPlace;
+        SpriteRenderer spriteRenderer = tm.gameObject.GetComponent<SpriteRenderer>();
+        Tile.tilesSorting.BringToTop(spriteRenderer);
       }
     }
 
@@ -434,16 +441,20 @@ public class BoardGen : MonoBehaviour
     GameApp.Instance.TotalTilesInCorrectPosition += 1;
 
     tm.enabled = false;
+    Destroy(tm);
 
     SpriteRenderer spriteRenderer = tm.gameObject.GetComponent<SpriteRenderer>();
     Tile.tilesSorting.Remove(spriteRenderer);
 
-    spriteRenderer.sortingLayerName = "TilesInPlace";
-    if(GameApp.Instance.TotalTilesInCorrectPosition == mTileGameObjects.Length)
+    if (GameApp.Instance.TotalTilesInCorrectPosition == mTileGameObjects.Length)
     {
       //Debug.Log("Game completed. We will implement an end screen later");
       menu.SetEnableTopPanel(false);
       menu.SetEnableGameCompletionPanel(true);
+
+      // Reset the values.
+      GameApp.Instance.SecondsSinceStart = 0;
+      GameApp.Instance.TotalTilesInCorrectPosition = 0;
     }
     menu.SetTilesInPlace(GameApp.Instance.TotalTilesInCorrectPosition);
   }

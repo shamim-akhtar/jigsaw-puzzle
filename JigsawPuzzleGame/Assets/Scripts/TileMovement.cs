@@ -25,6 +25,7 @@ public class TileMovement : MonoBehaviour
 
   private void OnMouseDown()
   {
+    if (!GameApp.Instance.TileMovementEnabled) return;
     if(EventSystem.current.IsPointerOverGameObject())
     {
       return;
@@ -39,6 +40,7 @@ public class TileMovement : MonoBehaviour
 
   private void OnMouseDrag()
   {
+    if (!GameApp.Instance.TileMovementEnabled) return;
     if (EventSystem.current.IsPointerOverGameObject())
     {
       return;
@@ -51,6 +53,7 @@ public class TileMovement : MonoBehaviour
 
   private void OnMouseUp()
   {
+    if (!GameApp.Instance.TileMovementEnabled) return;
     if (EventSystem.current.IsPointerOverGameObject())
     {
       return;

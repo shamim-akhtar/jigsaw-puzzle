@@ -377,6 +377,15 @@ public class BoardGen : MonoBehaviour
 
     StartTimer();
 
+    for(int i = 0; i < numTileX; ++i)
+    {
+      for(int j = 0; j < numTileY; ++j)
+      {
+        TileMovement tm = mTileGameObjects[i, j].GetComponent<TileMovement>();
+        tm.onTileInPlace += OnTileInPlace;
+      }
+    }
+
     menu.SetTotalTiles(numTileX * numTileY);
   }
 
@@ -418,5 +427,22 @@ public class BoardGen : MonoBehaviour
   public void HideOpaqueImage()
   {
     mGameObjectOpaque.SetActive(false);
+  }
+
+  void OnTileInPlace(TileMovement tm)
+  {
+    GameApp.Instance.TotalTilesInCorrectPosition += 1;
+
+    tm.enabled = false;
+
+    SpriteRenderer spriteRenderer = tm.gameObject.GetComponent<SpriteRenderer>();
+    Tile.tilesSorting.Remove(spriteRenderer);
+
+    spriteRenderer.sortingLayerName = "TilesInPlace";
+    if(GameApp.Instance.TotalTilesInCorrectPosition == mTileGameObjects.Length)
+    {
+      Debug.Log("Game completed. We will implement an end screen later");
+    }
+    menu.SetTilesInPlace(GameApp.Instance.TotalTilesInCorrectPosition);
   }
 }

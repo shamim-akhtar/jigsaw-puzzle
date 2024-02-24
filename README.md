@@ -13,7 +13,9 @@ This repository comprises the source codes for my tutorial on [**Create a Jigsaw
 
 In this tutorial, we will go in-depth and learn how to make a jigsaw puzzle game using C sharp in Unity. 
 We will start the tutorial with the basics of the Bézier  curve, followed by implementing Bézier  curves in Unity. We will then move on to creating jigsaw tiles from an existing image using the Bézier  curve, then generate a jigsaw board from an image and then finally create the jigsaw game in Unity. 
-The tutorial is divided into four broad sections, with each containing one or more subsections. You can find the time stamp for each of these sections below in the description. The first section is “Implement Bézier  Curve using C sharp in Unity”. The second section is “Create a Jigsaw Tile from an Existing Image”. The third section is “Create a Jigsaw Board from an Image”, and finally, the fourth section is “Create a Jigsaw Puzzle Game in Unity.”
+The tutorial is divided into four broad sections, with each containing one or more subsections. 
+You can read the written version of this tutorial on our website.
+
 
 Play the WebGL version of the game on [Faramira.](https://faramira.com/downloads/jigsaw/)
 The WebGL version is displaying the older UI.

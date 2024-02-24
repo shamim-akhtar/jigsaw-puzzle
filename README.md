@@ -22,7 +22,7 @@ The WebGL version is displaying the older UI.
 
 <p align='left'>
   <a href="#">
-    <img src="https://img.shields.io/badge/Unity-2020.3.5f1-green" />        
+    <img src="https://img.shields.io/badge/Unity-2022.3.2f1-green" />        
   </a>
   <a href="#">
     <img src="https://img.shields.io/badge/%20-C%23-blue" />

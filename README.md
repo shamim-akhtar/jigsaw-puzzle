@@ -1,22 +1,12 @@
-<p align='left'>
-  <a href="#">
-    <img src="https://visitor-badge.glitch.me/badge?page_id=jigsaw-puzzle.visitor-badge" />        
-  </a>
-  <a href="https://www.linkedin.com/in/shamim-akhtar/">
-    <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&flat-square&logo=linkedin&logoColor=white" />
-  </a>
-  <a href="mailto:shamim.akhtar@gmail.com">
-    <img src="https://img.shields.io/badge/Gmail-D14836?flat-square&logo=gmail&logoColor=white" />        
-  </a>
-  <a href="https://www.facebook.com/faramiraSG/">
-    <img src="https://img.shields.io/badge/Facebook-1877F2?flat-square&logo=facebook&logoColor=white" />        
-  </a>
-</p>
+ ![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?&flat-square&logo=linkedin&logoColor=white)
+ ![Gmail](https://img.shields.io/badge/Gmail-D14836?flat-square&logo=gmail&logoColor=white)
+ ![FaceBook](https://img.shields.io/badge/Facebook-1877F2?flat-square&logo=facebook&logoColor=white)
+
 
 # A Jigsaw Puzzle Game using Unity
 
 
-![Jigsaw](https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/Jigsaw.jpg)
+![Jigsaw](https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/jigsaw.jpg)
 
 This project is a Jigsaw Puzzle game. The tiles are dynamically created at runtime based on Bezier Curve. You can play the WebGL version of the game on [Faramira.](https://faramira.com/downloads/jigsaw/)
 
@@ -47,3 +37,9 @@ In this tutorial, we will learn how to create a Jigsaw tile from an existing ima
 In this tutorial, we will learn how to create a Jigsaw board from an existing image.
 
 ![](https://faramira.com/wp-content/uploads/2021/06/Featured-1-930x620.jpg)
+
+> ### [**Read Part 4: Create a Jigsaw Puzzle Game in Unity**](https://faramira.com/create-a-jigsaw-board-from-an-existing-image/)
+>
+In this tutorial, we will learn how to create a Jigsaw board from an existing image.
+
+<img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/jigsaw.jpg" alt="drawing" width="930"/>

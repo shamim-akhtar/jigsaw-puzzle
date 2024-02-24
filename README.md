@@ -22,24 +22,28 @@ This project is a Jigsaw Puzzle game. The tiles are dynamically created at runti
 This repository comprises the source codes for my tutorial on [**Create a Jigsaw Puzzle Game in Unity**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/).
 
 > ### [**Read Part 1 – Implement Bezier Curve using C# in Unity**](https://faramira.com/implement-bezier-curve-using-csharp-in-unity/)
+> Repo Branch for Tutorial 1 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-01
 
- In this tutorial, we will learn how to implement the Bezier curve using C# in Unity. We will then create a sample application that displays the Bezier curve.
+In this tutorial, we will learn how to implement the Bezier curve using C# in Unity. We will then create a sample application that displays the Bezier curve.
  
  ![](https://faramira.com/wp-content/uploads/2021/06/Bezier-930x620.jpg)
  
 > ### [**Read Part 2: Create a Jigsaw Tile from an Existing Image**](https://faramira.com/create-a-jigsaw-tile-from-an-existing-image/)
+>Repo Branch for Tutorial 2 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-02
+
 In this tutorial, we will learn how to create a Jigsaw tile from an existing image using the Bezier curve.
  
  ![](https://faramira.com/wp-content/uploads/2021/06/Featured-930x620.jpg)
  
 > ### [**Read Part 3: Create a Jigsaw Board from an Existing Image**](https://faramira.com/create-a-jigsaw-board-from-an-existing-image/)
->
+> Repo Branch for Tutorial 3 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-03
+
 In this tutorial, we will learn how to create a Jigsaw board from an existing image.
 
 ![](https://faramira.com/wp-content/uploads/2021/06/Featured-1-930x620.jpg)
 
 > ### [**Read Part 4: Create a Jigsaw Puzzle Game in Unity**](https://faramira.com/create-a-jigsaw-board-from-an-existing-image/)
->
+> Repo Branch for Tutorial 4 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-04
 In this tutorial, we will learn how to create a Jigsaw board from an existing image.
 
 <img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/jigsaw.jpg" alt="drawing" width="930"/>

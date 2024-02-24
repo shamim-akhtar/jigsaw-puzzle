@@ -1,3 +1,4 @@
+ ![visitors](https://visitor-badge.glitch.me/badge?page_id=jigsaw-puzzle&left_color=green&right_color=red)
 <p align='left'>
   <a href="#">
     <img src="https://visitor-badge.glitch.me/badge?page_id=jigsaw-puzzle.visitor-badge" />        

@@ -16,7 +16,7 @@
 # A Jigsaw Puzzle Game using Unity
 
 
-![Jigsaw](https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/Jigsaw.jpg)
+![Jigsaw](https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/jigsaw.jpg)
 
 This project is a Jigsaw Puzzle game. The tiles are dynamically created at runtime based on Bezier Curve. You can play the WebGL version of the game on [Faramira.](https://faramira.com/downloads/jigsaw/)
 

@@ -33,24 +33,25 @@ The WebGL version is displaying the older UI.
 
 In this tutorial, we will learn how to implement the Bezier curve using C# in Unity. We will then create a sample application that displays the Bezier curve.
  
- ![](https://faramira.com/wp-content/uploads/2021/06/Bezier-930x620.jpg)
+<img src="https://faramira.com/wp-content/uploads/2021/06/Bezier-930x620.jpg" alt="drawing" width="1400"/>
  
 > ### [**Read Part 2: Create a Jigsaw Tile from an Existing Image**](https://faramira.com/create-a-jigsaw-tile-from-an-existing-image/)
 >Repo Branch for Tutorial 2 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-02
 
 In this tutorial, we will learn how to create a Jigsaw tile from an existing image using the Bezier curve.
  
- ![](https://faramira.com/wp-content/uploads/2021/06/Featured-930x620.jpg)
+<img src="https://faramira.com/wp-content/uploads/2021/06/Featured-930x620.jpg" alt="drawing" width="1400"/>
  
 > ### [**Read Part 3: Create a Jigsaw Board from an Existing Image**](https://faramira.com/create-a-jigsaw-board-from-an-existing-image/)
 > Repo Branch for Tutorial 3 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-03
 
 In this tutorial, we will learn how to create a Jigsaw board from an existing image.
 
-![](https://faramira.com/wp-content/uploads/2021/06/Featured-1-930x620.jpg)
+
+<img src="https://faramira.com/wp-content/uploads/2021/06/Featured-1-930x620.jpg" alt="drawing" width="1400"/>
 
 > ### [**Read Part 4: Create a Jigsaw Puzzle Game in Unity**](https://faramira.com/create-a-jigsaw-board-from-an-existing-image/)
 > Repo Branch for Tutorial 4 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-04
 In this tutorial, we will learn how to create a Jigsaw board from an existing image.
 
-<img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/jigsaw.jpg" alt="drawing" width="930"/>
+<img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/jigsaw.jpg" alt="drawing" width="1400"/>

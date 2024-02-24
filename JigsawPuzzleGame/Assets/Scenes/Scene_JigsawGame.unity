@@ -1594,13 +1594,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jigsawImageNames:
-  - images/jigsaws/flower_12_8
   - images/jigsaws/image01_4_3
   - images/jigsaws/image02_6_4
   - images/jigsaws/image03_8_6
   - images/jigsaws/image04_10_8
   - images/jigsaws/image05_12_8
   - images/jigsaws/image06_12_8
+  - images/jigsaws/flower_12_8
 --- !u!4 &1546596624
 Transform:
   m_ObjectHideFlags: 0

@@ -29,6 +29,12 @@ The WebGL version is displaying the older UI.
   </a>
 </p>
 
+View the tutorial on YouTube.
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=9mSwbMiV3lU
+" target="_blank"><img src="http://img.youtube.com/vi/9mSwbMiV3lU/0.jpg" 
+alt="Video" width="800" height="500" border="10" /></a>
+
 
 > ### [**Read Part 1 – Implement Bezier Curve using C# in Unity**](https://faramira.com/implement-bezier-curve-using-csharp-in-unity/)
 > Repo Branch for Tutorial 1 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-01
@@ -54,6 +60,7 @@ In this tutorial, we will learn how to create a Jigsaw board from an existing im
 
 > ### [**Read Part 4: Create a Jigsaw Puzzle Game in Unity**](https://faramira.com/create-a-jigsaw-board-from-an-existing-image/)
 > Repo Branch for Tutorial 4 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-04
+
 In this tutorial, we will learn how to create a Jigsaw board from an existing image.
 
 <img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/jigsaw.jpg" alt="drawing" width="1400"/>

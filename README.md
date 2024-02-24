@@ -8,7 +8,15 @@
 
 ![Jigsaw](https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/jigsaw.jpg)
 
-This project is a Jigsaw Puzzle game. The tiles are dynamically created at runtime based on Bezier Curve. You can play the WebGL version of the game on [Faramira.](https://faramira.com/downloads/jigsaw/)
+
+This repository comprises the source codes for my tutorial on [**Create a Jigsaw Puzzle Game in Unity**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/).
+
+In this tutorial, we will go in-depth and learn how to make a jigsaw puzzle game using C sharp in Unity. 
+We will start the tutorial with the basics of the Bézier  curve, followed by implementing Bézier  curves in Unity. We will then move on to creating jigsaw tiles from an existing image using the Bézier  curve, then generate a jigsaw board from an image and then finally create the jigsaw game in Unity. 
+The tutorial is divided into four broad sections, with each containing one or more subsections. You can find the time stamp for each of these sections below in the description. The first section is “Implement Bézier  Curve using C sharp in Unity”. The second section is “Create a Jigsaw Tile from an Existing Image”. The third section is “Create a Jigsaw Board from an Image”, and finally, the fourth section is “Create a Jigsaw Puzzle Game in Unity.”
+
+Play the WebGL version of the game on [Faramira.](https://faramira.com/downloads/jigsaw/)
+The WebGL version is displaying the older UI.
 
 <p align='left'>
   <a href="#">
@@ -19,7 +27,6 @@ This project is a Jigsaw Puzzle game. The tiles are dynamically created at runti
   </a>
 </p>
 
-This repository comprises the source codes for my tutorial on [**Create a Jigsaw Puzzle Game in Unity**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/).
 
 > ### [**Read Part 1 – Implement Bezier Curve using C# in Unity**](https://faramira.com/implement-bezier-curve-using-csharp-in-unity/)
 > Repo Branch for Tutorial 1 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-01

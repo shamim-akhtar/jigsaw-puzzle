@@ -37,3 +37,9 @@ In this tutorial, we will learn how to create a Jigsaw tile from an existing ima
 In this tutorial, we will learn how to create a Jigsaw board from an existing image.
 
 ![](https://faramira.com/wp-content/uploads/2021/06/Featured-1-930x620.jpg)
+
+> ### [**Read Part 4: Create a Jigsaw Puzzle Game in Unity**](https://faramira.com/create-a-jigsaw-board-from-an-existing-image/)
+>
+In this tutorial, we will learn how to create a Jigsaw board from an existing image.
+
+<img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/jigsaw.jpg" alt="drawing" width="930"/>

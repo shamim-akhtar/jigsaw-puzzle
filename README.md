@@ -33,7 +33,7 @@ View the tutorial on YouTube.
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=9mSwbMiV3lU
 " target="_blank"><img src="http://img.youtube.com/vi/9mSwbMiV3lU/0.jpg" 
-alt="Video" width="900" height="700" border="10" /></a>
+alt="Video" width="1440" height="1000" border="10" /></a>
 
 
 > ### [**Read Part 1 – Implement Bezier Curve using C# in Unity**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/2/)

@@ -48,7 +48,7 @@ In this tutorial, we will learn how to implement the Bezier curve using C# in Un
 
 In this tutorial, we will learn how to create a Jigsaw tile from an existing image using the Bezier curve.
  
-<img src="https://faramira.com/wp-content/uploads/2021/06/Featured-930x620.jpg" alt="drawing" width="1400"/>
+<img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/images/section2.gif" alt="drawing" width="1400"/>
  
 > ### [**Read Part 3: Create a Jigsaw Board from an Existing Image**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/4/)
 > Repo Branch for Tutorial 3 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-03
@@ -56,7 +56,7 @@ In this tutorial, we will learn how to create a Jigsaw tile from an existing ima
 In this tutorial, we will learn how to create a Jigsaw board from an existing image.
 
 
-<img src="https://faramira.com/wp-content/uploads/2021/06/Featured-1-930x620.jpg" alt="drawing" width="1400"/>
+<img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/images/section3.gif" alt="drawing" width="1400"/>
 
 > ### [**Read Part 4: Create a Jigsaw Puzzle Game in Unity**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/5/)
 > Repo Branch for Tutorial 4 is https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-04

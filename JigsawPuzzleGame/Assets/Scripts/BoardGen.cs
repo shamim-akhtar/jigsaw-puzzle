@@ -37,9 +37,11 @@ public class BoardGen : MonoBehaviour
       return null;
     }
 
-    if (tex.width % Tile.tileSize != 0 || tex.height % Tile.tileSize != 0)
+    if (tex.width % Tile.tileSize != 0 || 
+        tex.height % Tile.tileSize != 0)
     {
-      Debug.Log("Error: Image must be of size that is multiple of <" + Tile.tileSize + ">");
+      Debug.Log("Error: Image must be of size that is " +
+        "multiple of <" + Tile.tileSize + ">");
       return null;
     }
 
@@ -66,7 +68,10 @@ public class BoardGen : MonoBehaviour
       {
         Color color = tex.GetPixel(x, y);
         color.a = 1.0f;
-        newTex.SetPixel(x + Tile.padding, y + Tile.padding, color);
+        newTex.SetPixel(
+          x + Tile.padding, 
+          y + Tile.padding, 
+          color);
       }
     }
     newTex.Apply();
@@ -88,14 +93,18 @@ public class BoardGen : MonoBehaviour
     mBaseSpriteOpaque = LoadBaseTexture();
     mGameObjectOpaque = new GameObject();
     mGameObjectOpaque.name = imageFilename + "_Opaque";
-    mGameObjectOpaque.AddComponent<SpriteRenderer>().sprite = mBaseSpriteOpaque;
-    mGameObjectOpaque.GetComponent<SpriteRenderer>().sortingLayerName = "Opaque";
+    mGameObjectOpaque.AddComponent<SpriteRenderer>().sprite = 
+      mBaseSpriteOpaque;
+    mGameObjectOpaque.GetComponent<SpriteRenderer>().sortingLayerName = 
+      "Opaque";
 
     mBaseSpriteTransparent = CreateTransparentView(mBaseSpriteOpaque.texture);
     mGameObjectTransparent = new GameObject();
     mGameObjectTransparent.name = imageFilename + "_Transparent";
-    mGameObjectTransparent.AddComponent<SpriteRenderer>().sprite = mBaseSpriteTransparent;
-    mGameObjectTransparent.GetComponent<SpriteRenderer>().sortingLayerName = "Transparent";
+    mGameObjectTransparent.AddComponent<SpriteRenderer>().sprite = 
+      mBaseSpriteTransparent;
+    mGameObjectTransparent.GetComponent<SpriteRenderer>().sortingLayerName = 
+      "Transparent";
 
     mGameObjectOpaque.gameObject.SetActive(false);
 

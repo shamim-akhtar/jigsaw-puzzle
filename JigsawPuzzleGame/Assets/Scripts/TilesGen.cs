@@ -67,30 +67,30 @@ public class TilesGen : MonoBehaviour
     }
   }
 
-  void TestRandomCurves()
+void TestRandomCurves()
+{
+  if(mTile != null)
   {
-    if(mTile != null)
-    {
-      mTile.DestroyAllCurves();
-      mTile = null;
-    }
-
-    Tile tile = new Tile(mTextureOriginal);
-    mTile = tile;
-
-    var type_color = GetRendomType();
-    mTile.DrawCurve(Tile.Direction.UP, type_color.Item1, type_color.Item2);
-    type_color = GetRendomType();
-    mTile.DrawCurve(Tile.Direction.RIGHT, type_color.Item1, type_color.Item2);
-    type_color = GetRendomType();
-    mTile.DrawCurve(Tile.Direction.DOWN, type_color.Item1, type_color.Item2);
-    type_color = GetRendomType();
-    mTile.DrawCurve(Tile.Direction.LEFT, type_color.Item1, type_color.Item2);
-
-    SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-    spriteRenderer.sprite = mSprite;
-
+    mTile.DestroyAllCurves();
+    mTile = null;
   }
+
+  Tile tile = new Tile(mTextureOriginal);
+  mTile = tile;
+
+  var type_color = GetRendomType();
+  mTile.DrawCurve(Tile.Direction.UP, type_color.Item1, type_color.Item2);
+  type_color = GetRendomType();
+  mTile.DrawCurve(Tile.Direction.RIGHT, type_color.Item1, type_color.Item2);
+  type_color = GetRendomType();
+  mTile.DrawCurve(Tile.Direction.DOWN, type_color.Item1, type_color.Item2);
+  type_color = GetRendomType();
+  mTile.DrawCurve(Tile.Direction.LEFT, type_color.Item1, type_color.Item2);
+
+  SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+  spriteRenderer.sprite = mSprite;
+
+}
 
   void TestTileFloodFill()
   {

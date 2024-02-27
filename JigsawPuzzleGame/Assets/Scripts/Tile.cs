@@ -55,6 +55,7 @@ public class Tile
   // A stack needed for the flood fill of the texture.
   private Stack<Vector2Int> mStack = new Stack<Vector2Int>();
 
+  // The indices.
   public int xIndex = 0;
   public int yIndex = 0;
 
@@ -97,7 +98,6 @@ public class Tile
 
   void FloodFillInit()
   {
-    //int padding = mOffset.x;
     int tileSizeWithPadding = 2 * padding + tileSize;
 
     mVisited = new bool[tileSizeWithPadding, tileSizeWithPadding];
@@ -129,7 +129,9 @@ public class Tile
 
   void Fill(int x, int y)
   {
-    Color c = mOriginalTexture.GetPixel(x + xIndex * tileSize, y + yIndex * tileSize);
+    Color c = mOriginalTexture.GetPixel(
+      x + xIndex * tileSize, 
+      y + yIndex * tileSize);
     c.a = 1.0f;
     finalCut.SetPixel(x, y, c);
   }

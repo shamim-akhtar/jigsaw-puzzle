@@ -8,6 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
 
@@ -16,25 +19,21 @@
         body { 
             overflow: auto !important; 
         }
-
-        /* Unity's style.css sets this to 'absolute', causing the overlap.
-           We force it to 'relative' so it flows AFTER the title.
-        */
+        /* Override Unity's absolute positioning */
         #unity-container {
             position: relative !important; 
             width: 960px !important; 
             height: 600px !important; 
-            transform: none !important; /* Removes Unity's centering transform */
+            transform: none !important;
             left: auto !important;
             top: auto !important;
-            margin: 0 auto; /* Centers the container horizontally */
+            margin: 0 auto; 
         }
-
-        /* Ensure the canvas fills our new relative container */
+        /* Ensure canvas fills container */
         #unity-canvas {
             width: 100% !important;
             height: 100% !important;
-            background: #231F20; /* Dark background while loading */
+            background: #231F20; 
         }
     </style>
   </head>
@@ -49,7 +48,7 @@
                     <span class="ml-4 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-semibold">Section 1</span>
                 </div>
                 <div class="flex items-center">
-                    <a href="../index.html" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition">
+                    <a href="index.html" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition">
                         <i class="fas fa-home mr-2"></i> Back to Home
                     </a>
                 </div>
@@ -68,7 +67,7 @@
             </p>
         </div>
 
-        <div class="flex justify-center w-full mb-12">
+        <div class="flex justify-center w-full mb-16">
             <div id="unity-container" class="unity-desktop shadow-xl rounded-lg overflow-hidden">
                 <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
                 <div id="unity-loading-bar">
@@ -86,10 +85,170 @@
             </div>
         </div>
 
-        <div class="border-t border-gray-200 pt-12">
+        <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+            
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">1. What is a Bézier curve?</h2>
+            <p class="mb-4 text-gray-700 leading-relaxed">
+                A Bézier curve is a type of parametric curve that is used in computer graphics and animation to define smooth, continuous curves through a set of control points. They are named after their inventor, <strong>Pierre Bézier</strong>, who used them to design car bodies at Renault in the 1960s.
+            </p>
+            <p class="mb-6 text-gray-700 leading-relaxed">
+                A Bézier curve is defined by a set of control points. The number of control points determines the degree of the curve. To generate a Bézier curve, a series of intermediate points are calculated between the control points.
+            </p>
+
+            <h3 class="text-xl font-bold text-gray-800 mb-3">The Mathematical Definition</h3>
+            <p class="mb-4 text-gray-700">
+                The generic definition of a point in the Bézier curve is:
+            </p>
+            <div class="bg-gray-50 p-4 rounded-md mb-6 overflow-x-auto text-center">
+                $$ B(t)=\sum_{i=0}^{n}\binom{n}{i}(1-t)^{n-i}t^{i}P_{i} $$
+            </div>
+            <p class="mb-4 text-gray-700">
+                Where \( t \) is a parameter that ranges from 0 to 1.
+            </p>
+            <ul class="list-disc pl-5 mb-6 text-gray-700 space-y-2">
+                <li>When \( t=0 \), the curve evaluates to the starting point (\( P_0 \)).</li>
+                <li>When \( t=1 \), the curve evaluates to the ending point (\( P_n \)).</li>
+                <li>Intermediate values of \( t \) produce points along the curve.</li>
+            </ul>
+
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Binomial Coefficients</h3>
+            <p class="mb-4 text-gray-700">
+                The equation uses Binomial coefficients, which can be represented as:
+            </p>
+            <div class="bg-gray-50 p-4 rounded-md mb-6 overflow-x-auto text-center">
+                $$ \binom{n}{i}=\frac{n!}{i!(n-i)!} $$
+            </div>
+
+            <hr class="my-8 border-gray-200">
+
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">2. The Unity Implementation</h2>
+            <p class="mb-4 text-gray-700">
+                We will implement the Bézier curve in C# using a lookup table for factorials to improve performance. Create a new script called <code>BezierCurve.cs</code>.
+            </p>
+
+            <div class="bg-gray-900 text-gray-100 p-4 rounded-md mb-8 overflow-x-auto text-sm font-mono">
+<pre><code>using System.Collections.Generic;
+using UnityEngine;
+
+public class BezierCurve
+{
+    // A lookup table for factorials. Capped to 16.
+    private static float[] Factorial = new float[]
+    {
+        1.0f, 1.0f, 2.0f, 6.0f, 24.0f, 120.0f, 720.0f, 5040.0f,
+        40320.0f, 362880.0f, 3628800.0f, 39916800.0f,
+        479001600.0f, 6227020800.0f, 87178291200.0f,
+        1307674368000.0f, 20922789888000.0f
+    };
+
+    private static float Binomial(int n, int i)
+    {
+        float a1 = Factorial[n];
+        float a2 = Factorial[i];
+        float a3 = Factorial[n - i];
+        return a1 / (a2 * a3);
+    }
+
+    private static float Bernstein(int n, int i, float t)
+    {
+        float t_i = Mathf.Pow(t, i);
+        float t_n_minus_i = Mathf.Pow((1 - t), (n - i));
+        return Binomial(n, i) * t_i * t_n_minus_i;
+    }
+
+    public static Vector3 Point3(float t, List<Vector3> controlPoints)
+    {
+        int N = controlPoints.Count - 1;
+        if (N > 16)
+        {
+            Debug.Log("Max 16 control points allowed.");
+            controlPoints.RemoveRange(16, controlPoints.Count - 16);
+            N = 16;
+        }
+
+        if (t <= 0) return controlPoints[0];
+        if (t >= 1) return controlPoints[controlPoints.Count - 1];
+
+        Vector3 p = new Vector3();
+        for (int i = 0; i < controlPoints.Count; ++i)
+        {
+            Vector3 bn = Bernstein(N, i, t) * controlPoints[i];
+            p += bn;
+        }
+        return p;
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mb-3">3. Interactive Visualization</h3>
+            <p class="mb-4 text-gray-700">
+                To visualize and interact with the points, we use a <code>Point_Viz</code> script attached to a circular sprite. This allows us to drag points with the mouse.
+            </p>
+
+            <div class="bg-gray-900 text-gray-100 p-4 rounded-md mb-8 overflow-x-auto text-sm font-mono">
+<pre><code>using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class Point_Viz : MonoBehaviour
+{
+    private Vector3 mOffset;
+
+    void OnMouseDown()
+    {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        
+        mOffset = transform.position - Camera.main.ScreenToWorldPoint(
+            new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f));
+    }
+
+    void OnMouseDrag()
+    {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
+        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f);
+        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + mOffset;
+        transform.position = curPosition;
+    }
+}</code></pre>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mb-3">4. Dynamic Updates</h3>
+            <p class="mb-4 text-gray-700">
+                Finally, we use a manager script <code>Bezier_Viz</code> to handle inputs (like double-clicking to add points) and rendering the lines.
+            </p>
+            <div class="bg-gray-900 text-gray-100 p-4 rounded-md mb-8 overflow-x-auto text-sm font-mono">
+<pre><code>void OnGUI()
+{
+    Event e = Event.current;
+    if (e.isMouse && e.clickCount == 2 && e.button == 0)
+    {
+        Vector2 rayPos = new Vector2(
+            Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
+            Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+        
+        InsertNewControlPoint(rayPos);
+    }
+}
+
+void InsertNewControlPoint(Vector2 p)
+{
+    if (mPointGameObjects.Count >= 16)
+    {
+        Debug.Log("Cannot create any new control points. Max is 16");
+        return;
+    }
+    // Instantiate prefab logic here...
+}</code></pre>
+            </div>
+            
+            <p class="text-gray-600 italic mt-4">
+                Note: Ensure you have assigned the "PointPrefab" and configured the LineRenderer in the Unity Inspector as described in the video tutorial.
+            </p>
+
+        </div>
+        <div class="border-t border-gray-200 mt-16 pt-12">
             <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Continue Learning</h3>
             <div class="grid gap-6 md:grid-cols-3">
-                
                 <a href="section2.html" class="block group">
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md hover:border-blue-400 transition cursor-pointer h-full">
                         <div class="flex items-center justify-between mb-4">
@@ -99,7 +258,6 @@
                         <p class="text-gray-500 text-sm">Create a Jigsaw Tile from an Existing Image</p>
                     </div>
                 </a>
-
                 <a href="section3.html" class="block group">
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md hover:border-blue-400 transition cursor-pointer h-full">
                         <div class="flex items-center justify-between mb-4">
@@ -109,7 +267,6 @@
                         <p class="text-gray-500 text-sm">Create a Jigsaw Board from an Image</p>
                     </div>
                 </a>
-
                 <a href="section4.html" class="block group">
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md hover:border-blue-400 transition cursor-pointer h-full">
                         <div class="flex items-center justify-between mb-4">
@@ -119,7 +276,6 @@
                         <p class="text-gray-500 text-sm">Create a Jigsaw Puzzle Game in Unity</p>
                     </div>
                 </a>
-
             </div>
         </div>
     </div>
@@ -168,7 +324,6 @@
         document.querySelector("#unity-container").className = "unity-mobile";
         canvas.className = "unity-mobile";
       } else {
-        // We set the canvas dimensions here, but the CSS above ensures the container matches
         canvas.style.width = "960px";
         canvas.style.height = "600px";
       }
@@ -189,7 +344,6 @@
           alert(message);
         });
       };
-
       document.body.appendChild(script);
     </script>
   </body>

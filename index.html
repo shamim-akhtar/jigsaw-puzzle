@@ -4,11 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unity Jigsaw Puzzle Tutorial</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
+    <link rel="shortcut icon" href="FinalGame/TemplateData/favicon.ico">
+    <link rel="stylesheet" href="FinalGame/TemplateData/style.css">
+
     <style>
         /* Custom smooth scrolling */
         html { scroll-behavior: smooth; }
+
+        /* Custom Overrides to fix Unity Layout within Tailwind */
+        body { 
+            overflow: auto !important; 
+        }
+        #unity-container {
+            position: relative !important; 
+            width: 960px !important; 
+            height: 600px !important; 
+            transform: none !important;
+            left: auto !important;
+            top: auto !important;
+            margin: 2rem auto 0 auto; 
+        }
+        #unity-canvas {
+            width: 100% !important;
+            height: 100% !important;
+            background: #231F20; 
+            border-radius: 0.5rem; 
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased">
@@ -23,7 +48,7 @@
                     <a href="https://github.com/shamim-akhtar/jigsaw-puzzle/tree/main" target="_blank" class="text-gray-500 hover:text-gray-900 transition">
                         <i class="fab fa-github text-xl"></i> Source Code
                     </a>
-                    <a href="#" target="_blank" class="text-red-500 hover:text-red-700 transition">
+                    <a href="https://www.youtube.com/watch?v=9mSwbMiV3lU" target="_blank" class="text-red-500 hover:text-red-700 transition">
                         <i class="fab fa-youtube text-xl"></i> Watch on YouTube
                     </a>
                 </div>
@@ -32,7 +57,8 @@
     </nav>
 
     <header class="bg-white border-b border-gray-200">
-        <div class="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center">
+            
             <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                 Build a Jigsaw Puzzle Game <br>
                 <span class="text-blue-600">in Unity with C#</span>
@@ -40,7 +66,8 @@
             <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-500">
                 Go in-depth and learn how to master Bézier curves, procedural generation, and game logic to build a complete Jigsaw game from scratch.
             </p>
-            <div class="mt-8 flex justify-center gap-4">
+            
+            <div class="mt-8 flex justify-center gap-4 mb-12">
                 <a href="#sections" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     Start Learning
                 </a>
@@ -48,6 +75,39 @@
                     <i class="fas fa-download mr-2"></i> Download Assets
                 </a>
             </div>
+
+            <div class="flex justify-center w-full">
+                <div id="unity-container" class="unity-desktop shadow-2xl rounded-lg overflow-hidden">
+                    <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+                    <div id="unity-loading-bar">
+                        <div id="unity-logo"></div>
+                        <div id="unity-progress-bar-empty">
+                            <div id="unity-progress-bar-full"></div>
+                        </div>
+                    </div>
+                    <div id="unity-warning"> </div>
+                    <div id="unity-footer">
+                        <div id="unity-logo-title-footer"></div>
+                        <div id="unity-fullscreen-button"></div>
+                        <div id="unity-build-title">JigsawPuzzleGame</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto mt-8 bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg shadow-sm text-left">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-play-circle text-green-500 text-xl"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-green-800 font-medium">
+                            Click the <strong>Play</strong> button to solve the Jigsaw Puzzle. 
+                            Once you complete it, click Play again to play the next Jigsaw Puzzle with more tiles.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </header>
 
@@ -160,10 +220,78 @@
     <footer class="bg-gray-800">
         <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
             <p class="mt-8 text-center text-base text-gray-400">
-                &copy; 2024 Unity Jigsaw Tutorial. Created for educational purposes.
+                &copy; 2026 Unity Jigsaw Tutorial. Created for educational purposes by Shamim Akhtar.
             </p>
         </div>
     </footer>
+
+    <script>
+      var canvas = document.querySelector("#unity-canvas");
+
+      function unityShowBanner(msg, type) {
+        var warningBanner = document.querySelector("#unity-warning");
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+
+      // Pointing to FinalGame/Build since this file is in the Root
+      var buildUrl = "FinalGame/Build"; 
+      var loaderUrl = buildUrl + "/Game.loader.js";
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/Game.data",
+        frameworkUrl: buildUrl + "/Game.framework.js",
+        codeUrl: buildUrl + "/Game.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "JigsawPuzzleGame",
+        productVersion: "1.0",
+        showBanner: unityShowBanner,
+      };
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        document.querySelector("#unity-container").className = "unity-mobile";
+        canvas.className = "unity-mobile";
+      } else {
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
+
+      document.querySelector("#unity-loading-bar").style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          document.querySelector("#unity-loading-bar").style.display = "none";
+          document.querySelector("#unity-fullscreen-button").onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
 
 </body>
 </html>

@@ -3,35 +3,138 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity Web Player | JigsawPuzzleGame</title>
+    <title>Section 2 – Create a Jigsaw Tile</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+
+    <style>
+        /* Force the body to scroll normally */
+        body { 
+            overflow: auto !important; 
+        }
+        /* Override Unity's absolute positioning */
+        #unity-container {
+            position: relative !important; 
+            width: 960px !important; 
+            height: 600px !important; 
+            transform: none !important;
+            left: auto !important;
+            top: auto !important;
+            margin: 0 auto; 
+        }
+        /* Ensure canvas fills container */
+        #unity-canvas {
+            width: 100% !important;
+            height: 100% !important;
+            background: #231F20; 
+        }
+    </style>
   </head>
-  <body>
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
+  
+  <body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50 mb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-blue-600">Jigsaw<span class="text-gray-900">Tutorial</span></span>
+                    <span class="ml-4 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-semibold">Section 2</span>
+                </div>
+                <div class="flex items-center">
+                    <a href="../index.html" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition">
+                        <i class="fas fa-home mr-2"></i> Back to Home
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
-      <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-logo-title-footer"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">JigsawPuzzleGame</div>
-      </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Section 2 – Create a Jigsaw Tile from an Existing Image
+            </h1>
+            <p class="mt-2 text-lg text-gray-500">
+                Interactive Demo: Generating puzzle shapes procedurally.
+            </p>
+        </div>
+
+        <div class="flex justify-center w-full mb-8">
+            <div id="unity-container" class="unity-desktop shadow-xl rounded-lg overflow-hidden">
+                <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+                <div id="unity-loading-bar">
+                    <div id="unity-logo"></div>
+                    <div id="unity-progress-bar-empty">
+                        <div id="unity-progress-bar-full"></div>
+                    </div>
+                </div>
+                <div id="unity-warning"> </div>
+                <div id="unity-footer">
+                    <div id="unity-logo-title-footer"></div>
+                    <div id="unity-fullscreen-button"></div>
+                    <div id="unity-build-title">JigsawPuzzleGame</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg shadow-sm mb-16">
+            <h3 class="text-lg font-bold text-blue-900 mb-2">
+                <i class="fas fa-gamepad mr-2"></i> How to Interact
+            </h3>
+            <ul class="list-disc pl-5 text-blue-800 space-y-2">
+                <li>Press <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-bold text-gray-700">Space Bar</kbd> to view possible configurations of the Jigsaw tiles. Keep pressing to cycle through them.</li>
+                <li>Press the <kbd class="px-2 py-1 bg-white border border-gray-300 rounded text-xs font-bold text-gray-700">F</kbd> button to see the cutout jigsaw tiles applied to the image.</li>
+            </ul>
+        </div>
+
+        <div class="border-t border-gray-200 pt-12">
+            <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Navigate Tutorial</h3>
+            <div class="grid gap-6 md:grid-cols-3">
+                
+                <a href="../Section1/index.html" class="block group">
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md hover:border-blue-400 transition cursor-pointer h-full">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-lg font-bold text-gray-900 group-hover:text-blue-600">Section 1</h4>
+                            <i class="fas fa-arrow-left text-gray-300 group-hover:text-blue-500"></i>
+                        </div>
+                        <p class="text-gray-500 text-sm">Implement Bézier Curve using C# in Unity</p>
+                    </div>
+                </a>
+
+                <a href="../Section3/index.html" class="block group">
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md hover:border-blue-400 transition cursor-pointer h-full">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-lg font-bold text-gray-900 group-hover:text-blue-600">Section 3</h4>
+                            <i class="fas fa-arrow-right text-gray-300 group-hover:text-blue-500"></i>
+                        </div>
+                        <p class="text-gray-500 text-sm">Create a Jigsaw Board from an Image</p>
+                    </div>
+                </a>
+
+                <a href="../Section4/index.html" class="block group">
+                    <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md hover:border-blue-400 transition cursor-pointer h-full">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-lg font-bold text-gray-900 group-hover:text-blue-600">Section 4</h4>
+                            <i class="fas fa-arrow-right text-gray-300 group-hover:text-blue-500"></i>
+                        </div>
+                        <p class="text-gray-500 text-sm">Create a Jigsaw Puzzle Game in Unity</p>
+                    </div>
+                </a>
+
+            </div>
+        </div>
     </div>
+
     <script>
       var canvas = document.querySelector("#unity-canvas");
 
-      // Shows a temporary message banner/ribbon for a few seconds, or
-      // a permanent error message on top of the canvas if type=='error'.
-      // If type=='warning', a yellow highlight color is used.
-      // Modify or remove this function to customize the visually presented
-      // way that non-critical warnings and error messages are presented to the
-      // user.
       function unityShowBanner(msg, type) {
         var warningBanner = document.querySelector("#unity-warning");
         function updateBannerVisibility() {
@@ -63,47 +166,16 @@
         productName: "JigsawPuzzleGame",
         productVersion: "1.0",
         showBanner: unityShowBanner,
-        // errorHandler: function(err, url, line) {
-        //    alert("error " + err + " occurred at line " + line);
-        //    // Return 'true' if you handled this error and don't want Unity
-        //    // to process it further, 'false' otherwise.
-        //    return true;
-        // },
       };
 
-      // By default, Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
-
-      // If you would like all file writes inside Unity Application.persistentDataPath
-      // directory to automatically persist so that the contents are remembered when
-      // the user revisits the site the next time, uncomment the following line:
-      // config.autoSyncPersistentDataPath = true;
-      // This autosyncing is currently not the default behavior to avoid regressing
-      // existing user projects that might rely on the earlier manual
-      // JS_FileSystem_Sync() behavior, but in future Unity version, this will be
-      // expected to change.
-
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
-
         var meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
         document.querySelector("#unity-container").className = "unity-mobile";
         canvas.className = "unity-mobile";
-
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
-
-
       } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
         canvas.style.width = "960px";
         canvas.style.height = "600px";
       }
@@ -115,19 +187,16 @@
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
-              }).then((unityInstance) => {
-                document.querySelector("#unity-loading-bar").style.display = "none";
-                document.querySelector("#unity-fullscreen-button").onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
-
-              }).catch((message) => {
-                alert(message);
-              });
-            };
-
+        }).then((unityInstance) => {
+          document.querySelector("#unity-loading-bar").style.display = "none";
+          document.querySelector("#unity-fullscreen-button").onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
+        }).catch((message) => {
+          alert(message);
+        });
+      };
       document.body.appendChild(script);
-
     </script>
   </body>
 </html>

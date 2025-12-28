@@ -48,7 +48,7 @@
                     <span class="ml-4 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-semibold">Section 1</span>
                 </div>
                 <div class="flex items-center">
-                    <a href="index.html" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition">
+                    <a href="../index.html" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition">
                         <i class="fas fa-home mr-2"></i> Back to Home
                     </a>
                 </div>
@@ -67,7 +67,7 @@
             </p>
         </div>
 
-        <div class="flex justify-center w-full mb-16">
+        <div class="flex justify-center w-full mb-8">
             <div id="unity-container" class="unity-desktop shadow-xl rounded-lg overflow-hidden">
                 <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
                 <div id="unity-loading-bar">
@@ -85,7 +85,21 @@
             </div>
         </div>
 
-        <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+        <div class="max-w-4xl mx-auto bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg shadow-sm mb-16">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-mouse-pointer text-indigo-500 text-xl"></i>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-indigo-800 font-medium">
+                        <strong>Interaction:</strong> Double-click anywhere on the canvas to add new control points to the Bézier curve. 
+                        Click on a control point, hold, and drag to move the control point and see how the Bézier curve changes.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-sm border border-gray-200">
             
             <h2 class="text-2xl font-bold text-gray-900 mb-4">1. What is a Bézier curve?</h2>
             <p class="mb-4 text-gray-700 leading-relaxed">
@@ -245,11 +259,13 @@ void InsertNewControlPoint(Vector2 p)
                 Note: Ensure you have assigned the "PointPrefab" and configured the LineRenderer in the Unity Inspector as described in the video tutorial.
             </p>
 
-        </div>
+        </div>-->
+
         <div class="border-t border-gray-200 mt-16 pt-12">
             <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Continue Learning</h3>
             <div class="grid gap-6 md:grid-cols-3">
-                <a href="section2.html" class="block group">
+                
+                <a href="../Section2/index.html" class="block group">
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md hover:border-blue-400 transition cursor-pointer h-full">
                         <div class="flex items-center justify-between mb-4">
                             <h4 class="text-lg font-bold text-gray-900 group-hover:text-blue-600">Section 2</h4>
@@ -258,7 +274,8 @@ void InsertNewControlPoint(Vector2 p)
                         <p class="text-gray-500 text-sm">Create a Jigsaw Tile from an Existing Image</p>
                     </div>
                 </a>
-                <a href="section3.html" class="block group">
+
+                <a href="../Section3/index.html" class="block group">
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md hover:border-blue-400 transition cursor-pointer h-full">
                         <div class="flex items-center justify-between mb-4">
                             <h4 class="text-lg font-bold text-gray-900 group-hover:text-blue-600">Section 3</h4>
@@ -267,7 +284,8 @@ void InsertNewControlPoint(Vector2 p)
                         <p class="text-gray-500 text-sm">Create a Jigsaw Board from an Image</p>
                     </div>
                 </a>
-                <a href="section4.html" class="block group">
+
+                <a href="../Section4/index.html" class="block group">
                     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 hover:shadow-md hover:border-blue-400 transition cursor-pointer h-full">
                         <div class="flex items-center justify-between mb-4">
                             <h4 class="text-lg font-bold text-gray-900 group-hover:text-blue-600">Section 4</h4>
@@ -276,6 +294,7 @@ void InsertNewControlPoint(Vector2 p)
                         <p class="text-gray-500 text-sm">Create a Jigsaw Puzzle Game in Unity</p>
                     </div>
                 </a>
+
             </div>
         </div>
     </div>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity Jigsaw Puzzle Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        /* Custom smooth scrolling */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-blue-600">Jigsaw<span class="text-gray-900">Tutorial</span></span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="https://github.com/shamim-akhtar/jigsaw-puzzle/tree/main" target="_blank" class="text-gray-500 hover:text-gray-900 transition">
+                        <i class="fab fa-github text-xl"></i> Source Code
+                    </a>
+                    <a href="#" target="_blank" class="text-red-500 hover:text-red-700 transition">
+                        <i class="fab fa-youtube text-xl"></i> Watch on YouTube
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-white border-b border-gray-200">
+        <div class="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                Build a Jigsaw Puzzle Game <br>
+                <span class="text-blue-600">in Unity with C#</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-500">
+                Go in-depth and learn how to master Bézier curves, procedural generation, and game logic to build a complete Jigsaw game from scratch.
+            </p>
+            <div class="mt-8 flex justify-center gap-4">
+                <a href="#sections" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Start Learning
+                </a>
+                <a href="https://faramira.com/downloads/jigsaw/assets_to_dowmload.zip" class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <i class="fas fa-download mr-2"></i> Download Assets
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-12 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center">Learning Objectives</h2>
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>Understand the theory and math behind <strong>Bézier curves</strong>.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>Implement Bézier curves programmatically and visually within Unity.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>Apply Bézier curves to mathematically "cut" an image.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>Implement the <strong>Flood Fill algorithm</strong> to manipulate pixels within defined areas.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>Create jigsaw tiles dynamically from any source image.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <span>Develop problem-solving skills through debugging and C# logic implementation.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sections" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-12 text-center">Tutorial Structure</h2>
+            
+            <div class="grid gap-8 lg:grid-cols-2">
+
+                <div class="relative flex flex-col bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <div class="p-6 flex-1">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mb-4">1</div>
+                        <h3 class="text-xl font-bold text-gray-900">Implement Bézier Curve using C#</h3>
+                        <p class="mt-2 text-gray-500">
+                            We start with the mathematical foundation. Learn the formula for cubic Bézier curves and write the C# script to visualize them in the Unity Editor.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-4 rounded-b-lg border-t border-gray-100">
+                        <a href="section1.html" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                            View Section 1 / Demo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative flex flex-col bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <div class="p-6 flex-1">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mb-4">2</div>
+                        <h3 class="text-xl font-bold text-gray-900">Create a Jigsaw Tile from Image</h3>
+                        <p class="mt-2 text-gray-500">
+                            Move from lines to shapes. We will use the curves we created to slice an existing texture into a single puzzle piece shape.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-4 rounded-b-lg border-t border-gray-100">
+                        <a href="section2.html" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                            View Section 2 / Demo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative flex flex-col bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <div class="p-6 flex-1">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mb-4">3</div>
+                        <h3 class="text-xl font-bold text-gray-900">Create a Jigsaw Board from Image</h3>
+                        <p class="mt-2 text-gray-500">
+                            Scaling up. We will apply the logic to the entire image, generating a full grid of interlocking puzzle pieces programmatically.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-4 rounded-b-lg border-t border-gray-100">
+                        <a href="section3.html" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                            View Section 3 / Demo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative flex flex-col bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <div class="p-6 flex-1">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl font-bold mb-4">4</div>
+                        <h3 class="text-xl font-bold text-gray-900">Create a Jigsaw Puzzle Game</h3>
+                        <p class="mt-2 text-gray-500">
+                            The final step. We add game logic: shuffling pieces, snapping them into place, detecting win conditions, and UI polish.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 px-6 py-4 rounded-b-lg border-t border-gray-100">
+                        <a href="section4.html" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                            View Section 4 / Demo
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+            <p class="mt-8 text-center text-base text-gray-400">
+                &copy; 2024 Unity Jigsaw Tutorial. Created for educational purposes.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

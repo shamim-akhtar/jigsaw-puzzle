@@ -11,7 +11,7 @@ public class GameApp : Patterns.Singleton<GameApp>
   [SerializeField]
   List<string> jigsawImageNames = new List<string>();
 
-  int imageIndex = 0;
+  int imageIndex = 5;
 
   public string GetJigsawImageName()
   {

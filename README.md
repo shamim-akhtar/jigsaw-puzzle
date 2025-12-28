@@ -18,7 +18,7 @@
 
 # Build a Jigsaw Puzzle Game in Unity
 
-<img src="https://img.shields.io/badge/Unity-2022.3.2f1-green?style=for-the-badge&logo=unity&logoColor=white" />
+<img src="https://img.shields.io/badge/Unity-6000.3.2f1-green?style=for-the-badge&logo=unity&logoColor=white" />
 <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white" />
 
 <br/><br/>
@@ -46,11 +46,11 @@
 
 The tutorial is divided into four broad sections. You can read the written version of this tutorial on **Faramira** or follow the specific branches in this repository.
 
-| **Section 1: The Math** | **Section 2: The Tile** |
+| **Section 1: Implement Bézier Curve using C#** | **Section 2: Create a Jigsaw Tile from Image** |
 | :--- | :--- |
-| **Implement Bézier Curve using C#**<br><br>Learn how to implement the Bézier curve using C# in Unity and create a sample application to display it.<br><br>📖 [**Read Tutorial Part 1**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/2/)<br>📂 [**View Branch: tutorial-01**](https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-01)<br><br><img src="https://faramira.com/wp-content/uploads/2021/06/Bezier-930x620.jpg" width="100%"> | **Create a Jigsaw Tile from Image**<br><br>We move from lines to shapes. Learn how to use the curve to cut a Jigsaw tile from an existing image.<br><br>📖 [**Read Tutorial Part 2**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/3/)<br>📂 [**View Branch: tutorial-02**](https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-02)<br><br><img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/images/section2.gif" width="100%"> |
-| **Section 3: The Board** | **Section 4: The Game** |
-| **Create a Jigsaw Board**<br><br>Scaling up the logic. Learn how to generate a full board of interlocking tiles from a single image.<br><br>📖 [**Read Tutorial Part 3**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/4/)<br>📂 [**View Branch: tutorial-03**](https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-03)<br><br><img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/images/section3.gif" width="100%"> | **Create the Jigsaw Game**<br><br>The final polish. We implement game logic, shuffling, snapping, and win conditions.<br><br>📖 [**Read Tutorial Part 4**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/5/)<br>📂 [**View Branch: tutorial-04**](https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-04)<br><br><img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/jigsaw.jpg" width="100%"> |
+| <br>Learn how to implement the Bézier curve using C# in Unity and create a sample application to display it.<br><br>📖 [**Read Tutorial Part 1**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/2/)<br>📂 [**View Branch: tutorial-01**](https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-01)<br><br><img src="https://faramira.com/wp-content/uploads/2021/06/Bezier-930x620.jpg" width="100%"> | <br>We move from lines to shapes. Learn how to use the curve to cut a Jigsaw tile from an existing image.<br><br>📖 [**Read Tutorial Part 2**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/3/)<br>📂 [**View Branch: tutorial-02**](https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-02)<br><br><img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/images/section2.gif" width="100%"> |
+| **Section 3: Create a Jigsaw Board** | **Section 4: Create the Jigsaw Game** |
+| <br>Scaling up the logic. Learn how to generate a full board of interlocking tiles from a single image.<br><br>📖 [**Read Tutorial Part 3**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/4/)<br>📂 [**View Branch: tutorial-03**](https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-03)<br><br><img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/images/section3.gif" width="100%"> | <br>The final polish. We implement game logic, shuffling, snapping, and win conditions.<br><br>📖 [**Read Tutorial Part 4**](https://faramira.com/create-a-jigsaw-puzzle-game-in-unity/5/)<br>📂 [**View Branch: tutorial-04**](https://github.com/shamim-akhtar/jigsaw-puzzle/tree/tutorial-04)<br><br><img src="https://github.com/shamim-akhtar/jigsaw-puzzle/blob/main/jigsaw.jpg" width="100%"> |
 
 ---
 
@@ -59,7 +59,7 @@ The tutorial is divided into four broad sections. You can read the written versi
 ### 📺 Video Tutorial
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=9mSwbMiV3lU" target="_blank">
- <img src="http://img.youtube.com/vi/9mSwbMiV3lU/hqdefault.jpg" alt="Watch the video" width="600" border="10" />
+ <img src="http://img.youtube.com/vi/9mSwbMiV3lU/hqdefault.jpg" alt="Watch the video" width="600" border="0" />
 </a>
 
 </div>
